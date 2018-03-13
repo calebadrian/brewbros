@@ -81,6 +81,7 @@ export default new vuex.Store({
             auth.delete('logout')
                 .then(res => {
                     commit('updateUser', {})
+                    router.push({name: 'Home'})
                 })
                 .catch(err => {
                     console.log(err)
