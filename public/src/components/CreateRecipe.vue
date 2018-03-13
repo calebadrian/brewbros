@@ -77,7 +77,7 @@
                   <option value="">Ingredient</option>
                   <option v-for="fermentable in fermentables">{{fermentable.name}}</option>
                 </select>
-                <i class="far fa-plus-square fa-2x"></i>
+                <i class="far fa-plus-square fa-2x" @click="addFermentable"></i>
           </div>
           <div class="col-sm-4"></div>
         </div>
