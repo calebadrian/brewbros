@@ -28,6 +28,30 @@
         </div>
       </div>
     </div>
+    <div class="mt-4">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="favorites-tab" data-toggle="tab" href="#favorites" role="tab" aria-controls="favorites" aria-selected="true">Favorites</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="recipes-tab" data-toggle="tab" href="#recipes" role="tab" aria-controls="recipes" aria-selected="false">My Recipes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="shopping-tab" data-toggle="tab" href="#shopping" role="tab" aria-controls="shopping" aria-selected="false">Shopping</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
+          <h1>My Favorites</h1>
+        </div>
+        <div class="tab-pane fade" id="recipes" role="tabpanel" aria-labelledby="recipes-tab">
+          <h1>My Recipes</h1>
+        </div>
+        <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab">
+          <h1>Shopping List</h1>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
