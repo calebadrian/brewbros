@@ -1,7 +1,9 @@
 <template>
   <div class="Navbar navbar">
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">BrewBros</a>
+      <router-link :to="{name: 'Home'}">
+        <a class="navbar-brand" href="#">BrewBros</a>
+      </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -10,14 +12,18 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+            <a class="nav-link dropdown-toggle" href="/#/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
               Pages
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="#">Browse Recipes</a>
-              <router-link :to="{name: 'createRecipe'}"><a class="dropdown-item">Create Recipes</a></router-link>
-              <router-link :to="{profile: 'profile', params:{userId: user._id}}"><a class="dropdown-item">My Profile</a></router-link>
+              <router-link :to="{name: 'createRecipe'}">
+                <a class="dropdown-item">Create Recipes</a>
+              </router-link>
+              <router-link :to="{name: 'profile'}">
+                <a class="dropdown-item">My Profile</a>
+              </router-link>
               <a class="dropdown-item" href='#'>Find User</a>
             </div>
           </li>
@@ -54,28 +60,28 @@
       </div>
     </div>
     <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="registerModalLabel">Register</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form @submit.prevent="register" class="d-flex flex-column">
-                <input type="text" v-model="newUser.name" placeholder="username">
-                <input type="password" v-model="newUser.password" placeholder="password">
-                <input type="password" v-model="newUser.confirmPassword" placeholder="confirm password">
-                <button type="submit" class="btn-success">Register</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="registerModalLabel">Register</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="register" class="d-flex flex-column">
+              <input type="text" v-model="newUser.name" placeholder="username">
+              <input type="password" v-model="newUser.password" placeholder="password">
+              <input type="password" v-model="newUser.confirmPassword" placeholder="confirm password">
+              <button type="submit" class="btn-success">Register</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -97,7 +103,7 @@
       }
     },
     methods: {
-      login(){
+      login() {
         this.$store.dispatch('login', this.loginUser)
         swal({
           position: 'top-end',
@@ -108,8 +114,8 @@
           timer: 1000
         })
       },
-      register(){
-        if(this.newUser.password !== this.newUser.confirmPassword){
+      register() {
+        if (this.newUser.password !== this.newUser.confirmPassword) {
           swal({
             type: 'error',
             title: 'Oops...',
@@ -130,7 +136,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .navbar{
+  .navbar {
     height: 8vh
   }
 </style>
