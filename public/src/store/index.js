@@ -3,6 +3,13 @@ import vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 
+var url = '//bcw-getter.herokuapp.com/?url=';
+var url2 = 'https://itunes.apple.com/search?term=';
+let itunesApi = axios.create({
+    baseURL: url + encodeURIComponent(url2), // base url with our own API key
+    timeout: 30000,
+})
+
 var production = !window.location.host.includes('localhost')
 var key = '?key=e96ab9f00ea6c4d6e6ad50967fc0627d&format=json'
 var baseUrl = production ? '//brewbook.herokuapp.com/' : '//localhost:3000/'
@@ -41,6 +48,7 @@ export default new vuex.Store({
         getStyles({ commit, dispatch }, payload) {
             beerDB.get('styles' + key)
                 .then(res => {
+                    debugger
                     commit('setStyles', payload)
 
                 })
