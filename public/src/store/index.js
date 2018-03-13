@@ -3,21 +3,10 @@ import vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 
-var url = '//bcw-getter.herokuapp.com/?url=';
-var url2 = 'https://itunes.apple.com/search?term=';
-let itunesApi = axios.create({
-    baseURL: url + encodeURIComponent(url2), // base url with our own API key
-    timeout: 30000,
-})
 
 var production = !window.location.host.includes('localhost')
-var key = '?key=e96ab9f00ea6c4d6e6ad50967fc0627d&format=json'
 var baseUrl = production ? '//brewbook.herokuapp.com/' : '//localhost:3000/'
 
-let beerDB = axios.create({
-    baseURL: 'http://api.brewerydb.com/v2/',
-    timeout: 10000
-})
 
 var ourDB = axios.create({
     baseURL: baseUrl + 'api/',
@@ -46,11 +35,50 @@ export default new vuex.Store({
     },
     actions: {
         getStyles({ commit, dispatch }, payload) {
-            beerDB.get('styles' + key)
+            ourDB.get('styles')
                 .then(res => {
-                    debugger
-                    commit('setStyles', payload)
+                    commit('setStyles', res.data)
 
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
+
+        //user and login actions
+        createUser({ commit, dispatch }, payload) {
+            auth.post('register', payload).then(res => {
+                commit('updateUser', res.data.user)
+                router.push({ name: 'Home' })
+            })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
+        login({ commit, dispatch }, payload) {
+            auth.post('login', payload).then(res => {
+                commit('updateUser', res.data.user)
+                router.push({ name: 'Home' })
+            })
+                .catch(err => {
+                    console.log('Invalid Username or Password')
+                })
+
+        },
+        authenticate({ commit, dispatch }, payload) {
+            auth.get('authenticate', payload).then(res => {
+                commit('updateUser', res.data)
+            })
+                .catch(err => {
+                    console.log(err);
+                    router.push({ name: 'Login' })
+                })
+        },
+        logout({ commit, dispatch }, payload) {
+            auth.delete('logout')
+                .then(res => {
+                    commit('updateUser', {})
+                    dispatch('authenticate', payload)
                 })
                 .catch(err => {
                     console.log(err)

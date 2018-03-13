@@ -6,6 +6,7 @@ var session = require('./auth/session')
 var port = process.env.PORT || 3000
 require('./db/mlab-config')
 var authRoutes = require('./auth/routes')
+var apiRoutes = require('./api_routes/apiRoutes')
 
 var whitelist = ['http://localhost:8080', 'https://brewbros.herokuapp.com']
 var corsOptions = {
@@ -23,6 +24,7 @@ server.use(bp.urlencoded({extended: true}))
 server.use(express.static(__dirname + '/../public/dist'))
 
 server.use(authRoutes)
+server.use(apiRoutes.router)
 
 server.use('/api/*', (req, res, next) => {
     if (req.method.toLowerCase() !== 'get' && !req.session.uid) {
