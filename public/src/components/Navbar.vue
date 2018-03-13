@@ -1,7 +1,7 @@
 <template>
-  <div class="Navbar">
+  <div class="Navbar navbar">
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">BrewBros</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -12,12 +12,12 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
-              Dropdown
+              Pages
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="#">Browse Recipes</a>
-              <router-link :to="{name: 'createRecipe'}"><p class="dropdown-item">Create Recipes</p></router-link>
-              <a class="dropdown-item" href="#">My Profile</a>
+              <router-link :to="{name: 'createRecipe'}"><a class="dropdown-item">Create Recipes</a></router-link>
+              <router-link :to="{profile: 'profile', params:{userId: user._id}}"><a class="dropdown-item">My Profile</a></router-link>
               <a class="dropdown-item" href='#'>Find User</a>
             </div>
           </li>
@@ -116,7 +116,7 @@
             text: 'Make sure passwords match!'
           })
         } else {
-
+          this.$store.dispatch('createUser', this.newUser)
         }
       }
     },
@@ -130,4 +130,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .navbar{
+    height: 8vh
+  }
 </style>
