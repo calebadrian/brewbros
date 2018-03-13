@@ -17,7 +17,7 @@
               Pages
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Browse Recipes</a>
+              <router-link :to="{name: 'browse'}"><a class="dropdown-item">Browse Recipes</a></router-link>
               <router-link :to="{name: 'createRecipe'}">
                 <a class="dropdown-item">Create Recipes</a>
               </router-link>
