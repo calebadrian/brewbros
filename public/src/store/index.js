@@ -28,12 +28,25 @@ vue.use(vuex)
 
 export default new vuex.Store({
     state: {
-        user: {}
-    },
-    mutations: {
+        user: {},
+        styles: [],
 
     },
+    mutations: {
+        setStyles(state, payload) {
+            state.styles = payload
+        }
+    },
     actions: {
-        
+        getStyles({ commit, dispatch }, payload) {
+            beerDB.get('styles')
+                .then(res => {
+                    commit('setStyles', payload)
+
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
     }
 })
