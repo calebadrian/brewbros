@@ -1,16 +1,20 @@
 <template>
   <div class="Home">
-   
+    <navbar></navbar>
   </div>
 </template>
 
 <script>
+  import navbar from './Navbar'
 export default {
   name: 'Home',
   data () {
     return {
 
     }
+  },
+  components: {
+    navbar
   }
 }
 </script>
