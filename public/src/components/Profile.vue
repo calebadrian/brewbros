@@ -1,30 +1,54 @@
 <template>
   <div class="Profile">
     <navbar></navbar>
-    <img src="http://placehold.it/100x100" class="profile-pic">
-    <h4>Username</h4>
+    <div class="d-flex justify-content-around mt-4">
+      <img src="http://placehold.it/200x200" class="profile-pic">
+      <h4>Username</h4>
+    </div>
+    <div class="d-flex flex-column align-items-center mt-4">
+      <h2>Currently Brewing</h2>
+      <div class="d-flex justify-content-around">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import navbar from './Navbar'
-export default {
-  name: 'Profile',
-  data () {
-    return {
+  export default {
+    name: 'Profile',
+    data() {
+      return {
 
+      }
+    },
+    components: {
+      navbar,
     }
-  },
-  components: {
-    navbar,
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .spacer{
+  .spacer {
     min-height: 10vh
   }
 </style>
