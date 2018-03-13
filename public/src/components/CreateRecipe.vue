@@ -70,7 +70,7 @@
         </div>
         <div class="row">
           <div class="col-sm-4">
-              <label for="batchSize">lbs</label>
+              <label for="fermentableAmount">lbs</label>
               <input type="number" class="form-control" id="fermentablePounds" placeholder="#">
               <p>gallons</p>
               <select class="form-control" id="fermentable" placeholder="Fermenatable">
