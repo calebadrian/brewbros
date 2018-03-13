@@ -5,12 +5,12 @@
       <h4>Welcome to Brew Bros!</h4>
       <h6>Your source for all your homebrewing needs!</h6>
       <div class="d-flex">
-        <button class="btn btn-outline-success my-2 my-sm-0">Browse Recipes</button>
+        <button class="btn btn-success my-2 my-sm-0">Browse Recipes</button>
         <div v-if="user.name">
-          <button class="btn btn-outline-success my-2 my-sm-0">Create Recipe</button>
+          <button class="btn btn-success my-2 my-sm-0 ml-2">Create Recipe</button>
         </div>
         <div v-else>
-          <button class="btn btn-outline-primary my-2 my-sm-0">Register</button>
+          <button class="btn btn-primary my-2 my-sm-0 ml-2" data-toggle="modal" data-target="#registerModal">Register</button>
         </div>
       </div>
     </div>
@@ -22,7 +22,8 @@
         sit amet explicabo tenetur quod rerum ex magnam fugit officiis rem eum! Repellat odit culpa omnis voluptas accusantium
         est fugiat at labore eius illum reprehenderit, rerum qui, quae cupiditate, ullam natus tempora vero incidunt minus
         fuga similique assumenda? Atque, delectus. Nemo illo tempora quaerat dicta omnis debitis non vel corporis, cumque
-        ullam.</p>
+        ullam.
+      </p>
     </div>
     <foot></foot>
   </div>
