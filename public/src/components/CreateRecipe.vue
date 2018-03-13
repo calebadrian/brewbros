@@ -35,6 +35,9 @@
 <script>
     export default {
         name: 'CreateRecipe',
+        mounted() {
+            this.$store.dispatch('getStyles')
+        },
         data() {
             return {
 

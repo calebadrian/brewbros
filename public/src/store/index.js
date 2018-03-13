@@ -39,6 +39,7 @@ export default new vuex.Store({
     },
     actions: {
         getStyles({ commit, dispatch }, payload) {
+            debugger
             beerDB.get('styles' + key)
                 .then(res => {
                     commit('setStyles', payload)
