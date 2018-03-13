@@ -47,8 +47,13 @@ export default new vuex.Store({
 
         //user and login actions
         createUser({ commit, dispatch }, payload) {
+<<<<<<< HEAD
             console.log(payload)
             auth.post('register', payload).then(res => {
+=======
+            auth.post('register', payload)
+            .then(res => {
+>>>>>>> 757702678af963b68cd279bc48ed94316424b351
                 commit('updateUser', res.data.user)
                 router.push({ name: 'Home' })
             })
