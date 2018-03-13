@@ -39,7 +39,7 @@ export default new vuex.Store({
     },
     actions: {
         getStyles({ commit, dispatch }, payload) {
-            beerDB.get('styles')
+            beerDB.get('styles' + key)
                 .then(res => {
                     commit('setStyles', payload)
 
