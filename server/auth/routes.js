@@ -6,7 +6,6 @@ var Users = require('../models/user')
 router.post('/auth/register', (req, res) => { // never call 'next' inside an auth route!
   // @ts-ignore
 req.body.password = Users.generateHash(req.body.password)  // don't bother with a confirmPassword on backend -- use that for front-end validation
-  console.log(req.body)
   Users.create(req.body)
     .then(user => {
       if (!user) {
@@ -24,7 +23,6 @@ req.body.password = Users.generateHash(req.body.password)  // don't bother with 
 router.post('/auth/login', (req, res) => {
   Users.findOne({ email: req.body.email })
     .then(user => {
-      console.log(user)
       if (!user) {
         return res.status(401).send({ error: 'Invalid username and/or password' })
       }

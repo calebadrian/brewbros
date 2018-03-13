@@ -2,8 +2,9 @@
   <div class="Profile">
     <navbar></navbar>
     <div class="d-flex justify-content-around mt-4">
-      <img src="http://placehold.it/200x200" class="profile-pic">
-      <h4>Username</h4>
+      <img v-if="user.profilePic" :src="user.profilePic" class="profile-pic">
+      <img v-else src="../assets/not-found.png" class="profile-pic">
+      <h4>{{user.name}}</h4>
     </div>
     <div class="d-flex flex-column align-items-center mt-4">
       <h2>Currently Brewing</h2>
@@ -64,6 +65,11 @@
 
       }
     },
+    computed: {
+      user() {
+        return this.$store.state.user
+      }
+    },
     components: {
       navbar,
     }
@@ -72,7 +78,8 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .spacer {
-    min-height: 10vh
+  .profile-pic{
+    width: auto;
+    height: 200px;
   }
 </style>

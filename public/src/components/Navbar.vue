@@ -21,7 +21,7 @@
               <router-link :to="{name: 'createRecipe'}">
                 <a class="dropdown-item">Create Recipes</a>
               </router-link>
-              <router-link :to="{name: 'profile'}">
+              <router-link :to="{name: 'profile', params: {profileId: user._id}}">
                 <a class="dropdown-item">My Profile</a>
               </router-link>
               <a class="dropdown-item" href='#'>Find User</a>
@@ -33,7 +33,7 @@
           <button class="btn btn-outline-primary my-2 my-sm-0 ml-2" data-toggle="modal" data-target="#registerModal">Register</button>
         </div>
         <div v-else>
-          <button class="btn btn-outline-danger my-2 my-sm-0">Logout</button>
+          <button class="btn btn-outline-danger my-2 my-sm-0" @click="logout">Logout</button>
         </div>
       </div>
     </nav>
@@ -115,6 +115,7 @@
           showConfirmButton: false,
           timer: 1000
         })
+        $('#loginModal').modal('hide')
       },
       register() {
         if (this.newUser.password !== this.newUser.confirmPassword) {
@@ -126,6 +127,9 @@
         } else {
           this.$store.dispatch('createUser', this.newUser)
         }
+      },
+      logout(){
+        this.$store.dispatch('logout')
       }
     },
     computed: {

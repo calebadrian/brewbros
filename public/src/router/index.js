@@ -19,7 +19,7 @@ export default new Router({
             component: createRecipe
         },
         {
-            path: '/profile',
+            path: '/profile/:profileId',
             name: 'profile',
             component: Profile
         },

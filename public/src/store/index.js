@@ -31,6 +31,9 @@ export default new vuex.Store({
     mutations: {
         setStyles(state, payload) {
             state.styles = payload
+        },
+        updateUser(state, payload){
+            state.user = payload
         }
     },
     actions: {
@@ -46,20 +49,20 @@ export default new vuex.Store({
         },
 
         //user and login actions
-        createUser({ commit, dispatch }, payload) {
+        createUser({ commit, dispatch, state }, payload) {
             auth.post('register', payload)
             .then(res => {
                 commit('updateUser', res.data.user)
-                router.push({ name: 'Home' })
+                router.push({ name: 'profile', params: {profileId: state.user._id} })
             })
                 .catch(err => {
                     console.log(err)
                 })
         },
-        login({ commit, dispatch }, payload) {
+        login({ commit, dispatch, state }, payload) {
             auth.post('login', payload).then(res => {
                 commit('updateUser', res.data.user)
-                router.push({ name: 'Home' })
+                router.push({ name: 'profile', params: {profileId: state.user._id} })
             })
                 .catch(err => {
                     console.log('Invalid Username or Password')
@@ -72,14 +75,12 @@ export default new vuex.Store({
             })
                 .catch(err => {
                     console.log(err);
-                    router.push({ name: 'Login' })
                 })
         },
         logout({ commit, dispatch }, payload) {
             auth.delete('logout')
                 .then(res => {
                     commit('updateUser', {})
-                    dispatch('authenticate', payload)
                 })
                 .catch(err => {
                     console.log(err)
