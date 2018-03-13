@@ -6,7 +6,7 @@ let schemaName = "Recipe"
 let schema = new Schema({
     name: { type: String, required: true },
     batchSize: { type: Number, required: true },
-    public: { type: boolean, default: true },
+    public: { type: Boolean, default: true },
     style: { type: String, required: true },
     subStyle: { type: String },
     boilTime: { type: Number, required: true },

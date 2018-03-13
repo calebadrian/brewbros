@@ -7,10 +7,11 @@ var store = new mongoStore({
 
 
 store.on('error', function (err) {
-  console.log('[SESSION ERROR]', err)
+  console.error('[SESSION ERROR]', err)
 })
 
 
+// @ts-ignore
 var session = expressSession({
   secret: '3 gUys iN a CaP$tOn3^!!',
   cookie: {

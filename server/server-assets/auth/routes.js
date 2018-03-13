@@ -4,7 +4,8 @@ var Users = require('../models/user')
 
 // You never create a route like '/api/users' -- except perhaps for a priveledged admin user
 router.post('register', (req, res) => { // never call 'next' inside an auth route!
-  req.body.password = Users.generateHash(req.body.password)  // don't bother with a confirmPassword on backend -- use that for front-end validation
+  // @ts-ignore
+req.body.password = Users.generateHash(req.body.password)  // don't bother with a confirmPassword on backend -- use that for front-end validation
   console.log(req.body)
   Users.create(req.body)
     .then(user => {
@@ -54,7 +55,8 @@ router.get('authenticate', (req, res) => {
     })
 })
 router.delete('logout', (req, res) => {
-  req.session.destroy()
+  // @ts-ignore
+req.session.destroy()
   res.send("Successfully logged out")
 })
 module.exports = router
