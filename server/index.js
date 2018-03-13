@@ -7,6 +7,12 @@ var port = process.env.PORT || 3000
 require('./db/mlab-config')
 var authRoutes = require('./auth/routes')
 var apiRoutes = require('./api_routes/apiRoutes')
+var recipeRoutes = require('./routes/recipes')
+var fermentableRoutes = require('./routes/fermentables')
+var hopRoutes = require('./routes/hops')
+var yeastRoutes = require('./routes/yeasts')
+var adjunctRoutes = require('./routes/adjuncts')
+var userRoutes = require('./routes/users')
 
 var whitelist = ['http://localhost:8080', 'https://brewbros.herokuapp.com']
 var corsOptions = {
@@ -25,6 +31,13 @@ server.use(express.static(__dirname + '/../public/dist'))
 
 server.use(authRoutes)
 server.use(apiRoutes.router)
+server.use(apiRoutes.router)
+server.use(recipeRoutes.router)
+server.use(fermentableRoutes.router)
+server.use(hopRoutes.router)
+server.use(yeastRoutes.router)
+server.use(adjunctRoutes.router)
+server.use(userRoutes.router)
 
 server.use('/api/*', (req, res, next) => {
     if (req.method.toLowerCase() !== 'get' && !req.session.uid) {
