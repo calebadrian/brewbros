@@ -5,7 +5,7 @@
       <h4>Welcome to Brew Bros!</h4>
       <h6>Your source for all your homebrewing needs!</h6>
       <div class="d-flex">
-        <button class="btn btn-success my-2 my-sm-0">Browse Recipes</button>
+        <router-link :to="{name: 'browse'}"><button class="btn btn-success my-2 my-sm-0">Browse Recipes</button></router-link>
         <div v-if="user.name">
           <button class="btn btn-success my-2 my-sm-0 ml-2">Create Recipe</button>
         </div>
