@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var Recipe = require('../models/Recipe');
-var Adjucnts = require('../models/Adjunct');
+var Adjuncts = require('../models/Adjunct');
 
 
 
