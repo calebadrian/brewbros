@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var Recipe = require('../models/Recipe');
-var Fermentable = require('../models/Fermentable');
+var Fermentables = require('../models/Fermentable');
 
 
 

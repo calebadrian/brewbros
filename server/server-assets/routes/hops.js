@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var Recipe = require('../models/Recipe');
-var Hop = require('../models/Hop');
+var Hops = require('../models/Hop');
 
 
 
