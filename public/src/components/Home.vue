@@ -1,6 +1,9 @@
 <template>
   <div class="Home">
     <navbar></navbar>
+    <div class="call">
+
+    </div>
   </div>
 </template>
 
@@ -21,5 +24,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .call{
+    
+  }
 
 </style>

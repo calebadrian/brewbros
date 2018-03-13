@@ -2,10 +2,10 @@ var express = require('express')
 var bp = require('body-parser')
 var cors = require('cors')
 var server = express()
-require('./server-assets/db/mlab-config')
+var session = require('./auth/session')
 var port = process.env.PORT || 3000
-var session = require('./server-assets/auth/session')
-var authRoutes = require('./server-assets/auth/routes')
+require('./db/mlab-config')
+var authRoutes = require('./auth/routes')
 
 var whitelist = ['http://localhost:8080', 'https://brewbros.herokuapp.com']
 var corsOptions = {

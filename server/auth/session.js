@@ -4,23 +4,16 @@ var store = new mongoStore({
   uri: 'mongodb://test:test@ds012538.mlab.com:12538/brewbros',
   collection: 'Sessions'
 })
-
-
-store.on('error', function (err) {
-  console.error('[SESSION ERROR]', err)
+store.on('error', function(err) {
+  console.log('[SESSION ERROR]', err)
 })
-
-
-// @ts-ignore
 var session = expressSession({
-  secret: '3 gUys iN a CaP$tOn3^!!',
+  secret: '4 gUys iN a HackaThon$^!!',
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 7 * 52 // number of milliseconds in one year    
+    maxAge: 1000*60*60*24*7*52 // number of milliseconds in one year    
   },
   store,
   resave: true,
   saveUninitialized: true
 })
-
-
 module.exports = session;
