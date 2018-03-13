@@ -40,8 +40,8 @@ router.delete('recipes/:recipeId', (req, res, next) => {
 
 
 //Get Users Recipes
-router.get(':id/recipes', (req, res, next) => {
-  Recipe.find({userId: req.session.uid})
+router.get('recipes', (req, res, next) => {
+  Recipes.find({userId: req.session.uid})
     .then(recipe => {
       return res.send(recipe)
     })
