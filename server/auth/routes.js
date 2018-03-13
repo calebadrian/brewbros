@@ -3,7 +3,7 @@ var Users = require('../models/user')
 
 
 // You never create a route like '/api/users' -- except perhaps for a priveledged admin user
-router.post('register', (req, res) => { // never call 'next' inside an auth route!
+router.post('/auth/register', (req, res) => { // never call 'next' inside an auth route!
   // @ts-ignore
 req.body.password = Users.generateHash(req.body.password)  // don't bother with a confirmPassword on backend -- use that for front-end validation
   console.log(req.body)
@@ -21,7 +21,7 @@ req.body.password = Users.generateHash(req.body.password)  // don't bother with 
       res.status(401).send({ error: 'Invalid username and/or password' }) // do not send the 'err' object back -- giving too much info to potential hackers!
     })
 })
-router.post('login', (req, res) => {
+router.post('/auth/login', (req, res) => {
   Users.findOne({ email: req.body.email })
     .then(user => {
       console.log(user)
@@ -40,7 +40,7 @@ router.post('login', (req, res) => {
       res.status(401).send({ error: 'Invalid username and/or password' }) // do not send the 'err' object back -- giving too much info to potential hackers!
     })
 })
-router.get('authenticate', (req, res) => {
+router.get('/auth/authenticate', (req, res) => {
   Users.findById(req.session.uid)
     .then(user => {
       if (!user) {
@@ -54,9 +54,10 @@ router.get('authenticate', (req, res) => {
       })
     })
 })
-router.delete('logout', (req, res) => {
+router.delete('/auth/logout', (req, res) => {
   // @ts-ignore
 req.session.destroy()
   res.send("Successfully logged out")
 })
+
 module.exports = router
