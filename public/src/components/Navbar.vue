@@ -48,7 +48,7 @@
           </div>
           <div class="modal-body">
             <form @submit.prevent="login" class="d-flex flex-column">
-              <input type="text" v-model="loginUser.name" placeholder="username">
+              <input type="email" v-model="loginUser.email" placeholder="email">
               <input type="password" v-model="loginUser.password" placeholder="password">
               <button type="submit" class="btn-success">Login</button>
             </form>
@@ -71,6 +71,7 @@
           <div class="modal-body">
             <form @submit.prevent="register" class="d-flex flex-column">
               <input type="text" v-model="newUser.name" placeholder="username">
+              <input type="email" v-model="newUser.email" placeholder="email">
               <input type="password" v-model="newUser.password" placeholder="password">
               <input type="password" v-model="newUser.confirmPassword" placeholder="confirm password">
               <button type="submit" class="btn-success">Register</button>
@@ -92,11 +93,12 @@
     data() {
       return {
         loginUser: {
-          name: '',
+          email: '',
           password: ''
         },
         newUser: {
           name: '',
+          email: '',
           password: '',
           confirmPassword: ''
         }

@@ -70,19 +70,34 @@
         </div>
         <div class="row">
           <div class="col-sm-4">
+            <h4>Fermentables</h4>
               <label for="fermentableAmount">lbs</label>
-              <input type="number" class="form-control" id="fermentablePounds" placeholder="#">
-              <p>gallons</p>
+              <input type="number" class="form-control" id="fermentableAmount" placeholder="#">
+              <p>lbs</p>
               <select class="form-control" id="fermentable" placeholder="Fermenatable">
                   <option value="">Ingredient</option>
                   <option v-for="fermentable in fermentables">{{fermentable.name}}</option>
                 </select>
                 <i class="far fa-plus-square fa-2x" @click="addFermentable"></i>
           </div>
-          <div class="col-sm-4"></div>
+          <div class="col-sm-4">
+            <h4>Hops</h4>
+            <input type="number">
+            <label for="hopAmount">oz</label>
+          </div>
         </div>
         <div class="row">
-            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+              <h4>Steeping Grains</h4>
+                <label for="steepingGrainsAmount">lbs</label>
+                <input type="number" class="form-control" id="steepingGrainsAmount" placeholder="#">
+                <p>lbs</p>
+                <select class="form-control" id="steepingGrains" placeholder="steepingGrains">
+                    <option value="">Steeping Grains</option>
+                    <option v-for="steepingGrain in steepingGrains">{{steepingGrain.name}}</option>
+                  </select>
+                  <i class="far fa-plus-square fa-2x" @click="addSteepingGrain"></i>
+            </div>
             <div class="col-sm-4"></div>
           </div>
           <div class="row">
