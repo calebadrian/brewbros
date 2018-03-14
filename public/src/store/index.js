@@ -28,7 +28,7 @@ export default new vuex.Store({
         styles: [],
         hops: [],
         adjuncts: [],
-
+        yeasts: []
     },
     mutations: {
         setStyles(state, payload) {
@@ -42,6 +42,9 @@ export default new vuex.Store({
         },
         setAdjuncts(state, payload){
             state.adjuncts = payload
+        },
+        setYeasts(state, payload){
+            state.yeasts = payload
         }
     },
     actions: {
@@ -68,6 +71,15 @@ export default new vuex.Store({
             ourDB.get('adjuncts')
                 .then(res => {
                     commit('setAdjuncts', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        getYeasts({commit, dispatch}, payload){
+            ourDB.get('yeasts')
+                .then(res => {
+                    commit('setYeasts', res.data)
                 })
                 .catch(err => {
                     console.error(err)
