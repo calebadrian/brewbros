@@ -13,6 +13,7 @@ let schema = new Schema({
     personalComments: { type: String },
     creatorId: { type: ObjectId, ref: 'User', required: true },
     fermentables: [{}],
+    steepingGrains: [{}],
     hops: [{}],
     yeasts: [{}],
     adjuncts: [{}],
