@@ -28,7 +28,14 @@ export default new vuex.Store({
         styles: [],
         hops: [],
         adjuncts: [],
-        yeasts: []
+        yeasts: [],
+        newRecipe: {
+            adjuncts: [],
+            fermentables: [],
+            steepingGrains: [],
+            hops: [],
+            yeasts: []
+        }
     },
     mutations: {
         setStyles(state, payload) {
@@ -45,6 +52,9 @@ export default new vuex.Store({
         },
         setYeasts(state, payload){
             state.yeasts = payload
+        },
+        addNewRecipeAdjunct(state, payload){
+            state.newRecipe.adjuncts.push(payload)
         }
     },
     actions: {
@@ -84,6 +94,9 @@ export default new vuex.Store({
                 .catch(err => {
                     console.error(err)
                 })
+        },
+        addNewRecipeAdjunct({commit, dispatch}, payload){
+            commit('addNewRecipeAdjunct', payload)
         },
         //user and login actions
         createUser({ commit, dispatch, state }, payload) {

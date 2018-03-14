@@ -1,31 +1,24 @@
 <template>
     <div class="adjunct">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">Other Ingredients</h5>
+        <form @submit.prevent="addAdjunct">
+            <div class="form-group">
+                <h6>Amount: </h6>
+                <input type="number" name="adjunctAmount" v-model="adjunct.quantity">
+                <label for="adjunctAmount">oz</label>
             </div>
-            <div class="card-body">
-                <form @submit.prevent="addAdjunct">
-                    <div class="form-group">
-                        <h6>Amount: </h6>
-                        <input type="number" name="adjunctAmount">
-                        <label for="adjunctAmount">oz</label>
-                    </div>
-                    <div class="form-group">
-                        <h6>Ingredient: </h6>
-                        <select class="form-control" id="adjunct" placeholder="Adjunct">
-                            <option v-for="adjunct in adjuncts">{{adjunct.name}}</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <h6>Boil Time: </h6>
-                        <input type="number" name="boilTime">
-                        <label for="boilTime">min</label>
-                    </div>
-                </form>
+            <div class="form-group">
+                <h6>Ingredient: </h6>
+                <select class="form-control" id="adjunct" placeholder="Adjunct" v-model="adjunct.name">
+                    <option v-for="adjunct in adjuncts">{{adjunct.name}}</option>
+                </select>
             </div>
-        </div>
-    </div>
+            <div class="form-group">
+                <h6>Boil Time: </h6>
+                <input type="number" name="boilTime" v-model="adjunct.boilTime">
+                <label for="boilTime">min</label>
+            </div>
+            <button type="submit" class="btn-success">Add Hop</button>
+        </form>
     </div>
 </template>
 
@@ -36,7 +29,11 @@
         },
         data() {
             return {
-
+                adjunct: {
+                    name: '',
+                    quantity: 0,
+                    boilTime: 60
+                }
             }
         },
         computed: {
@@ -44,6 +41,11 @@
                 return this.$store.state.adjuncts
             }
         },
+        methods: {
+            addAdjunct(){
+                this.$store.state.dispatch('addNewRecipeAdjunct', this.adjunct)
+            }
+        }
     }
 </script>
 
