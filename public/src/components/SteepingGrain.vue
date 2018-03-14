@@ -20,7 +20,7 @@
         },
         data() {
             return {
-                defaultDataValues: {
+                defaultValues: {
                     quantity: 1
                 },
                 steepingGrain: {}
