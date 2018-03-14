@@ -243,7 +243,7 @@
     
     .createMe {
         background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url("../assets/wood-panel.jpg");
-        color: whitesmoke;
+        color: rgb(245, 245, 245);
     }
     
     .card {
