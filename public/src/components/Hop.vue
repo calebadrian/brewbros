@@ -3,7 +3,7 @@
         <form @submit.prevent="addHop">
             <div class="form-group">
                 <h6>Amount: </h6>
-                <input type="number" name="hopAmount" v-model="defaultValues.quantity">
+                <input type="number" name="hopAmount" v-model="defaultValues.quantity" step=".01" min='0'>
                 <label for="hopAmount">oz</label>
             </div>
             <div class="form-group">
@@ -14,7 +14,7 @@
             </div>
             <div class="form-group">
                 <h6>Boil Time: </h6>
-                <input type="number" name="boilTime" v-model="defaultValues.boilTime">
+                <input type="number" name="boilTime" v-model="defaultValues.boilTime" min='0'>
                 <label for="boilTime">min</label>
             </div>
             <button type="submit" class="btn-success">Add Hop</button>
