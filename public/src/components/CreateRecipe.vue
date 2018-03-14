@@ -69,7 +69,7 @@
               </p>
           </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-around">
           <div class="col-sm-4">
             <h4>Fermentables</h4>
               <label for="fermentableAmount">lbs</label>
@@ -82,10 +82,17 @@
                 <i class="far fa-plus-square fa-2x" @click="addFermentable"></i>
           </div>
           <div class="col-sm-4">
-            <hop></hop>
+              <div class="card">
+                  <div class="card-header">
+                      <h5 class="card-title">Hops</h5>
+                  </div>
+                  <div class="card-body" id="hopForms">
+                    <hop></hop>
+                  </div>
+              </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-around">
             <div class="col-sm-4">
               <h4>Steeping Grains</h4>
                 <label for="steepingGrainsAmount">lbs</label>
