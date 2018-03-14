@@ -116,7 +116,17 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-4"></div>
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Yeasts</h5>
+              </div>
+              <div class="card-body" id="yeastForms">
+                <yeast></yeast>
+              </div>
+              <i class="far fa-plus-square fa-2x" @click="addYeast"></i>
+            </div>
+          </div>
           <div class="col-sm-4"></div>
         </div>
       </form>
@@ -128,6 +138,7 @@
   import navbar from './Navbar'
   import hop from './Hop'
   import adjunct from './Adjunct'
+  import yeast from './yeast'
   export default {
     name: 'CreateRecipe',
     mounted() {
@@ -139,9 +150,6 @@
       }
     },
     methods: {
-      addHop() {
-
-      }
     },
 
     computed: {
@@ -153,6 +161,7 @@
       navbar,
       hop,
       adjunct,
+      yeast,
     }
   }
 </script>

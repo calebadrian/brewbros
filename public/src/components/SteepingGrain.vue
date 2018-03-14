@@ -5,13 +5,15 @@
         <h5 class="card-title">Steeping Grains</h5>
       </div>
       <div class="card-body">
-        <div class="form-group">
-            <label for="steepingGrainAmount">lbs</label>
-            <input type="number" class="form-control" id="steepingGrainAmount" placeholder="#">
-          <label for="steepingGrain">Fermentable To Steep</label>
-          <select type="text" class="form-control" id="steepingGrain"></select>
-            <option v-for="fermentable in fermentables">{{fermentable.name}}</option>
-        </div>
+          <form @submit.prevent>
+              <div class="form-group">
+                  <label for="steepingGrainAmount">lbs</label>
+                  <input type="number" class="form-control" id="steepingGrainAmount" placeholder="#">
+                  <label for="steepingGrain">Fermentable To Steep</label>
+                  <select type="text" class="form-control" id="steepingGrain"></select>
+                  <option v-for="fermentable in fermentables">{{fermentable.name}}</option>
+                </div>
+            </form>
       </div>
     </div>
   </div>

@@ -1,41 +1,41 @@
 <template>
   <div class="Yeast">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Yeasts</h5>
-      </div>
-      <div class="card-body">
-        <div class="form-group">
-          <label for="yeastBrand">Brand</label>
-          <select type="text" class="form-control" id="yeastBrand">
-            <option v-for="supplier in suppliers">{{yeast.supplier}}</option>
+    <form @submit.prevent="addYeast">
+      <div class="form-group">
           <label for="yeastVariety">Variety</label>
           <select type="text" class="form-control" id="yeastVariety">
-          <option v-for="yeast in yeasts">{{yeast.name}}</option>
-          <label for="yeastTemp">Temp (F)</label>
-          <input type="number" class="form-control" id="yeastTemp">
-          <label for="yeastPitch">Pitch</label>
-          <input type="number" class="form-control" id="yeastPitch">
-        </div>
-
+            <option v-for="yeast in yeasts">{{yeast.name}}</option>
+          </select>
+            <label for="yeastTemp">Temp (F)</label>
+            <input type="number" class="form-control" id="yeastTemp">
+            <label for="yeastPitch">Pitch</label>
+            <input type="number" class="form-control" id="yeastPitch">
       </div>
-    </div>
+    </form>
+
   </div>
 </template>
 
 <script>
   export default {
     name: 'Yeast',
+    mounted() {
+      this.$store.dispatch('getYeasts')
+    },
     data() {
       return {
 
       }
     },
     methods: {
-      
+      addYeast(){
+
+      },
     },
     computed: {
-
+      yeasts() {
+        return this.$store.state.yeasts
+      }
     },
     components: {
 
@@ -45,5 +45,4 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 </style>
