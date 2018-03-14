@@ -13,6 +13,7 @@
 </template>
 
 <script>
+    import createRecipe from './CreateRecipe'
     export default {
         name: 'Fermentable',
         mounted() {
@@ -35,7 +36,11 @@
             addFermentable() {
                 this.fermentable.quantity = this.defaulftValues.quantity
                 this.$store.dispatch('addNewRecipeFermentable', this.fermentable)
+                createRecipe.calcInitialGravity()
             }
+        },
+        components: {
+            createRecipe
         }
     }
 </script>
