@@ -35,7 +35,8 @@ export default new vuex.Store({
             steepingGrains: [],
             hops: [],
             yeasts: []
-        }
+        },
+        myRecipes: []
     },
     mutations: {
         setStyles(state, payload) {
@@ -52,6 +53,9 @@ export default new vuex.Store({
         },
         setYeasts(state, payload){
             state.yeasts = payload
+        },
+        setMyRecipes(state, payload){
+            state.myRecipes = payload
         },
         addNewRecipeAdjunct(state, payload){
             state.newRecipe.adjuncts.push(payload)
@@ -102,6 +106,15 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
+        getMyRecipes({commit, dispatch}, payload){
+            ourDB.get('recipes')
+                .then(res => {
+                    commit('setMyRecipes', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
         //endregion
         
         //region ADD TO NEW RECIPE ACTIONS
@@ -113,6 +126,19 @@ export default new vuex.Store({
         },
         addNewRecipeYeast({commit, dispatch}, payload){
             commit('addNewRecipeYeast', payload)
+        },
+        //endregion
+
+        //region POSTING TO DB
+        addRecipe({commit, dispatch}, payload){
+            ourDB.post('recipes', payload)
+                .then(res => {
+                    dispatch('getMyRecipes')
+                    router.push({name: 'profile', params: {profileId: payload.creatorId}})
+                })
+                .catch(err => {
+                    console.error(err)
+                })
         },
         //endregion
 

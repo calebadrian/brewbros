@@ -47,6 +47,9 @@
         </div>
         <div class="tab-pane fade" id="recipes" role="tabpanel" aria-labelledby="recipes-tab">
           <h1>My Recipes</h1>
+          <div v-for='recipe in myRecipes'>
+            <h3>{{recipe.name}}</h3>
+          </div>
         </div>
         <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab">
           <h1>Shopping List</h1>
@@ -68,11 +71,14 @@
     computed: {
       user() {
         return this.$store.state.user
+      },
+      myRecipes() {
+        return this.$store.state.myRecipes
       }
     },
     components: {
       navbar,
-    }
+    },
   }
 </script>
 
