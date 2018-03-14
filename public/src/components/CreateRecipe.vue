@@ -113,7 +113,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-around">
           <div class="col-sm-4">
             <div class="card">
               <div class="card-header">
@@ -125,7 +125,16 @@
               <i class="far fa-plus-square fa-2x" @click="addYeast"></i>
             </div>
           </div>
-          <div class="col-sm-4"></div>
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Description/Notes</h5>
+              </div>
+              <div class="card-body">
+                <input type="text" placeholder="description">
+              </div>
+            </div>
+          </div>
         </div>
       </form>
     </div>
@@ -150,8 +159,10 @@
       }
     },
     methods: {
-    },
+      submit(){
 
+      }
+    },
     computed: {
       styles() {
         return this.$store.state.styles
