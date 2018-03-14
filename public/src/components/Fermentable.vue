@@ -1,10 +1,5 @@
 <template>
         <div class="steepingGrains">
-                <div class="card">
-                  <div class="card-header">
-                    <h5 class="card-title">Fermentables</h5>
-                  </div>
-                  <div class="card-body">
                       <form @submit.prevent>
                           <div class="form-group">
                               <label for="fermentableAmount">lbs</label>
@@ -15,8 +10,6 @@
                             </div>
                         </form>
                   </div>
-                </div>
-              </div>
 </template>
 
 <script>
