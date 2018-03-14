@@ -58,6 +58,9 @@ export default new vuex.Store({
         },
         addNewRecipeYeast(state, payload){
             state.newRecipe.yeasts.push(payload)
+        },
+        addNewRecipeHop(state, payload){
+            state.newRecipe.hops.push(payload)
         }
     },
     actions: {
@@ -104,6 +107,9 @@ export default new vuex.Store({
         //region ADD TO NEW RECIPE ACTIONS
         addNewRecipeAdjunct({commit, dispatch}, payload){
             commit('addNewRecipeAdjunct', payload)
+        },
+        addNewRecipeHop({commit, dispatch}, payload){
+            commit('addNewRecipeHop', payload)
         },
         addNewRecipeYeast({commit, dispatch}, payload){
             commit('addNewRecipeYeast', payload)

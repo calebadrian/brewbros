@@ -43,8 +43,8 @@
         },
         methods: {
             addAdjunct(){
-                this.adjunct.boilTime = this.defaultValues.boilTime
-                this.adjunct.quantity = this.defaultValues.quantity
+                this.adjunct.boilTime = Number(this.defaultValues.boilTime)
+                this.adjunct.quantity = Number(this.defaultValues.quantity)
                 this.$store.dispatch('addNewRecipeAdjunct', this.adjunct)
             }
         }
