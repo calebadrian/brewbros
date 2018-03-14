@@ -184,7 +184,7 @@
         this.recipe.steepingGrains = recipeIngredients.steepingGrains
         this.$store.dispatch('addRecipe', this.recipe)
       },
-      calcInitialGravity(){
+      calcGravities(){
         var fermentables = this.$store.state.newRecipe.fermentables
         var sum = 0
         for (var i = 0; i < fermentables.length; i++){
@@ -195,7 +195,10 @@
         }
         var og = (sum * .72)/this.recipe.batchSize
         og = og/1000
+        var fg = (sum * (1 - (this.$store.state.newRecipe.yeasts[0].attenuationMin/100)))/1000
+        this.stats.finalGravity = 1 + fg
         this.stats.originalGravity = 1 + og
+        this.stats.abv = (((og - fg) * 1.05)/fg)/.79
       }
     },
     computed: {
