@@ -1,13 +1,15 @@
 <template>
   <div class="Profile">
     <navbar></navbar>
-    <div class="d-flex justify-content-around mt-4">
-      <img v-if="user.profilePic" :src="user.profilePic" class="profile-pic">
-      <img v-else src="../assets/not-found.png" class="profile-pic">
-      <h4>{{user.name}}</h4>
-    </div>
-    <div class="d-flex flex-column align-items-center mt-4">
-      <h2>Currently Brewing</h2>
+    <div class="container-fluid">
+      <div class="d-flex justify-content-around mt-4">
+        <img v-if="user.profilePic" :src="user.profilePic" class="profile-pic">
+        <img v-else src="../assets/not-found.png" class="profile-pic">
+        <h4>{{user.name}}</h4>
+      </div>
+      <div class="d-flex flex-column align-items-center mt-4">
+        <h2>Currently Brewing</h2>
+      </div>
       <div class="d-flex justify-content-around">
         <div class="card">
           <div class="card-body">
@@ -60,32 +62,44 @@
 </template>
 
 <script>
-  import navbar from './Navbar'
-  export default {
-    name: 'Profile',
-    data() {
-      return {
+    import navbar from './Navbar'
+    export default {
+        name: 'Profile',
+        data() {
+            return {
 
-      }
-    },
-    computed: {
-      user() {
-        return this.$store.state.user
-      },
-      myRecipes() {
-        return this.$store.state.myRecipes
-      }
-    },
-    components: {
-      navbar,
-    },
-  }
+            }
+        },
+        computed: {
+            user() {
+                return this.$store.state.user
+            },
+            myRecipes() {
+                return this.$store.state.myRecipes
+            }
+        },
+        components: {
+            navbar,
+        },
+    }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .profile-pic{
-    width: auto;
-    height: 200px;
-  }
+    .profile-pic {
+        width: auto;
+        height: 200px;
+    }
+    
+    #recipes {
+        min-height: 30%;
+    }
+    
+    #shopping {
+        min-height: 30%;
+    }
+    
+    #favorites {
+        min-height: 30%;
+    }
 </style>
