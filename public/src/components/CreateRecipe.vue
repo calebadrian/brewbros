@@ -131,7 +131,7 @@
                 <h5 class="card-title">Description/Notes</h5>
               </div>
               <div class="card-body">
-                <input type="text" placeholder="description" v-model="recipe.personalComments">
+                <textarea type="text" placeholder="description" v-model="recipe.personalComments" rows="4"></textarea>
               </div>
             </div>
           </div>
