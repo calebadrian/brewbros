@@ -29,6 +29,7 @@ export default new vuex.Store({
         hops: [],
         adjuncts: [],
         yeasts: [],
+        fermentables: [],
         newRecipe: {
             adjuncts: [],
             fermentables: [],
