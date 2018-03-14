@@ -15,7 +15,6 @@
 
 <script>
     export default {
-        name: 'Fermentable',
         mounted() {
             this.$store.dispatch('getFermentables')
         },
@@ -34,7 +33,7 @@
         },
         methods: {
             addFermentable() {
-                this.fermentable.quantity = this.defaulftValues.quantity
+                this.fermentable.quantity = Number(this.defaulftValues.quantity)
                 this.$store.dispatch('addNewRecipeFermentable', this.fermentable)
                 this.$parent.calcGravities()
             }

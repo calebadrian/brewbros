@@ -42,30 +42,40 @@ export default new vuex.Store({
         setStyles(state, payload) {
             state.styles = payload
         },
-        updateUser(state, payload){
+        updateUser(state, payload) {
             state.user = payload
         },
-        setHops(state, payload){
+        setHops(state, payload) {
             state.hops = payload
         },
-        setAdjuncts(state, payload){
+        setAdjuncts(state, payload) {
             state.adjuncts = payload
         },
-        setYeasts(state, payload){
+        setYeasts(state, payload) {
             state.yeasts = payload
         },
-        setMyRecipes(state, payload){
+        setFermentables(state, payload) {
+            state.fermentables = payload
+        },
+        setMyRecipes(state, payload) {
             state.myRecipes = payload
         },
-        addNewRecipeAdjunct(state, payload){
+        addNewRecipeAdjunct(state, payload) {
             state.newRecipe.adjuncts.push(payload)
         },
-        addNewRecipeYeast(state, payload){
+        addNewRecipeYeast(state, payload) {
             state.newRecipe.yeasts.push(payload)
         },
-        addNewRecipeHop(state, payload){
+        addNewRecipeHop(state, payload) {
             state.newRecipe.hops.push(payload)
-        }
+        },
+        addNewRecipeFermentable(state, payload) {
+            state.newRecipe.fermentables.push(payload)
+        },
+        addNewRecipeSteepingGrain(state, payload) {
+            state.newRecipe.steepingGrain.push(payload)
+        },
+
     },
     actions: {
         //region GET ACTIONS
@@ -79,7 +89,7 @@ export default new vuex.Store({
                     console.log(err)
                 })
         },
-        getHops({commit, dispatch}, payload){
+        getHops({ commit, dispatch }, payload) {
             ourDB.get('hops')
                 .then(res => {
                     commit('setHops', res.data)
@@ -88,7 +98,7 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        getAdjuncts({commit, dispatch}, payload){
+        getAdjuncts({ commit, dispatch }, payload) {
             ourDB.get('adjuncts')
                 .then(res => {
                     commit('setAdjuncts', res.data)
@@ -97,7 +107,7 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        getYeasts({commit, dispatch}, payload){
+        getYeasts({ commit, dispatch }, payload) {
             ourDB.get('yeasts')
                 .then(res => {
                     commit('setYeasts', res.data)
@@ -106,7 +116,17 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        getMyRecipes({commit, dispatch}, payload){
+        getFermentables({ commit, dispatch }, payload) {
+            ourDB.get('fermentables')
+                .then(res => {
+                    commit('setFermentables', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+
+        getMyRecipes({ commit, dispatch }, payload) {
             ourDB.get('recipes')
                 .then(res => {
                     commit('setMyRecipes', res.data)
@@ -115,26 +135,33 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        //endregion
-        
+
+        //#endregion
+
         //region ADD TO NEW RECIPE ACTIONS
-        addNewRecipeAdjunct({commit, dispatch}, payload){
+        addNewRecipeAdjunct({ commit, dispatch }, payload) {
             commit('addNewRecipeAdjunct', payload)
         },
-        addNewRecipeHop({commit, dispatch}, payload){
+        addNewRecipeHop({ commit, dispatch }, payload) {
             commit('addNewRecipeHop', payload)
         },
-        addNewRecipeYeast({commit, dispatch}, payload){
+        addNewRecipeYeast({ commit, dispatch }, payload) {
             commit('addNewRecipeYeast', payload)
+        },
+        addNewRecipeFermentable({ commit, dispatch }, payload) {
+            commit('addNewRecipeFermentable', payload)
+        },
+        addNewRecipeSteepingGrain({ commit, dispatch }, payload) {
+            commit('addNewRecipeSteepingGrain', payload)
         },
         //endregion
 
         //region POSTING TO DB
-        addRecipe({commit, dispatch}, payload){
+        addRecipe({ commit, dispatch }, payload) {
             ourDB.post('recipes', payload)
                 .then(res => {
                     dispatch('getMyRecipes')
-                    router.push({name: 'profile', params: {profileId: payload.creatorId}})
+                    router.push({ name: 'profile', params: { profileId: payload.creatorId } })
                 })
                 .catch(err => {
                     console.error(err)
@@ -145,19 +172,19 @@ export default new vuex.Store({
         //region user and login actions
         createUser({ commit, dispatch, state }, payload) {
             auth.post('register', payload)
-            .then(res => {
-                commit('updateUser', res.data.user)
-                router.push({ name: 'profile', params: {profileId: state.user._id} })
-            })
+                .then(res => {
+                    commit('updateUser', res.data.user)
+                    router.push({ name: 'profile', params: { profileId: state.user._id } })
+                })
                 .catch(err => {
                     console.log(err)
                 })
         },
         login({ commit, dispatch, state }, payload) {
             auth.post('login', payload).then(res => {
-                commit('updateUser', res.data.user)
-                router.push({ name: 'profile', params: {profileId: state.user._id} })
-            })
+                    commit('updateUser', res.data.user)
+                    router.push({ name: 'profile', params: { profileId: state.user._id } })
+                })
                 .catch(err => {
                     console.log('Invalid Username or Password')
                 })
@@ -165,8 +192,8 @@ export default new vuex.Store({
         },
         authenticate({ commit, dispatch }, payload) {
             auth.get('authenticate', payload).then(res => {
-                commit('updateUser', res.data)
-            })
+                    commit('updateUser', res.data)
+                })
                 .catch(err => {
                     console.log(err);
                 })
@@ -175,7 +202,7 @@ export default new vuex.Store({
             auth.delete('logout')
                 .then(res => {
                     commit('updateUser', {})
-                    router.push({name: 'Home'})
+                    router.push({ name: 'Home' })
                 })
                 .catch(err => {
                     console.log(err)

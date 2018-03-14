@@ -3,10 +3,10 @@
           <form @submit.prevent>
               <div class="form-group">
                   <label for="steepingGrainAmount">lbs</label>
-                  <input type="number" class="form-control" id="steepingGrainAmount" placeholder="#">
+                  <input type="number" name="steepingGrainAmount" v-model="defaultValues.quantity" step='.1' min='0'>
                   <label for="steepingGrain">Fermentable To Steep</label>
-                  <select type="text" class="form-control" id="steepingGrain"></select>
-                  <option v-for="fermentable in fermentables">{{fermentable.name}}</option>
+                  <select type="text" class="form-control" id="steepingGrain" v-model="steepingGrain"></select>
+                  <option v-for="fermentable in fermentables" :value='steepingGrain'>{{fermentable.name}}</option>
                 </div>
             </form>
   </div>
@@ -20,7 +20,10 @@
         },
         data() {
             return {
-
+                defaultDataValues: {
+                    quantity: 1
+                },
+                steepingGrain: {}
             }
         },
         computed: {
@@ -28,6 +31,12 @@
                 return this.$store.state.fermentables
             }
         },
+        methods: {
+            addSteepingGrain() {
+                this.steepingGrain.quantity = Number(this.defaultValue.quantity)
+                this.$store.dispatch('addNewRecipeSteepingGrain', this.steepingGrain)
+            }
+        }
     }
 </script>
 
