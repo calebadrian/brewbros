@@ -222,7 +222,7 @@ export default new vuex.Store({
         createUser({ commit, dispatch, state }, payload) {
             auth.post('register', payload)
                 .then(res => {
-                    commit('updateUser', res.data.user)
+                    commit('updateUser', res.data)
                     router.push({ name: 'profile', params: { profileId: state.user._id } })
                 })
                 .catch(err => {
