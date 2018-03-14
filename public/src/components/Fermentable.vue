@@ -20,14 +20,19 @@
 <script>
     export default {
         name: 'Fermentable',
+        mounted() {
+            this.$store.dispatch('getFermentables')
+        },
         data() {
             return {
 
             }
         },
         computed: {
-
-        }
+            hops() {
+                return this.$store.state.fermentables
+            }
+        },
     }
 </script>
 
