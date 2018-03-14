@@ -3,14 +3,15 @@
     <form @submit.prevent="addYeast">
       <div class="form-group">
           <label for="yeastVariety">Variety</label>
-          <select type="text" class="form-control" id="yeastVariety" v-model="variety">
-            <option v-for="yeast in yeasts">{{yeast.name}}</option>
+          <select type="text" class="form-control" id="yeastVariety" v-model="yeast">
+            <option v-for="yeast in yeasts" :value='yeast'>{{yeast.name}}</option>
           </select>
             <label for="yeastTemp">Temp (F)</label>
-            <input type="number" class="form-control" id="yeastTemp" v-model="temp">
+            <input type="number" class="form-control" id="yeastTemp" v-model="defaultValues.temp">
             <label for="yeastPitch">Pitch</label>
-            <input type="number" class="form-control" id="yeastPitch" v-model="pitch">
+            <input type="number" class="form-control" id="yeastPitch" v-model="defaultValues.pitch">
       </div>
+      <button type="submit" class="btn-success">Add Yeast</button>
     </form>
 
   </div>
@@ -24,15 +25,17 @@
     },
     data() {
       return {
-        yeast: {
-          variety: '',
-          temp: 0,
-          pitch: 0
+        yeast: {},
+        defaultValues: {
+          temp: 1,
+          pitch: 1
         }
       }
     },
     methods: {
       addYeast(){
+        this.yeast.temp = Number(this.defaultValues.temp)
+        this.yeast.pitch = Number(this.defaultValues.pitch)
         this.$store.dispatch('addNewRecipeYeast', this.yeast)
       },
     },

@@ -14,7 +14,9 @@ let schema = new Schema({
     fermentTempMax: { type: Number, required: true },
     alcoholToleranceMin: { type: Number, required: true },
     alcoholToleranceMax: { type: Number, required: true },
-    yeastFormat: { type: String, required: true }
+    yeastFormat: { type: String, required: true },
+    temp: {type: Number, required: true},
+    pitch: {type: Number, required: true}
 })
 
 
