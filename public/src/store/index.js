@@ -243,7 +243,8 @@ export default new vuex.Store({
                 })
         },
         login({ commit, dispatch, state }, payload) {
-            auth.post('login', payload).then(res => {
+            auth.post('login', payload)
+            .then(res => {
                 commit('updateUser', res.data.user)
                 swal({
                     position: 'top-end',
