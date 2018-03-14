@@ -63,6 +63,7 @@
   }
 
   .description {
+    min-height: 50vh;
     background: black;
     color: white;
   }
