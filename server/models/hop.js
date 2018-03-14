@@ -7,6 +7,7 @@ let schema = new Schema({
     name: { type: String, required: true },
     category: { type: String, required: true },
     quantity: { type: Number, required: true },
+    boilTime: {type: Number, required: true},
     alphaAcidMin: { type: Number, required: true, default: 7 },
     betaAcidMin: { type: Number, required: true },
     betaAcidMax: { type: Number },

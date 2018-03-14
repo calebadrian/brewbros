@@ -3,21 +3,21 @@
         <form @submit.prevent="addAdjunct">
             <div class="form-group">
                 <h6>Amount: </h6>
-                <input type="number" name="adjunctAmount" v-model="adjunct.quantity">
+                <input type="number" name="adjunctAmount" v-model="defaultValues.quantity">
                 <label for="adjunctAmount">oz</label>
             </div>
             <div class="form-group">
                 <h6>Ingredient: </h6>
-                <select class="form-control" id="adjunct" placeholder="Adjunct" v-model="adjunct.name">
-                    <option v-for="adjunct in adjuncts">{{adjunct.name}}</option>
+                <select class="form-control" id="adjunct" placeholder="Adjunct" v-model="adjunct">
+                    <option v-for="adjunct in adjuncts" :value='adjunct'>{{adjunct.name}}</option>
                 </select>
             </div>
             <div class="form-group">
                 <h6>Boil Time: </h6>
-                <input type="number" name="boilTime" v-model="adjunct.boilTime">
+                <input type="number" name="boilTime" v-model="defaultValues.boilTime">
                 <label for="boilTime">min</label>
             </div>
-            <button type="submit" class="btn-success">Add Hop</button>
+            <button type="submit" class="btn-success">Add Adjunct</button>
         </form>
     </div>
 </template>
@@ -29,11 +29,11 @@
         },
         data() {
             return {
-                adjunct: {
-                    name: '',
-                    quantity: 0,
-                    boilTime: 60
-                }
+                defaultValues: {
+                    boilTime: 60,
+                    quantity: 1
+                },
+                adjunct: {}
             }
         },
         computed: {
@@ -43,7 +43,9 @@
         },
         methods: {
             addAdjunct(){
-                this.$store.state.dispatch('addNewRecipeAdjunct', this.adjunct)
+                this.adjunct.boilTime = this.defaultValues.boilTime
+                this.adjunct.quantity = this.defaultValues.quantity
+                this.$store.dispatch('addNewRecipeAdjunct', this.adjunct)
             }
         }
     }

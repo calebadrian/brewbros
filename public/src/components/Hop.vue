@@ -17,6 +17,7 @@
                 <input type="number" name="boilTime">
                 <label for="boilTime">min</label>
             </div>
+            <button type="submit" class="btn-success">Add Hop</button>
         </form>
     </div>
 </template>
@@ -28,12 +29,21 @@
         },
         data() {
             return {
-
+                hop: {
+                    name: '',
+                    quantity: 0,
+                    boilTime: 60
+                }
             }
         },
         computed: {
             hops() {
                 return this.$store.state.hops
+            }
+        },
+        methods: {
+            addHop() {
+                this.$store.dispatch('addNewRecipeHop', this.hop)
             }
         },
     }

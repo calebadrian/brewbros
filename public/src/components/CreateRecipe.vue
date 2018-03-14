@@ -71,14 +71,14 @@
         </div>
         <div class="row justify-content-around">
           <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-header">
-                      <h5 class="card-title">Fermentables</h5>
-                    </div>
-                    <div class="card-body">
-                      <fermentable></fermentable>
-                    </div>
-                  </div>
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Fermentables</h5>
+              </div>
+              <div class="card-body">
+                <fermentable></fermentable>
+              </div>
+            </div>
           </div>
           <div class="col-sm-4">
             <div class="card">
@@ -93,14 +93,14 @@
         </div>
         <div class="row justify-content-around">
           <div class="col-sm-4">
-              <div class="card">
-                  <div class="card-header">
-                    <h5 class="card-title">Steeping Grains</h5>
-                  </div>
-                  <div class="card-body">
-                    <steepingGrain></steepingGrain>
-                  </div>
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Steeping Grains</h5>
               </div>
+              <div class="card-body">
+                <steepingGrain></steepingGrain>
+              </div>
+            </div>
           </div>
           <div class="col-sm-4">
             <div class="card">
@@ -133,53 +133,53 @@
 </template>
 
 <script>
-    import navbar from './Navbar'
-    import fermenatble from './Fermentable'
-    import hop from './Hop'
-    import steepingGrain from './SteepingGrain'
-    import adjunct from './Adjunct'
-    import yeast from './yeast'
-    export default {
-        name: 'CreateRecipe',
-        mounted() {
-            this.$store.dispatch('getStyles')
-        },
-        data() {
-            return {
+  import navbar from './Navbar'
+  import fermentable from './Fermentable'
+  import hop from './Hop'
+  import steepingGrain from './SteepingGrain'
+  import adjunct from './Adjunct'
+  import yeast from './yeast'
+  export default {
+    name: 'CreateRecipe',
+    mounted() {
+      this.$store.dispatch('getStyles')
+    },
+    data() {
+      return {
 
       }
     },
     methods: {
     },
 
-        computed: {
-            styles() {
-                return this.$store.state.styles
-            }
-        },
-        components: {
-            navbar,
-            fermentable,
-            hop,
-            steepingGrain,
-            adjunct,
-            yeast,
-        }
+    computed: {
+      styles() {
+        return this.$store.state.styles
+      }
+    },
+    components: {
+      navbar,
+      fermentable,
+      hop,
+      steepingGrain,
+      adjunct,
+      yeast,
     }
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .stats {
-        justify-content: space-between
-    }
-    
-    .private-box {
-        padding-left: 2rem
-    }
-    
-    .row {
-        padding-left: 0px;
-        padding-right: 0px
-    }
+  .stats {
+    justify-content: space-between
+  }
+
+  .private-box {
+    padding-left: 2rem
+  }
+
+  .row {
+    padding-left: 0px;
+    padding-right: 0px
+  }
 </style>
