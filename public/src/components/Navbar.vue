@@ -107,14 +107,6 @@
     methods: {
       login() {
         this.$store.dispatch('login', this.loginUser)
-        swal({
-          position: 'top-end',
-          width: 300,
-          type: 'success',
-          title: 'Login successful',
-          showConfirmButton: false,
-          timer: 1000
-        })
         $('#loginModal').modal('hide')
       },
       register() {

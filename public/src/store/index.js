@@ -2,6 +2,7 @@ import vue from 'vue'
 import vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
+import swal from 'sweetalert2'
 
 
 var production = !window.location.host.includes('localhost')
@@ -166,7 +167,6 @@ export default new vuex.Store({
                     })
             }
         },
-
         getMyRecipes({ commit, dispatch }, payload) {
             var localData = localStorage.getItem('recipeData')
             if (localData) {
@@ -223,19 +223,45 @@ export default new vuex.Store({
             auth.post('register', payload)
                 .then(res => {
                     commit('updateUser', res.data.user)
+                    swal({
+                        position: 'top-end',
+                        width: 300,
+                        type: 'success',
+                        title: 'Registration Successful',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
                     router.push({ name: 'profile', params: { profileId: state.user._id } })
                 })
                 .catch(err => {
-                    console.log(err)
+                    console.error(err)
+                    swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
+                    })
                 })
         },
         login({ commit, dispatch, state }, payload) {
             auth.post('login', payload).then(res => {
                 commit('updateUser', res.data.user)
+                swal({
+                    position: 'top-end',
+                    width: 300,
+                    type: 'success',
+                    title: 'Login successful',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
                 router.push({ name: 'profile', params: { profileId: state.user._id } })
             })
                 .catch(err => {
-                    console.log('Invalid Username or Password')
+                    console.error(err)
+                    swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
+                    })
                 })
 
         },
@@ -244,7 +270,7 @@ export default new vuex.Store({
                 commit('updateUser', res.data)
             })
                 .catch(err => {
-                    console.log(err);
+                    console.error(err);
                 })
         },
         logout({ commit, dispatch }, payload) {
@@ -254,7 +280,12 @@ export default new vuex.Store({
                     router.push({ name: 'Home' })
                 })
                 .catch(err => {
-                    console.log(err)
+                    console.error(err)
+                    swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
+                    })
                 })
         }
         //endregion

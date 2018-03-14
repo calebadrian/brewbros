@@ -7,7 +7,7 @@
       <div class="d-flex">
         <router-link :to="{name: 'browse'}"><button class="btn btn-success my-2 my-sm-0">Browse Recipes</button></router-link>
         <div v-if="user.name">
-          <button class="btn btn-success my-2 my-sm-0 ml-2">Create Recipe</button>
+         <router-link :to="{name: 'createRecipe'}"><button class="btn btn-primary my-2 my-sm-0 ml-2">Create Recipe</button></router-link>
         </div>
         <div v-else>
           <button class="btn btn-primary my-2 my-sm-0 ml-2" data-toggle="modal" data-target="#registerModal">Register</button>
