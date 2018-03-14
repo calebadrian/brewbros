@@ -19,7 +19,6 @@ router.get('/api/styles', (req, res, next) => {
 router.get('/api/categories', (req, res, next) => {
   beerDB.get('http://api.brewerydb.com/v2/categories' + key)
     .then(response => {
-      console.log("Categories", response)
       res.send(response.data.data)
     })
 })
@@ -27,7 +26,6 @@ router.get('/api/categories', (req, res, next) => {
 router.get('/api/fermentables', (req, res, next) => {
   beerDB.get('http://api.brewerydb.com/v2/fermentables' + key)
     .then(response => {
-      console.log("Fermentables", response)
       res.send(response.data.data)
     })
 })
@@ -42,7 +40,6 @@ router.get('/api/hops', (req, res, next) => {
 router.get('/api/yeasts', (req, res, next) => {
   beerDB.get('http://api.brewerydb.com/v2/yeasts' + key)
     .then(response => {
-      console.log("Yeasts", response)
       res.send(response.data.data)
     })
 })
@@ -50,7 +47,6 @@ router.get('/api/yeasts', (req, res, next) => {
 router.get('/api/adjuncts', (req, res, next) => {
   beerDB.get('http://api.brewerydb.com/v2/adjuncts' + key)
     .then(response => {
-      console.log("Adjuncts", response)
       res.send(response.data.data)
     })
 })
