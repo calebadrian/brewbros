@@ -4,40 +4,49 @@
     <div class="container-fluid">
       <form @submit.prevent='submit'>
         <div class="row">
-          <div class="col-sm-4">
-            <div class="form-group">
-              <input type="text" class="form-control" id="name" placeholder="recipe name" v-model="recipe.name">
-            </div>
+          <div class="col-sm-12 d-flex justify-content-center">
+            <h1>Create a New Recipe</h1>
           </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-around">
           <div class="col-sm-4">
-            <div class="form-group">
-              <label for="batchSize">Batch Size</label>
-              <input type="number" class="form-control" id="batchSize" placeholder="#" v-model="recipe.batchSize">
-              <p>gallons</p>
-              <div class="private-box">
-                <input class="form-check-input" type="checkbox" id="private" v-model="recipe.public">
-                <label for="private">Private</label>
-              </div>
+            <div class="d-flex align-items-center">
+              <label for="name">Recipe Name:</label>
+              <input type="text" class="form-control" id="name" placeholder="recipe name" v-model="recipe.name">
+            </div>
+            <div class="d-flex align-items-center">
+              <label for="batchSize" class="mr-2">Batch Size:</label>
+              <input type="number" class="form-control mr-2 smallInput" id="batchSize" placeholder="#" v-model="recipe.batchSize">
+              <h6>gal</h6>
+            </div>
+            <div class="private-box">
+              <input class="form-check-input" type="checkbox" id="private" v-model="recipe.public">
+              <label for="private">Private</label>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
-              <select class="form-control" id="style" placeholder="Style" v-model="recipe.style">
-                <option v-for="style in styles">{{style.name}}</option>
-              </select>
-              <select class="form-control" id="subStyle" placeholder="Sub-Style">
-                <option value="">Sub-Style</option>
-                <option v-for="category in categories">{{category.name}}</option>
-              </select>
-              <label for="boilTime">Boil Time</label>
-              <input type="number" class="form-control" id="boilTime" placeholder="#" v-model="recipe.boilTime">
-              <p>min</p>
+              <div class="d-flex align-items-center">
+                <label for="style">Style:</label>
+                <select class="form-control" id="style" placeholder="Style" v-model="recipe.style">
+                  <option v-for="style in styles">{{style.name}}</option>
+                </select>
+              </div>
+              <div class="d-flex align-items-center">
+                <label for="subStyle">Sub Style:</label>
+                <select class="form-control" id="subStyle" placeholder="Sub-Style">
+                  <option v-for="category in categories">{{category.name}}</option>
+                </select>
+              </div>
+              <div class="d-flex align-items-center">
+                <label for="boilTime" class="mr-2">Boil Time:</label>
+                <input type="number" class="form-control mr-2 smallInput" id="boilTime" placeholder="#" v-model="recipe.boilTime">
+                <h6>min</h6>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row stats">
+        <div class="row d-flex justify-content-around text-center">
           <div class="col-sm-2">
             <h4>Initial Gravity</h4>
             <p>
@@ -47,19 +56,19 @@
           <div class="col-sm-2">
             <h4>Final Gravity</h4>
             <p>
-              {{stats.finalGravity}}
+              {{stats.finalGravity.toFixed(3)}}
             </p>
           </div>
           <div class="col-sm-2">
             <h4>Alcohol Percent</h4>
             <p>
-              {{stats.abv}}%
+              {{stats.abv.toFixed(1)}}%
             </p>
           </div>
           <div class="col-sm-2">
             <h4>IBU</h4>
             <p>
-              {{stats.ibu}}
+              {{stats.ibu.toFixed(2)}}
             </p>
           </div>
           <div class="col-sm-2">
@@ -175,7 +184,7 @@
       }
     },
     methods: {
-      submit(){
+      submit() {
         var recipeIngredients = this.$store.state.newRecipe
         this.recipe.fermentables = recipeIngredients.fermentables
         this.recipe.adjuncts = recipeIngredients.adjuncts
@@ -184,21 +193,21 @@
         this.recipe.steepingGrains = recipeIngredients.steepingGrains
         this.$store.dispatch('addRecipe', this.recipe)
       },
-      calcGravities(){
+      calcGravities() {
         var fermentables = this.$store.state.newRecipe.fermentables
         var sum = 0
-        for (var i = 0; i < fermentables.length; i++){
+        for (var i = 0; i < fermentables.length; i++) {
           var fermentable = fermentables[i]
           fermentable.potential = (fermentable.potential * 1000) - 1000
           var points = fermentable.potential * fermentable.quantity
           sum += points
         }
-        var og = (sum * .72)/this.recipe.batchSize
-        og = og/1000
-        var fg = (sum * (1 - (this.$store.state.newRecipe.yeasts[0].attenuationMin/100)))/1000
+        var og = (sum * .72) / this.recipe.batchSize
+        og = og / 1000
+        var fg = (sum * (1 - (this.$store.state.newRecipe.yeasts[0].attenuationMin / 100))) / 1000
         this.stats.finalGravity = 1 + fg
         this.stats.originalGravity = 1 + og
-        this.stats.abv = (((og - fg) * 1.05)/fg)/.79
+        this.stats.abv = (((og - fg) * 1.05) / fg) / .79
       }
     },
     computed: {
@@ -219,10 +228,6 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .stats {
-    justify-content: space-between
-  }
-
   .private-box {
     padding-left: 2rem
   }
@@ -230,5 +235,8 @@
   .row {
     padding-left: 0px;
     padding-right: 0px
+  }
+  .smallInput{
+    max-width: 20%;
   }
 </style>
