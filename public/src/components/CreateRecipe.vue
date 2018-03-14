@@ -71,15 +71,14 @@
         </div>
         <div class="row justify-content-around">
           <div class="col-sm-4">
-            <h4>Fermentables</h4>
-            <label for="fermentableAmount">lbs</label>
-            <input type="number" class="form-control" id="fermentableAmount" placeholder="#">
-            <p>lbs</p>
-            <select class="form-control" id="fermentable" placeholder="Fermenatable">
-              <option value="">Ingredient</option>
-              <option v-for="fermentable in fermentables">{{fermentable.name}}</option>
-            </select>
-            <i class="far fa-plus-square fa-2x" @click="addFermentable"></i>
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-title">Fermentables</h5>
+                    </div>
+                    <div class="card-body">
+                      <fermentable></fermentable>
+                    </div>
+                  </div>
           </div>
           <div class="col-sm-4">
             <div class="card">
@@ -94,15 +93,14 @@
         </div>
         <div class="row justify-content-around">
           <div class="col-sm-4">
-            <h4>Steeping Grains</h4>
-            <label for="steepingGrainsAmount">lbs</label>
-            <input type="number" class="form-control" id="steepingGrainsAmount" placeholder="#">
-            <p>lbs</p>
-            <select class="form-control" id="steepingGrains" placeholder="steepingGrains">
-              <option value="">Steeping Grains</option>
-              <option v-for="steepingGrain in steepingGrains">{{steepingGrain.name}}</option>
-            </select>
-            <i class="far fa-plus-square fa-2x" @click="addSteepingGrain"></i>
+              <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Steeping Grains</h5>
+                  </div>
+                  <div class="card-body">
+                    <steepingGrain></steepingGrain>
+                  </div>
+              </div>
           </div>
           <div class="col-sm-4">
             <adjunct></adjunct>
@@ -128,52 +126,56 @@
 </template>
 
 <script>
-  import navbar from './Navbar'
-  import hop from './Hop'
-  import adjunct from './Adjunct'
-  import yeast from './yeast'
-  export default {
-    name: 'CreateRecipe',
-    mounted() {
-      this.$store.dispatch('getStyles')
-    },
-    data() {
-      return {
+    import navbar from './Navbar'
+    import fermenatble from './Fermentable'
+    import hop from './Hop'
+    import steepingGrain from './SteepingGrain'
+    import adjunct from './Adjunct'
+    import yeast from './yeast'
+    export default {
+        name: 'CreateRecipe',
+        mounted() {
+            this.$store.dispatch('getStyles')
+        },
+        data() {
+            return {
 
-      }
-    },
-    methods: {
-      addHop() {
+            }
+        },
+        methods: {
+            addHop() {
 
-      }
-    },
+            }
+        },
 
-    computed: {
-      styles() {
-        return this.$store.state.styles
-      }
-    },
-    components: {
-      navbar,
-      hop,
-      adjunct,
-      yeast,
+        computed: {
+            styles() {
+                return this.$store.state.styles
+            }
+        },
+        components: {
+            navbar,
+            fermentable,
+            hop,
+            steepingGrain,
+            adjunct,
+            yeast,
+        }
     }
-  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .stats {
-    justify-content: space-between
-  }
-
-  .private-box {
-    padding-left: 2rem
-  }
-
-  .row {
-    padding-left: 0px;
-    padding-right: 0px
-  }
+    .stats {
+        justify-content: space-between
+    }
+    
+    .private-box {
+        padding-left: 2rem
+    }
+    
+    .row {
+        padding-left: 0px;
+        padding-right: 0px
+    }
 </style>

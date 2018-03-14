@@ -1,10 +1,5 @@
 <template>
    <div class="steepingGrains">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Steeping Grains</h5>
-      </div>
-      <div class="card-body">
           <form @submit.prevent>
               <div class="form-group">
                   <label for="steepingGrainAmount">lbs</label>
@@ -14,8 +9,6 @@
                   <option v-for="fermentable in fermentables">{{fermentable.name}}</option>
                 </div>
             </form>
-      </div>
-    </div>
   </div>
 </template>
 
