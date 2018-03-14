@@ -3,18 +3,18 @@
         <form @submit.prevent="addHop">
             <div class="form-group">
                 <h6>Amount: </h6>
-                <input type="number" name="hopAmount">
+                <input type="number" name="hopAmount" v-model="defaultValues.quantity">
                 <label for="hopAmount">oz</label>
             </div>
             <div class="form-group">
                 <h6>Hop: </h6>
-                <select class="form-control" id="hop" placeholder="Hop">
-                    <option v-for="hop in hops">{{hop.name}}</option>
+                <select class="form-control" id="hop" placeholder="Hop" v-model='hop'>
+                    <option v-for="hop in hops" :value='hop'>{{hop.name}}</option>
                 </select>
             </div>
             <div class="form-group">
                 <h6>Boil Time: </h6>
-                <input type="number" name="boilTime">
+                <input type="number" name="boilTime" v-model="defaultValues.boilTime">
                 <label for="boilTime">min</label>
             </div>
             <button type="submit" class="btn-success">Add Hop</button>
@@ -29,11 +29,11 @@
         },
         data() {
             return {
-                hop: {
-                    name: '',
-                    quantity: 0,
-                    boilTime: 60
-                }
+                defaultValues: {
+                    boilTime: 60,
+                    quantity: 1
+                },
+                hop: {}
             }
         },
         computed: {
@@ -43,6 +43,8 @@
         },
         methods: {
             addHop() {
+                this.hop.boilTime = Number(this.defaultValues.boilTime)
+                this.hop.quantity = Number(this.defaultValues.quantity)
                 this.$store.dispatch('addNewRecipeHop', this.hop)
             }
         },
