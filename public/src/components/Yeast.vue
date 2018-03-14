@@ -11,7 +11,6 @@
             <label for="yeastPitch">Pitch</label>
             <input type="number" class="form-control" id="yeastPitch">
       </div>
-      <!-- <i class="far fa-plus-square fa-2x" @click="addYeast"></i> -->
     </form>
 
   </div>

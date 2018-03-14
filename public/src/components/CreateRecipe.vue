@@ -117,12 +117,13 @@
               <div class="card-body" id="yeastForms">
                 <yeast></yeast>
               </div>
+              <i class="far fa-plus-square fa-2x" @click="addYeast"></i>
             </div>
           </div>
-        <div class="col-sm-4"></div>
+          <div class="col-sm-4"></div>
+        </div>
+      </form>
     </div>
-    </form>
-  </div>
   </div>
 </template>
 
