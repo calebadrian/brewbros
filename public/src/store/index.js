@@ -55,9 +55,13 @@ export default new vuex.Store({
         },
         addNewRecipeAdjunct(state, payload){
             state.newRecipe.adjuncts.push(payload)
+        },
+        addNewRecipeYeast(state, payload){
+            state.newRecipe.yeasts.push(payload)
         }
     },
     actions: {
+        //region GET ACTIONS
         getStyles({ commit, dispatch }, payload) {
             ourDB.get('styles')
                 .then(res => {
@@ -95,10 +99,18 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
+        //endregion
+        
+        //region ADD TO NEW RECIPE ACTIONS
         addNewRecipeAdjunct({commit, dispatch}, payload){
             commit('addNewRecipeAdjunct', payload)
         },
-        //user and login actions
+        addNewRecipeYeast({commit, dispatch}, payload){
+            commit('addNewRecipeYeast', payload)
+        },
+        //endregion
+
+        //region user and login actions
         createUser({ commit, dispatch, state }, payload) {
             auth.post('register', payload)
             .then(res => {
@@ -137,5 +149,6 @@ export default new vuex.Store({
                     console.log(err)
                 })
         }
+        //endregion
     }
 })
