@@ -7,9 +7,9 @@
             <option v-for="yeast in yeasts" :value='yeast'>{{yeast.name}}</option>
           </select>
             <label for="yeastTemp">Temp (F)</label>
-            <input type="number" class="form-control" id="yeastTemp" v-model="defaultValues.temp">
+            <input type="number" class="form-control" id="yeastTemp" v-model="defaultValues.temp" min="0">
             <label for="yeastPitch">Pitch</label>
-            <input type="number" class="form-control" id="yeastPitch" v-model="defaultValues.pitch">
+            <input type="number" class="form-control" id="yeastPitch" v-model="defaultValues.pitch" min="0">
       </div>
       <button type="submit" class="btn-success">Add Yeast</button>
     </form>
