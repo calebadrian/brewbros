@@ -26,7 +26,8 @@ export default new vuex.Store({
     state: {
         user: {},
         styles: [],
-        hops: []
+        hops: [],
+        adjuncts: [],
 
     },
     mutations: {
@@ -38,6 +39,9 @@ export default new vuex.Store({
         },
         setHops(state, payload){
             state.hops = payload
+        },
+        setAdjuncts(state, payload){
+            state.adjuncts = payload
         }
     },
     actions: {
@@ -60,7 +64,15 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-
+        getAdjuncts({commit, dispatch}, payload){
+            ourDB.get('adjuncts')
+                .then(res => {
+                    commit('setAdjuncts', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
         //user and login actions
         createUser({ commit, dispatch, state }, payload) {
             auth.post('register', payload)

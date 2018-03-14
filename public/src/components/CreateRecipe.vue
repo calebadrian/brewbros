@@ -82,7 +82,6 @@
                 <i class="far fa-plus-square fa-2x" @click="addFermentable"></i>
           </div>
           <div class="col-sm-4">
-            <h4>Hops</h4>
             <hop></hop>
           </div>
         </div>
@@ -98,7 +97,9 @@
                   </select>
                   <i class="far fa-plus-square fa-2x" @click="addSteepingGrain"></i>
             </div>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+              <adjunct></adjunct>
+            </div>
           </div>
           <div class="row">
               <div class="col-sm-4"></div>
@@ -112,6 +113,7 @@
 <script>
   import navbar from './Navbar'
   import hop from './Hop'
+  import adjunct from './Adjunct'
     export default {
         name: 'CreateRecipe',
         mounted() {
@@ -136,7 +138,7 @@
         components: {
           navbar,
           hop,
-
+          adjunct,
         }
     }
 </script>
