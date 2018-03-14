@@ -29,6 +29,7 @@ export default new vuex.Store({
         hops: [],
         adjuncts: [],
         yeasts: [],
+        fermentables: [],
         newRecipe: {
             adjuncts: [],
             fermentables: [],
@@ -36,7 +37,8 @@ export default new vuex.Store({
             hops: [],
             yeasts: []
         },
-        myRecipes: []
+        myRecipes: [],
+
     },
     mutations: {
         setStyles(state, payload) {
@@ -79,61 +81,108 @@ export default new vuex.Store({
     },
     actions: {
         //region GET ACTIONS
-        getStyles({ commit, dispatch }, payload) {
-            ourDB.get('styles')
-                .then(res => {
-                    commit('setStyles', res.data)
-
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+        getStyles({ commit, dispatch, state }, payload) {
+            var localData = localStorage.getItem('stylesData')
+            if (localData) {
+                var stylesData = JSON.parse(localData);
+                commit('setStyles', stylesData)
+            } else {
+                ourDB.get('styles')
+                    .then(res => {
+                        var stylesData = res.data;
+                        localStorage.setItem('stylesData', JSON.stringify(stylesData))
+                        commit('setStyles', res.data)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
         },
         getHops({ commit, dispatch }, payload) {
-            ourDB.get('hops')
-                .then(res => {
-                    commit('setHops', res.data)
-                })
-                .catch(err => {
-                    console.error(err)
-                })
+            var localData = localStorage.getItem('hopsData')
+            if (localData) {
+                var hopsData = JSON.parse(localData);
+                commit('setHops', hopsData)
+            } else {
+                ourDB.get('hops')
+                    .then(res => {
+                        var hopsData = res.data;
+                        localStorage.setItem('hopsData', JSON.stringify(hopsData))
+                        commit('setHops', res.data)
+                    })
+                    .catch(err => {
+                        console.error(err)
+                    })
+            }
         },
         getAdjuncts({ commit, dispatch }, payload) {
-            ourDB.get('adjuncts')
-                .then(res => {
-                    commit('setAdjuncts', res.data)
-                })
-                .catch(err => {
-                    console.error(err)
-                })
+            var localData = localStorage.getItem('adjunctData')
+            if (localData) {
+                var adjunctData = JSON.parse(localData);
+                commit('setAdjuncts', adjunctData)
+            } else {
+                ourDB.get('adjuncts')
+                    .then(res => {
+                        var adjunctData = res.data;
+                        localStorage.setItem('adjunctData', JSON.stringify(adjunctData))
+                        commit('setAdjuncts', res.data)
+                    })
+                    .catch(err => {
+                        console.error(err)
+                    })
+            }
         },
         getYeasts({ commit, dispatch }, payload) {
-            ourDB.get('yeasts')
-                .then(res => {
-                    commit('setYeasts', res.data)
-                })
-                .catch(err => {
-                    console.error(err)
-                })
+            var localData = localStorage.getItem('yeastData')
+            if (localData) {
+                var yeastData = JSON.parse(localData);
+                commit('setYeasts', yeastData)
+            } else {
+                ourDB.get('yeasts')
+                    .then(res => {
+                        var yeastData = res.data;
+                        localStorage.setItem('yeastData', JSON.stringify(yeastData))
+                        commit('setYeasts', res.data)
+                    })
+                    .catch(err => {
+                        console.error(err)
+                    })
+            }
         },
         getFermentables({ commit, dispatch }, payload) {
-            ourDB.get('fermentables')
-                .then(res => {
-                    commit('setFermentables', res.data)
-                })
-                .catch(err => {
-                    console.error(err)
-                })
+            var localData = localStorage.getItem('fermentableData')
+            if (localData) {
+                var fermentableData = JSON.parse(localData);
+                commit('setFermentables', fermentableData)
+            } else {
+                ourDB.get('fermentables')
+                    .then(res => {
+                        var fermentableData = res.data;
+                        localStorage.setItem('fermentableData', JSON.stringify(fermentableData))
+                        commit('setFermentables', res.data)
+                    })
+                    .catch(err => {
+                        console.error(err)
+                    })
+            }
         },
 
         getMyRecipes({ commit, dispatch }, payload) {
-            ourDB.get('recipes')
-                .then(res => {
-                    commit('setMyRecipes', res.data)
-                })
-                .catch(err => {
-                    console.error(err)
-                })
+            var localData = localStorage.getItem('recipeData')
+            if (localData) {
+                var recipeData = JSON.parse(localData);
+                commit('setMyRecipes', recipeData)
+            } else {
+                ourDB.get('recipes')
+                    .then(res => {
+                        var recipeData = res.data;
+                        localStorage.setItem('recipeData', JSON.stringify(recipeData))
+                        commit('setMyRecipes', res.data)
+                    })
+                    .catch(err => {
+                        console.error(err)
+                    })
+            }
         },
 
         //#endregion
@@ -182,9 +231,9 @@ export default new vuex.Store({
         },
         login({ commit, dispatch, state }, payload) {
             auth.post('login', payload).then(res => {
-                    commit('updateUser', res.data.user)
-                    router.push({ name: 'profile', params: { profileId: state.user._id } })
-                })
+                commit('updateUser', res.data.user)
+                router.push({ name: 'profile', params: { profileId: state.user._id } })
+            })
                 .catch(err => {
                     console.log('Invalid Username or Password')
                 })
@@ -192,8 +241,8 @@ export default new vuex.Store({
         },
         authenticate({ commit, dispatch }, payload) {
             auth.get('authenticate', payload).then(res => {
-                    commit('updateUser', res.data)
-                })
+                commit('updateUser', res.data)
+            })
                 .catch(err => {
                     console.log(err);
                 })
