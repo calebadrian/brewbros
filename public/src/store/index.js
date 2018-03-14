@@ -26,6 +26,7 @@ export default new vuex.Store({
     state: {
         user: {},
         styles: [],
+        hops: []
 
     },
     mutations: {
@@ -34,6 +35,9 @@ export default new vuex.Store({
         },
         updateUser(state, payload){
             state.user = payload
+        },
+        setHops(state, payload){
+            state.hops = payload
         }
     },
     actions: {
@@ -45,6 +49,15 @@ export default new vuex.Store({
                 })
                 .catch(err => {
                     console.log(err)
+                })
+        },
+        getHops({commit, dispatch}, payload){
+            ourDB.get('hops')
+                .then(res => {
+                    commit('setHops', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
                 })
         },
 

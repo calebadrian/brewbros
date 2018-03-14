@@ -1,5 +1,6 @@
 <template>
   <div class="CreateRecipe">
+    <navbar></navbar>
     <div class="container-fluid">
       <form type="submit">
         <div class="row">
@@ -82,8 +83,7 @@
           </div>
           <div class="col-sm-4">
             <h4>Hops</h4>
-            <input type="number">
-            <label for="hopAmount">oz</label>
+            <hop></hop>
           </div>
         </div>
         <div class="row">
@@ -110,6 +110,8 @@
 </template>
 
 <script>
+  import navbar from './Navbar'
+  import hop from './Hop'
     export default {
         name: 'CreateRecipe',
         mounted() {
@@ -121,13 +123,20 @@
             }
         },
         methods: {
-
+          addHop(){
+            
+          }
         },
 
         computed: {
             styles() {
                 return this.$store.state.styles
             }
+        },
+        components: {
+          navbar,
+          hop,
+
         }
     }
 </script>

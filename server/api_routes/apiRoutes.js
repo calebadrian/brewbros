@@ -35,7 +35,6 @@ router.get('/api/fermentables', (req, res, next) => {
 router.get('/api/hops', (req, res, next) => {
   beerDB.get('http://api.brewerydb.com/v2/hops' + key)
     .then(response => {
-      console.log("Hops", response)
       res.send(response.data.data)
     })
 })
