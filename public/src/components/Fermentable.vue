@@ -14,7 +14,6 @@
 
 <script>
     export default {
-        name: 'Fermentable',
         mounted() {
             this.$store.dispatch('getFermentables')
         },

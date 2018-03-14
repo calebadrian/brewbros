@@ -133,6 +133,12 @@ export default new vuex.Store({
         addNewRecipeYeast({ commit, dispatch }, payload) {
             commit('addNewRecipeYeast', payload)
         },
+        addNewRecipeFermentable({ commit, dispatch }, payload) {
+            commit('addNewRecipeFermentable', payload)
+        },
+        addNewRecipeSteepingGrain({ commit, dispatch }, payload) {
+            commit('addNewRecipeSteepingGrain', payload)
+        },
         //endregion
 
         //region user and login actions
