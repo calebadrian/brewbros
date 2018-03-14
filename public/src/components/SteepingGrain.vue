@@ -24,7 +24,7 @@
             }
         },
         computed: {
-            hops() {
+            fermentables() {
                 return this.$store.state.fermentables
             }
         },
