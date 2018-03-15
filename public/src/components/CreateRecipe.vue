@@ -216,6 +216,21 @@
           sum += ((srmFerm + .76 / 1.3546) * fermentables[i].quantity) / this.recipe.batchSize
         }
         this.stats.color = 1.49 * (sum * .69)
+      },
+      calcIbu(){
+        var hops = this.$store.state.newRecipe.hops
+        var sum = 0
+        for (var i = 0; i < hops.length; i++){
+          var aa = 0
+          if (!hops[i].alphaAcidMin){
+            aa = 7
+          } else {
+            aa = hops[i].alphaAcidMin
+          }
+          console.log(aa)
+          sum += (75 * (aa * hops[i].quantity) * 1.65 * (Math.pow(.000125, (this.stats.originalGravity - 1))) * ((1 - Math.exp(-.04 * hops[i].boilTime))/4.15))/this.recipe.batchSize
+        }
+        this.stats.ibu = sum
       }
     },
     computed: {

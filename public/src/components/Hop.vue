@@ -62,15 +62,16 @@
                 this.hop.boilTime = Number(this.defaultValues.boilTime)
                 this.hop.quantity = Number(this.defaultValues.quantity)
                 this.$store.dispatch('addNewRecipeHop', this.hop)
+                this.$parent.calcIbu()
             },
             removeHop(hop){
                 for (var i = 0; i < this.$store.state.newRecipe.hops.length; i++){
                     var search = this.$store.state.newRecipe.hops[i]
                     if (search.name == hop.name){
                         this.$store.state.newRecipe.hops.splice(i, 1)
-                        return
                     }
                 }
+                this.$parent.calcIbu()
             }
         },
     }

@@ -53,6 +53,7 @@
                 this.$store.dispatch('addNewRecipeFermentable', this.fermentable)
                 this.$parent.calcGravities()
                 this.$parent.calcColor()
+                this.$parent.calcIbu()
             },
             removeFermentable(fermentable){
                 for (var i = 0; i < this.$store.state.newRecipe.fermentables.length; i++){
@@ -63,6 +64,7 @@
                 }
                 this.$parent.calcGravities()
                 this.$parent.calcColor()
+                this.$parent.calcIbu()
             }
         },
     }
