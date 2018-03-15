@@ -151,104 +151,104 @@
 </template>
 
 <script>
-  import navbar from './Navbar'
-  import fermentable from './Fermentable'
-  import hop from './Hop'
-  import steepingGrain from './SteepingGrain'
-  import adjunct from './Adjunct'
-  import yeast from './yeast'
-  export default {
-    name: 'CreateRecipe',
-    mounted() {
-      this.$store.dispatch('getStyles')
-      this.$store.dispatch('getCategories')
-    },
-    data() {
-      return {
-        recipe: {
-          name: '',
-          batchSize: 1,
-          public: false,
-          style: '',
-          boilTime: 60,
-          personalComments: ''
+    import navbar from './Navbar'
+    import fermentable from './Fermentable'
+    import hop from './Hop'
+    import steepingGrain from './SteepingGrain'
+    import adjunct from './Adjunct'
+    import yeast from './yeast'
+    export default {
+        name: 'CreateRecipe',
+        mounted() {
+            this.$store.dispatch('getStyles')
+            this.$store.dispatch('getCategories')
         },
-        stats: {
-          originalGravity: 1,
-          finalGravity: 1,
-          abv: 1,
-          ibu: 1,
-          color: ''
+        data() {
+            return {
+                recipe: {
+                    name: '',
+                    batchSize: 1,
+                    public: false,
+                    style: '',
+                    boilTime: 60,
+                    personalComments: ''
+                },
+                stats: {
+                    originalGravity: 1,
+                    finalGravity: 1,
+                    abv: 1,
+                    ibu: 1,
+                    color: ''
+                }
+            }
+        },
+        methods: {
+            submit() {
+                var recipeIngredients = this.$store.state.newRecipe
+                this.recipe.fermentables = recipeIngredients.fermentables
+                this.recipe.adjuncts = recipeIngredients.adjuncts
+                this.recipe.hops = recipeIngredients.hops
+                this.recipe.yeasts = recipeIngredients.yeasts
+                this.recipe.steepingGrains = recipeIngredients.steepingGrains
+                this.$store.dispatch('addRecipe', this.recipe)
+            },
+            calcGravities() {
+                var fermentables = this.$store.state.newRecipe.fermentables
+                var sum = 0
+                for (var i = 0; i < fermentables.length; i++) {
+                    var fermentable = fermentables[i]
+                    fermentable.potential = (fermentable.potential * 1000) - 1000
+                    var points = fermentable.potential * fermentable.quantity
+                    sum += points
+                }
+                var og = (sum * .72) / this.recipe.batchSize
+                og = og / 1000
+                var fg = (sum * (1 - (this.$store.state.newRecipe.yeasts[0].attenuationMin / 100))) / 1000
+                this.stats.finalGravity = 1 + fg
+                this.stats.originalGravity = 1 + og
+                this.stats.abv = (((og - fg) * 1.05) / fg) / .79
+            }
+        },
+        computed: {
+            styles() {
+                return this.$store.state.styles
+            },
+            categories() {
+                return this.$store.state.categories
+            }
+        },
+        components: {
+            navbar,
+            fermentable,
+            hop,
+            steepingGrain,
+            adjunct,
+            yeast,
         }
-      }
-    },
-    methods: {
-      submit() {
-        var recipeIngredients = this.$store.state.newRecipe
-        this.recipe.fermentables = recipeIngredients.fermentables
-        this.recipe.adjuncts = recipeIngredients.adjuncts
-        this.recipe.hops = recipeIngredients.hops
-        this.recipe.yeasts = recipeIngredients.yeasts
-        this.recipe.steepingGrains = recipeIngredients.steepingGrains
-        this.$store.dispatch('addRecipe', this.recipe)
-      },
-      calcGravities() {
-        var fermentables = this.$store.state.newRecipe.fermentables
-        var sum = 0
-        for (var i = 0; i < fermentables.length; i++) {
-          var fermentable = fermentables[i]
-          fermentable.potential = (fermentable.potential * 1000) - 1000
-          var points = fermentable.potential * fermentable.quantity
-          sum += points
-        }
-        var og = (sum * .72) / this.recipe.batchSize
-        og = og / 1000
-        var fg = (sum * (1 - (this.$store.state.newRecipe.yeasts[0].attenuationMin / 100))) / 1000
-        this.stats.finalGravity = 1 + fg
-        this.stats.originalGravity = 1 + og
-        this.stats.abv = (((og - fg) * 1.05) / fg) / .79
-      }
-    },
-    computed: {
-      styles() {
-        return this.$store.state.styles
-      },
-      categories() {
-        return this.$store.state.categories
-      }
-    },
-    components: {
-      navbar,
-      fermentable,
-      hop,
-      steepingGrain,
-      adjunct,
-      yeast,
     }
-  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .private-box {
-    padding-left: 2rem
-  }
-
-  .row {
-    padding-left: 0px;
-    padding-right: 0px
-  }
-
-  .smallInput {
-    max-width: 20%;
-  }
-
-  .createMe {
-    background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url("../assets/wood-panel.jpg");
-    color: rgb(245, 245, 245);
-  }
-
-  .card {
-    color: slategrey
-  }
+    .private-box {
+        padding-left: 2rem
+    }
+    
+    .row {
+        padding-left: 0px;
+        padding-right: 0px
+    }
+    
+    .smallInput {
+        max-width: 20%;
+    }
+    
+    .createMe {
+        background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url("../assets/wood-panel.jpg");
+        color: rgb(245, 245, 245);
+    }
+    
+    .card {
+        color: slategrey
+    }
 </style>
