@@ -40,6 +40,7 @@ export default new vuex.Store({
             yeasts: []
         },
         myRecipes: [],
+        allRecipes: [],
 
     },
     mutations: {
@@ -66,6 +67,10 @@ export default new vuex.Store({
         },
         setMyRecipes(state, payload) {
             state.myRecipes = payload
+        },
+        setAllRecipes(state, payload) {
+            console.log("All Recipes", payload)
+            state.allRecipes = payload
         },
         addNewRecipeAdjunct(state, payload) {
             state.newRecipe.adjuncts.push(payload)
@@ -193,9 +198,16 @@ export default new vuex.Store({
         getMyRecipes({ commit, dispatch }, payload) {
             ourDB.get('recipes/user')
                 .then(res => {
-                    var recipeData = res.data;
-                    localStorage.setItem('recipeData', JSON.stringify(recipeData))
                     commit('setMyRecipes', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        getRecipes({ commit, dispatch }, payload) {
+            ourDB.get('recipes')
+                .then(res => {
+                    commit('setAllRecipes', res.data)
                 })
                 .catch(err => {
                     console.error(err)
