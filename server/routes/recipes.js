@@ -18,8 +18,11 @@ router.post('/api/recipes', (req, res, next) => {
 
 //Edit a Recipe
 router.put('/api/recipes/:recipeId', (req, res, next) => {
-  Recipes.findByIdAndUpdate(req.params.recipeId, req.body)
+  Recipes.findById(req.params.recipeId, req.body)
     .then(recipe => {
+      recipe.favorited = req.body
+      recipe.markModified('favorited')
+      recipe.save()
       return res.send(recipe)
     })
     .catch(next)

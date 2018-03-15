@@ -71,6 +71,9 @@
                   <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
                     View Full Recipe
                   </button>
+                  <button type="button" class="btn btn-danger" :recipe='recipe' @click="removeFavRecipe(recipe)">
+                    Remove from Favorites
+                  </button>
                   <!-- Begin Modal Content -->
                   <div class="modal fade" :id="recipe._id" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
@@ -329,11 +332,11 @@
             </div>
           </div>
         </div>
-      <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab">
-        <h1>Shopping List</h1>
+        <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab">
+          <h1>Shopping List</h1>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -351,6 +354,17 @@
 
       }
     },
+    methods: {
+      removeFavRecipe(recipe) {
+        for (let i = 0; i < recipe.favorited.length; i++) {
+          const userId = recipe.favorited[i];
+          if(this.$store.state.user._id == userId){
+            recipe.favorited.splice(i, 1)
+          }
+        }
+        this.$store.dispatch('updateFavorites', recipe)
+      }
+    },
     computed: {
       user() {
         return this.$store.state.user
@@ -360,7 +374,7 @@
       },
       myFavorites() {
         return this.$store.state.myFavorites
-      }
+      },
     },
     components: {
       navbar,

@@ -74,19 +74,18 @@ export default new vuex.Store({
             state.allRecipes = payload
         },
         setMyFavorites(state, payload) {
-            // for (let x = 0; x < state.myFavorites.length; x++) {
-            //     const favRecipe = state.myFavorites[x];
-            //     if (favRecipe._id == payload._id) {
-            //         alert("You already have that Recipe in your Favorites")
-            //     } else {
-                    for (let i = 0; i < payload.length; i++) {
-                        const recipe = payload[i];
-                        if (recipe.favorited == state.user._id) {
-                            state.myFavorites.push(recipe)
-                        }
-                //     }
-                // }
+            console.log(payload)
+            var tempArr = []
+            for (let i = 0; i < payload.length; i++) {
+                const recipe = payload[i];
+                for (let x = 0; x < recipe.favorited.length; x++) {
+                    const userId = recipe.favorited[x];
+                    if (userId == state.user._id) {
+                        tempArr.push(recipe)
+                    }
+                }
             }
+            state.myFavorites = tempArr
         },
         addNewRecipeAdjunct(state, payload) {
             state.newRecipe.adjuncts.push(payload)
@@ -232,10 +231,13 @@ export default new vuex.Store({
         },
         //endregion
         //Updating a recipe
-        addedToFavorites({ commit, dispatch }, payload) {
+        updateFavorites({ commit, dispatch }, payload) {
             ourDB.put('recipes/' + payload._id, payload.favorited)
                 .then(res => {
-                    console.log("edited Recipe", res.data)
+                    dispatch('getRecipes')
+                })
+                .catch(err => {
+                    console.error(err)
                 })
         },
         //endregion

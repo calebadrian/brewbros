@@ -164,9 +164,8 @@
     },
     methods: {
       favorite({user: user, recipe: recipe}) {
-        console.log(recipe, user)
         recipe.favorited.push(user._id)
-        this.$store.dispatch('addedToFavorites', recipe)
+        this.$store.dispatch('updateFavorites', recipe)
       }
     },
     computed: {
@@ -189,6 +188,4 @@
     margin-top: 4px;
     margin-bottom: 4px
   }
-
-  .modal {}
 </style>
