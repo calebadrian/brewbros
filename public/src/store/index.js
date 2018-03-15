@@ -43,11 +43,14 @@ export default new vuex.Store({
 
     },
     mutations: {
+        updateUser(state, payload) {
+            state.user = payload
+        },
         setStyles(state, payload) {
             state.styles = payload
         },
-        updateUser(state, payload) {
-            state.user = payload
+        setCategories(state, payload) {
+            state.categories = payload
         },
         setHops(state, payload) {
             state.hops = payload
@@ -95,6 +98,24 @@ export default new vuex.Store({
                         var stylesData = res.data;
                         localStorage.setItem('stylesData', JSON.stringify(stylesData))
                         commit('setStyles', res.data)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
+        },
+        getCategories({ commit, dispatch, state }, payload) {
+            var localData = localStorage.getItem('categoriesData')
+            if (localData) {
+                console.log("localStorage")
+                var categoriesData = JSON.parse(localData);
+                commit('setCategories', categoriesData)
+            } else {
+                ourDB.get('categories')
+                    .then(res => {
+                        var categoriesData = res.data;
+                        localStorage.setItem('categoriesData', JSON.stringify(categoriesData))
+                        commit('setCategories', res.data)
                     })
                     .catch(err => {
                         console.log(err)
@@ -246,18 +267,18 @@ export default new vuex.Store({
         },
         login({ commit, dispatch, state }, payload) {
             auth.post('login', payload)
-            .then(res => {
-                commit('updateUser', res.data.user)
-                swal({
-                    position: 'top-end',
-                    width: 300,
-                    type: 'success',
-                    title: 'Login successful',
-                    showConfirmButton: false,
-                    timer: 1000
+                .then(res => {
+                    commit('updateUser', res.data.user)
+                    swal({
+                        position: 'top-end',
+                        width: 300,
+                        type: 'success',
+                        title: 'Login successful',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    router.push({ name: 'profile', params: { profileId: state.user._id } })
                 })
-                router.push({ name: 'profile', params: { profileId: state.user._id } })
-            })
                 .catch(err => {
                     console.error(err)
                     swal({
