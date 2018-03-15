@@ -1,24 +1,34 @@
 <template>
     <div class="hop">
-        <form @submit.prevent="addHop">
-            <div class="form-group">
-                <h6>Amount: </h6>
-                <input type="number" name="hopAmount" v-model="defaultValues.quantity" step=".01" min='0'>
-                <label for="hopAmount">oz</label>
+        <div class="card-body">
+            <form @submit.prevent="addHop">
+                <div class="form-group">
+                    <h6>Amount: </h6>
+                    <input type="number" name="hopAmount" v-model="defaultValues.quantity" step=".01" min='0'>
+                    <label for="hopAmount">oz</label>
+                </div>
+                <div class="form-group">
+                    <h6>Hop: </h6>
+                    <select class="form-control" id="hop" placeholder="Hop" v-model='hop'>
+                        <option v-for="hop in hops" :value='hop'>{{hop.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <h6>Boil Time: </h6>
+                    <input type="number" name="boilTime" v-model="defaultValues.boilTime" min='0'>
+                    <label for="boilTime">min</label>
+                </div>
+                <button type="submit" class="btn-success">Add Hop</button>
+            </form>
+        </div>
+        <div class="card-footer">
+            <div v-if="newRecipeHops.length > 0">
+                <h5>Current Hops:</h5>
+                <h6 v-for="newHop in newRecipeHops">{{newHop.quantity}}
+                    <span v-if="newHop.quantity > 1">ozs</span>
+                    <span v-else>oz</span> of {{newHop.name}}</h6>
             </div>
-            <div class="form-group">
-                <h6>Hop: </h6>
-                <select class="form-control" id="hop" placeholder="Hop" v-model='hop'>
-                    <option v-for="hop in hops" :value='hop'>{{hop.name}}</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <h6>Boil Time: </h6>
-                <input type="number" name="boilTime" v-model="defaultValues.boilTime" min='0'>
-                <label for="boilTime">min</label>
-            </div>
-            <button type="submit" class="btn-success">Add Hop</button>
-        </form>
+        </div>
     </div>
 </template>
 
@@ -39,6 +49,9 @@
         computed: {
             hops() {
                 return this.$store.state.hops
+            },
+            newRecipeHops() {
+                return this.$store.state.newRecipe.hops
             }
         },
         methods: {
