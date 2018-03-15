@@ -15,9 +15,12 @@
         <div class="card-footer">
             <div v-if="newRecipeFermentables.length > 0">
                 <h5>Current Grains:</h5>
-                <h6 v-for="newFermentable in newRecipeFermentables">{{newFermentable.quantity}}
-                    <span v-if="newFermentable.quantity > 1">lbs</span>
-                    <span v-else>lb</span> of {{newFermentable.name}}</h6>
+                <div v-for="newFermentable in newRecipeFermentables">
+                    <h6>{{newFermentable.quantity}}
+                        <span v-if="newFermentable.quantity > 1">lbs</span>
+                        <span v-else>lb</span> of {{newFermentable.name}}</h6>
+                    <i class="fas fa-2x fa-ban" @click="removeFermentable(newFermentable)"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -49,6 +52,15 @@
                 this.fermentable.quantity = Number(this.defaultValues.quantity)
                 this.$store.dispatch('addNewRecipeFermentable', this.fermentable)
                 this.$parent.calcGravities()
+            },
+            removeFermentable(fermentable){
+                for (var i = 0; i < this.$store.state.newRecipe.fermentables.length; i++){
+                    var search = this.$store.state.newRecipe.fermentables[i]
+                    if (search.name == fermentable.name){
+                        this.$store.state.newRecipe.fermentables.splice(i, 1)
+                        return
+                    }
+                }
             }
         },
     }

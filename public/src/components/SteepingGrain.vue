@@ -16,9 +16,12 @@
         <div class='card-footer'>
             <div v-if="newRecipeSteepingGrains.length > 0">
                 <h5>Current Steeping Grains:</h5>
-                <h6 v-for="newSteepingGrain in newRecipeSteepingGrains">{{newSteepingGrain.quantity}}
-                    <span v-if="newSteepingGrain.quantity > 1">lbs</span>
-                    <span v-else>lb</span> of {{newSteepingGrain.name}}</h6>
+                <div v-for="newSteepingGrain in newRecipeSteepingGrains">
+                    <h6>{{newSteepingGrain.quantity}}
+                        <span v-if="newSteepingGrain.quantity > 1">lbs</span>
+                        <span v-else>lb</span> of {{newSteepingGrain.name}}</h6>
+                    <i class="fas fa-2x fa-ban" @click="removeSteepingGrain(newSteepingGrain)"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -50,6 +53,15 @@
             addSteepingGrain() {
                 this.steepingGrain.quantity = Number(this.defaultValues.quantity)
                 this.$store.dispatch('addNewRecipeSteepingGrain', this.steepingGrain)
+            },
+            removeSteepingGrain(steepingGrain){
+                for (var i = 0; i < this.$store.state.newRecipe.steepingGrains.length; i++){
+                    var search = this.$store.state.newRecipe.steepingGrains[i]
+                    if (search.name == steepingGrain.name){
+                        this.$store.state.newRecipe.steepingGrains.splice(i, 1)
+                        return
+                    }
+                }
             }
         }
     }

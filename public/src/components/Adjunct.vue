@@ -24,9 +24,12 @@
         <div class="card-footer">
             <div v-if="newRecipeAdjuncts.length > 0">
                 <h5>Current Adjuncts:</h5>
-                <h6 v-for="newAdjunct in newRecipeAdjuncts">{{newAdjunct.quantity}}
-                    <span v-if="newAdjunct.quantity > 1">ozs</span>
-                    <span v-else>oz</span> of {{newAdjunct.name}}</h6>
+                <div v-for="newAdjunct in newRecipeAdjuncts">
+                    <h6>{{newAdjunct.quantity}}
+                        <span v-if="newAdjunct.quantity > 1">ozs</span>
+                        <span v-else>oz</span> of {{newAdjunct.name}}</h6>
+                    <i class="fas fa-2x fa-ban" @click="removeAdjunct(newAdjunct)"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -50,7 +53,7 @@
             adjuncts() {
                 return this.$store.state.adjuncts
             },
-            newRecipeAdjuncts(){
+            newRecipeAdjuncts() {
                 return this.$store.state.newRecipe.adjuncts
             }
         },
@@ -59,6 +62,15 @@
                 this.adjunct.boilTime = Number(this.defaultValues.boilTime)
                 this.adjunct.quantity = Number(this.defaultValues.quantity)
                 this.$store.dispatch('addNewRecipeAdjunct', this.adjunct)
+            },
+            removeAdjunct(adjunct){
+                for (var i = 0; i < this.$store.state.newRecipe.adjuncts.length; i++){
+                    var search = this.$store.state.newRecipe.adjuncts[i]
+                    if (search.name == adjunct.name){
+                        this.$store.state.newRecipe.adjuncts.splice(i, 1)
+                        return
+                    }
+                }
             }
         }
     }

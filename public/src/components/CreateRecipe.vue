@@ -180,14 +180,20 @@
         var fermentables = this.$store.state.newRecipe.fermentables
         var sum = 0
         for (var i = 0; i < fermentables.length; i++) {
-          var fermentable = fermentables[i]
-          fermentable.potential = (fermentable.potential * 1000) - 1000
-          var points = fermentable.potential * fermentable.quantity
+          var fermPotential = fermentables[i].potential
+          fermPotential = (fermPotential * 1000) - 1000
+          var points = fermPotential * fermentables[i].quantity
           sum += points
         }
         var og = (sum * .72) / this.recipe.batchSize
         og = og / 1000
-        var fg = (sum * (1 - (this.$store.state.newRecipe.yeasts[0].attenuationMin / 100))) / 1000
+        var atten = 0
+        if (this.$store.state.newRecipe.yeasts.length < 1){
+          atten = 75
+        } else {
+          atten = this.$store.state.newRecipe.yeasts[0].attenuationMin
+        }
+        var fg = (sum * (1 - (atten / 100))) / 1000
         this.stats.finalGravity = 1 + fg
         this.stats.originalGravity = 1 + og
         this.stats.abv = (((og - fg) * 1.05) / fg) / .79

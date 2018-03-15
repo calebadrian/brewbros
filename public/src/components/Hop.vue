@@ -24,9 +24,12 @@
         <div class="card-footer">
             <div v-if="newRecipeHops.length > 0">
                 <h5>Current Hops:</h5>
-                <h6 v-for="newHop in newRecipeHops">{{newHop.quantity}}
-                    <span v-if="newHop.quantity > 1">ozs</span>
-                    <span v-else>oz</span> of {{newHop.name}}</h6>
+                <div v-for="newHop in newRecipeHops">
+                    <h6>{{newHop.quantity}}
+                        <span v-if="newHop.quantity > 1">ozs</span>
+                        <span v-else>oz</span> of {{newHop.name}}</h6>
+                    <i class="fas fa-2x fa-ban" @click="removeHop(newHop)"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -59,6 +62,15 @@
                 this.hop.boilTime = Number(this.defaultValues.boilTime)
                 this.hop.quantity = Number(this.defaultValues.quantity)
                 this.$store.dispatch('addNewRecipeHop', this.hop)
+            },
+            removeHop(hop){
+                for (var i = 0; i < this.$store.state.newRecipe.hops.length; i++){
+                    var search = this.$store.state.newRecipe.hops[i]
+                    if (search.name == hop.name){
+                        this.$store.state.newRecipe.hops.splice(i, 1)
+                        return
+                    }
+                }
             }
         },
     }

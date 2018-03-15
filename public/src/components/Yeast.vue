@@ -18,7 +18,10 @@
     <div class="card-footer">
       <div v-if="newRecipeYeasts.length > 0">
         <h5>Current Yeasts:</h5>
-        <h6 v-for="newYeast in newRecipeYeasts">{{newYeast.name}} with attenuation of {{newYeast.attenuationMin}}%</h6>
+        <div v-for="newYeast in newRecipeYeasts">
+          <h6>{{newYeast.name}} with attenuation of {{newYeast.attenuationMin}}%</h6>
+          <i class="fas fa-2x fa-ban" @click="removeYeast(newYeast)"></i>
+        </div>
       </div>
     </div>
   </div>
@@ -45,6 +48,15 @@
         this.yeast.pitch = Number(this.defaultValues.pitch)
         this.$store.dispatch('addNewRecipeYeast', this.yeast)
       },
+      removeYeast(yeast) {
+        for (var i = 0; i < this.$store.state.newRecipe.yeasts.length; i++) {
+          var search = this.$store.state.newRecipe.yeasts[i]
+          if (search.name == yeast.name) {
+            this.$store.state.newRecipe.yeasts.splice(i, 1)
+            return
+          }
+        }
+      }
     },
     computed: {
       yeasts() {
