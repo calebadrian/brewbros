@@ -52,15 +52,17 @@
                 this.fermentable.quantity = Number(this.defaultValues.quantity)
                 this.$store.dispatch('addNewRecipeFermentable', this.fermentable)
                 this.$parent.calcGravities()
+                this.$parent.calcColor()
             },
             removeFermentable(fermentable){
                 for (var i = 0; i < this.$store.state.newRecipe.fermentables.length; i++){
                     var search = this.$store.state.newRecipe.fermentables[i]
                     if (search.name == fermentable.name){
                         this.$store.state.newRecipe.fermentables.splice(i, 1)
-                        return
                     }
                 }
+                this.$parent.calcGravities()
+                this.$parent.calcColor()
             }
         },
     }
