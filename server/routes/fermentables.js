@@ -5,7 +5,7 @@ var Fermentables = require('../models/fermentable');
 
 
 //Create a Fermentables
-router.post('recipe/:recipeId/fermentables', (req, res, next) => {
+router.post('/api/recipe/:recipeId/fermentables', (req, res, next) => {
   Fermentables.create(req.body)
     .then(fermentable => {
       if (!fermentable) {
@@ -17,7 +17,7 @@ router.post('recipe/:recipeId/fermentables', (req, res, next) => {
 })
 
 //Edit a Fermentable
-router.put('recipe/:recipeId/fermentables/:fermentableId', (req, res, next) => {
+router.put('/api/recipe/:recipeId/fermentables/:fermentableId', (req, res, next) => {
   Fermentables.find({recipeId: req.params.recipeId, fermentableId: req.params.fermentableId}, req.body)
     .then(fermentable => {
       return res.send({
@@ -29,7 +29,7 @@ router.put('recipe/:recipeId/fermentables/:fermentableId', (req, res, next) => {
 })
 
 //Delete a Fermentable
-router.delete('recipe/:recipeId/fermentables/:fermentableId', (req, res, next) => {
+router.delete('/api/recipe/:recipeId/fermentables/:fermentableId', (req, res, next) => {
   Fermentables.findById(req.params.fermentableId)
     .then(fermentable => {
       return res.send({
@@ -40,7 +40,7 @@ router.delete('recipe/:recipeId/fermentables/:fermentableId', (req, res, next) =
 })
 
 //Get fermentables by Recipe
-router.get('/recipes/:recipeId/fermentables', (req, res, next) => {
+router.get('/api/recipes/:recipeId/fermentables', (req, res, next) => {
   Fermentables.find({ recipeId: req.params.recipeId })
     .then(fermentable => {
       return res.send(fermentable)

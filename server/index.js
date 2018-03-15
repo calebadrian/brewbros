@@ -31,12 +31,12 @@ server.use(express.static(__dirname + '/../public/dist'))
 
 server.use(authRoutes)
 server.use(apiRoutes.router)
-server.use('/api/', recipeRoutes.router)
-server.use('/api/', fermentableRoutes.router)
-server.use('/api/', hopRoutes.router)
-server.use('/api/', yeastRoutes.router)
-server.use('/api/', adjunctRoutes.router)
-server.use('/api/', userRoutes.router)
+server.use(recipeRoutes.router)
+server.use(fermentableRoutes.router)
+server.use(hopRoutes.router)
+server.use(yeastRoutes.router)
+server.use(adjunctRoutes.router)
+server.use(userRoutes.router)
 
 server.use('/api/*', (req, res, next) => {
     if (req.method.toLowerCase() !== 'get' && !req.session.uid) {

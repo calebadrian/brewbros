@@ -5,7 +5,7 @@ var Adjuncts = require('../models/adjunct');
 
 
 //Create a Adjunct
-router.post('recipe/:recipeId/adjuncts', (req, res, next) => {
+router.post('/api/recipe/:recipeId/adjuncts', (req, res, next) => {
   Adjuncts.create(req.body)
     .then(adjunct => {
       if (!adjunct) {
@@ -17,7 +17,7 @@ router.post('recipe/:recipeId/adjuncts', (req, res, next) => {
 })
 
 //Edit a Adjunct
-router.put('recipe/:recipeId/adjuncts/:adjunctId', (req, res, next) => {
+router.put('/api/recipe/:recipeId/adjuncts/:adjunctId', (req, res, next) => {
   Adjuncts.find({ recipeId: req.params.recipeId, adjunctId: req.params.adjunctId }, req.body)
     .then(adjunct => {
       return res.send({
@@ -29,7 +29,7 @@ router.put('recipe/:recipeId/adjuncts/:adjunctId', (req, res, next) => {
 })
 
 //Delete a Adjunct
-router.delete('recipe/:recipeId/adjuncts/:adjunctId', (req, res, next) => {
+router.delete('/api/recipe/:recipeId/adjuncts/:adjunctId', (req, res, next) => {
   Adjuncts.findById(req.params.adjunctId)
     .then(adjunct => {
       return res.send({
@@ -40,7 +40,7 @@ router.delete('recipe/:recipeId/adjuncts/:adjunctId', (req, res, next) => {
 })
 
 //Get adjuncts by Recipe
-router.get('/recipes/:recipeId/adjuncts', (req, res, next) => {
+router.get('/api/recipes/:recipeId/adjuncts', (req, res, next) => {
   Adjuncts.find({ recipeId: req.params.recipeId })
     .then(adjunct => {
       return res.send(adjunct)
