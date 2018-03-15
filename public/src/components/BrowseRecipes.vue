@@ -1,5 +1,5 @@
 <template>
-  <div class="Results">
+  <div class="browseRecipes">
     <navbar></navbar>
   </div>
 </template>
@@ -7,7 +7,7 @@
 <script>
   import navbar from './Navbar'
 export default {
-  name: 'Results',
+  name: 'BrowseRecipes',
   data () {
     return {
 
