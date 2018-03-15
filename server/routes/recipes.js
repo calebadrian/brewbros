@@ -4,9 +4,8 @@ var Users = require('../models/user');
 
 
 //Create a Recipe
-router.post('recipes', (req, res, next) => {
+router.post('/api/recipes', (req, res, next) => {
   req.body.creatorId = req.session.uid
-  console.log(req.body)
   Recipes.create(req.body)
     .then(recipe => {
       if (!recipe) {
@@ -18,7 +17,7 @@ router.post('recipes', (req, res, next) => {
 })
 
 //Edit a Recipe
-router.put('recipes/:recipeId', (req, res, next) => {
+router.put('/api/recipes/:recipeId', (req, res, next) => {
   Recipes.findByIdAndUpdate(req.params.recipeId, req.body)
     .then(recipe => {
       return res.send(recipe)
@@ -27,7 +26,7 @@ router.put('recipes/:recipeId', (req, res, next) => {
 })
 
 //Delete a recipe
-router.delete('recipes/:recipeId', (req, res, next) => {
+router.delete('/api/recipes/:recipeId', (req, res, next) => {
   Recipes.findById(req.params.recipeId)
     .then(recipe => {
       recipe.remove()
@@ -41,7 +40,7 @@ router.delete('recipes/:recipeId', (req, res, next) => {
 
 
 //Get Users Recipes
-router.get('recipes', (req, res, next) => {
+router.get('/api/recipes', (req, res, next) => {
   Recipes.find({creatorId: req.session.uid})
     .then(recipe => {
       return res.send(recipe)

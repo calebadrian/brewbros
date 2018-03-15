@@ -5,7 +5,7 @@ var Yeasts = require('../models/yeast');
 
 
 //Create a Yeast
-router.post('recipe/:recipeId/yeasts', (req, res, next) => {
+router.post('/api/recipe/:recipeId/yeasts', (req, res, next) => {
   Yeasts.create(req.body)
     .then(yeast => {
       if (!yeast) {
@@ -17,7 +17,7 @@ router.post('recipe/:recipeId/yeasts', (req, res, next) => {
 })
 
 //Edit a Yeast
-router.put('recipe/:recipeId/yeasts/:yeastId', (req, res, next) => {
+router.put('/api/recipe/:recipeId/yeasts/:yeastId', (req, res, next) => {
   Yeasts.find({recipeId: req.params.recipeId, yeastId: req.params.yeastId}, req.body)
     .then(yeast => {
       return res.send({
@@ -29,7 +29,7 @@ router.put('recipe/:recipeId/yeasts/:yeastId', (req, res, next) => {
 })
 
 //Delete a Yeast
-router.delete('recipe/:recipeId/yeasts/:yeastId', (req, res, next) => {
+router.delete('/api/recipe/:recipeId/yeasts/:yeastId', (req, res, next) => {
   Yeasts.findById(req.params.yeastId)
     .then(yeast => {
       return res.send({
@@ -40,7 +40,7 @@ router.delete('recipe/:recipeId/yeasts/:yeastId', (req, res, next) => {
 })
 
 //Get yeasts by Recipe
-router.get('/recipes/:recipeId/yeasts', (req, res, next) => {
+router.get('/api/recipes/:recipeId/yeasts', (req, res, next) => {
   Yeasts.find({ recipeId: req.params.recipeId })
     .then(yeast => {
       return res.send(yeast)

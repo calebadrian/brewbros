@@ -5,7 +5,7 @@ var Hops = require('../models/hop');
 
 
 //Create a Hop
-router.post('recipe/:recipeId/hops', (req, res, next) => {
+router.post('/api/recipe/:recipeId/hops', (req, res, next) => {
   Hops.create(req.body)
     .then(hop => {
       if (!hop) {
@@ -17,7 +17,7 @@ router.post('recipe/:recipeId/hops', (req, res, next) => {
 })
 
 //Edit a Hop
-router.put('recipe/:recipeId/hops/:hopId', (req, res, next) => {
+router.put('/api/recipe/:recipeId/hops/:hopId', (req, res, next) => {
   Hops.find({recipeId: req.params.recipeId, hopId: req.params.hopId}, req.body)
     .then(hop => {
       return res.send({
@@ -29,7 +29,7 @@ router.put('recipe/:recipeId/hops/:hopId', (req, res, next) => {
 })
 
 //Delete a Hop
-router.delete('recipe/:recipeId/hops/:hopId', (req, res, next) => {
+router.delete('/api/recipe/:recipeId/hops/:hopId', (req, res, next) => {
   Hops.findById(req.params.hopId)
     .then(hop => {
       return res.send({
@@ -40,7 +40,7 @@ router.delete('recipe/:recipeId/hops/:hopId', (req, res, next) => {
 })
 
 //Get hops by Recipe
-router.get('/recipes/:recipeId/hops', (req, res, next) => {
+router.get('/api/recipes/:recipeId/hops', (req, res, next) => {
   Hops.find({ recipeId: req.params.recipeId })
     .then(hop => {
       return res.send(hop)

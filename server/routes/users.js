@@ -3,7 +3,7 @@ var Board = require('../models/recipe');
 var Users = require('../models/user');
 
 //Get Users by email
-router.get('/users', (req, res, next) => {
+router.get('/api/users', (req, res, next) => {
   Users.findOne({email: req.body.email})
     .then( user => {
       console.log(user)
