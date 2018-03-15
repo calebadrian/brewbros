@@ -27,6 +27,7 @@ export default new vuex.Store({
     state: {
         user: {},
         styles: [],
+        categories: [],
         hops: [],
         adjuncts: [],
         yeasts: [],
@@ -85,6 +86,7 @@ export default new vuex.Store({
         getStyles({ commit, dispatch, state }, payload) {
             var localData = localStorage.getItem('stylesData')
             if (localData) {
+                console.log("localStorage")
                 var stylesData = JSON.parse(localData);
                 commit('setStyles', stylesData)
             } else {

@@ -131,7 +131,6 @@
               <div class="card-body" id="yeastForms">
                 <yeast></yeast>
               </div>
-              <i class="far fa-plus-square fa-2x" @click="addYeast"></i>
             </div>
           </div>
           <div class="col-sm-4">
@@ -213,6 +212,9 @@
         computed: {
             styles() {
                 return this.$store.state.styles
+            },
+            categories() {
+              return this.$store.state.categories
             }
         },
         components: {
