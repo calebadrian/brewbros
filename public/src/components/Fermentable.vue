@@ -1,6 +1,6 @@
 <template>
     <div class="steepingGrains">
-        <form @submit.prevent>
+        <form @submit.prevent='addFermentable'>
             <div class="form-group">
                 <label for="fermentableAmount">lbs</label>
                 <input type="number" name="fermentableAmount" v-model="defaultValues.quantity" class="form-control" id="fermentableAmount"
@@ -9,6 +9,7 @@
                 <select type="text" class="form-control" id="fermentable" plaecholder="Fermentable" v-model="fermentable">
                     <option v-for="fermentable in fermentables" :value='fermentable'>{{fermentable.name}}</option>
                 </select>
+                <button class="btn-success">Add Fermentable</button>
             </div>
         </form>
     </div>
@@ -34,7 +35,7 @@
         },
         methods: {
             addFermentable() {
-                this.fermentable.quantity = Number(this.defaulftValues.quantity)
+                this.fermentable.quantity = Number(this.defaultValues.quantity)
                 this.$store.dispatch('addNewRecipeFermentable', this.fermentable)
                 this.$parent.calcGravities()
             }

@@ -5,7 +5,8 @@ var Users = require('../models/user');
 
 //Create a Recipe
 router.post('recipes', (req, res, next) => {
-  req.body.userId = req.session.uid
+  req.body.creatorId = req.session.uid
+  console.log(req.body)
   Recipes.create(req.body)
     .then(recipe => {
       if (!recipe) {
@@ -41,7 +42,7 @@ router.delete('recipes/:recipeId', (req, res, next) => {
 
 //Get Users Recipes
 router.get('recipes', (req, res, next) => {
-  Recipes.find({userId: req.session.uid})
+  Recipes.find({creatorId: req.session.uid})
     .then(recipe => {
       return res.send(recipe)
     })

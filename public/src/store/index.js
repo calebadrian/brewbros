@@ -80,7 +80,7 @@ export default new vuex.Store({
             state.newRecipe.fermentables.push(payload)
         },
         addNewRecipeSteepingGrain(state, payload) {
-            state.newRecipe.steepingGrain.push(payload)
+            state.newRecipe.steepingGrains.push(payload)
         },
 
     },
@@ -191,21 +191,15 @@ export default new vuex.Store({
             }
         },
         getMyRecipes({ commit, dispatch }, payload) {
-            var localData = localStorage.getItem('recipeData')
-            if (localData) {
-                var recipeData = JSON.parse(localData);
-                commit('setMyRecipes', recipeData)
-            } else {
-                ourDB.get('recipes')
-                    .then(res => {
-                        var recipeData = res.data;
-                        localStorage.setItem('recipeData', JSON.stringify(recipeData))
-                        commit('setMyRecipes', res.data)
-                    })
-                    .catch(err => {
-                        console.error(err)
-                    })
-            }
+            ourDB.get('recipes')
+                .then(res => {
+                    var recipeData = res.data;
+                    localStorage.setItem('recipeData', JSON.stringify(recipeData))
+                    commit('setMyRecipes', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
         },
 
         //#endregion
