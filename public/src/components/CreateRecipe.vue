@@ -170,8 +170,7 @@
                     public: false,
                     style: '',
                     boilTime: 60,
-                    personalComments: '',
-                    creatorId: this.$store.state.user._id
+                    personalComments: ''
                 },
                 stats: {
                     originalGravity: 1,

@@ -65,6 +65,10 @@
     import navbar from './Navbar'
     export default {
         name: 'Profile',
+        mounted(){
+          this.$store.dispatch('authenticate')
+          this.$store.dispatch('getMyRecipes')
+        },
         data() {
             return {
 
