@@ -191,7 +191,7 @@ export default new vuex.Store({
             }
         },
         getMyRecipes({ commit, dispatch }, payload) {
-            ourDB.get('recipes')
+            ourDB.get('recipes/user')
                 .then(res => {
                     var recipeData = res.data;
                     localStorage.setItem('recipeData', JSON.stringify(recipeData))

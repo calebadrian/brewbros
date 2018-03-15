@@ -41,6 +41,14 @@ router.delete('/api/recipes/:recipeId', (req, res, next) => {
 
 //Get Users Recipes
 router.get('/api/recipes', (req, res, next) => {
+  Recipes.find()
+    .then(recipe => {
+      return res.send(recipe)
+    })
+    .catch(next)
+})
+
+router.get('/api/recipes/user', (req, res, next) => {
   Recipes.find({creatorId: req.session.uid})
     .then(recipe => {
       return res.send(recipe)
