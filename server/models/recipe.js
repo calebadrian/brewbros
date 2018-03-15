@@ -18,6 +18,7 @@ let schema = new Schema({
     yeasts: [{}],
     adjuncts: [{}],
     created: { type: Number, required: true, default: Date.now() },
+    favorited: []
 })
 
 

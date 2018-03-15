@@ -26,6 +26,9 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
               View Full Recipe
             </button>
+            <button type="button" class="btn btn-success" :recipe='recipe' v-if="recipe.creatorId != user._id" @click="favorite({user: user, recipe: recipe})">
+              Add to Favorites
+            </button>
             <!-- Begin Modal Content -->
             <div class="modal fade" :id="recipe._id" tabindex="-1" role="dialog">
               <div class="modal-dialog modal-lg" role="document">
@@ -38,100 +41,100 @@
                   </div>
                   <div class="modal-body">
                     <h5>Fermentables</h5>
-                        <table class="table">
-                            <thead>
-                              <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Fermentable</th>
-                                <th scope="col">Potential</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr v-for="fermentable in recipe.fermentables">
-                                <th scope="row">1</th>
-                                <td>{{fermentable.quantity}} lb(s)</td>
-                                <td>{{fermentable.name}}</td>
-                                <td>{{fermentable.potential}}</td>
-                              </tr>
-                            </tbody>
-                          </table>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Amount</th>
+                          <th scope="col">Fermentable</th>
+                          <th scope="col">Potential</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="fermentable in recipe.fermentables">
+                          <th scope="row">1</th>
+                          <td>{{fermentable.quantity}} lb(s)</td>
+                          <td>{{fermentable.name}}</td>
+                          <td>{{fermentable.potential}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
                     <h5>Hops</h5>
                     <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Hop</th>
-                            <th scope="col">Boil Time</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="hop in recipe.hops">
-                            <th scope="row">1</th>
-                            <td>{{hop.quantity}} oz(s)</td>
-                            <td>{{hop.name}}</td>
-                            <td>{{hop.boilTime}} min</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Amount</th>
+                          <th scope="col">Hop</th>
+                          <th scope="col">Boil Time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="hop in recipe.hops">
+                          <th scope="row">1</th>
+                          <td>{{hop.quantity}} oz(s)</td>
+                          <td>{{hop.name}}</td>
+                          <td>{{hop.boilTime}} min</td>
+                        </tr>
+                      </tbody>
+                    </table>
                     <h5>Steeping Grains</h5>
                     <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Grain</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="grain in recipe.steepingGrains">
-                            <th scope="row">1</th>
-                            <td>{{grain.quantity}} lb(s)</td>
-                            <td>{{grain.name}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Amount</th>
+                          <th scope="col">Grain</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="grain in recipe.steepingGrains">
+                          <th scope="row">1</th>
+                          <td>{{grain.quantity}} lb(s)</td>
+                          <td>{{grain.name}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
                     <h5>Other Ingredients</h5>
                     <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Ingredient</th>
-                            <th scope="col">Boil Time</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="adjunct in recipe.adjuncts">
-                            <th scope="row">1</th>
-                            <td>{{adjunct.quantity}} oz(s)</td>
-                            <td>{{adjunct.name}}</td>
-                            <td>{{adjunct.boilTime}} min</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Amount</th>
+                          <th scope="col">Ingredient</th>
+                          <th scope="col">Boil Time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="adjunct in recipe.adjuncts">
+                          <th scope="row">1</th>
+                          <td>{{adjunct.quantity}} oz(s)</td>
+                          <td>{{adjunct.name}}</td>
+                          <td>{{adjunct.boilTime}} min</td>
+                        </tr>
+                      </tbody>
+                    </table>
                     <h5>Yeast</h5>
                     <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Yeast</th>
-                            <th scope="col">Pitch</th>
-                            <th scope="col">Temp(F)</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="yeast in recipe.yeasts">
-                            <th scope="row">1</th>
-                            <td>{{yeast.name}}</td>
-                            <td>{{yeast.pitch}}</td>
-                            <td>{{yeast.temp}} F</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Yeast</th>
+                          <th scope="col">Pitch</th>
+                          <th scope="col">Temp(F)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="yeast in recipe.yeasts">
+                          <th scope="row">1</th>
+                          <td>{{yeast.name}}</td>
+                          <td>{{yeast.pitch}}</td>
+                          <td>{{yeast.temp}} F</td>
+                        </tr>
+                      </tbody>
+                    </table>
                     <h5>Notes/Comments:</h5>
-                      <p>{{recipe.personalComments}}</p>
+                    <p>{{recipe.personalComments}}</p>
                   </div>
                   <div class="modal-footer">
                     {{recipe.creatorId}}
@@ -159,6 +162,13 @@
 
       }
     },
+    methods: {
+      favorite({user: user, recipe: recipe}) {
+        console.log(recipe, user)
+        recipe.favorited.push(user._id)
+        this.$store.dispatch('addedToFavorites', recipe)
+      }
+    },
     computed: {
       user() {
         return this.$store.state.user
@@ -179,6 +189,6 @@
     margin-top: 4px;
     margin-bottom: 4px
   }
-  .modal{
-  }
+
+  .modal {}
 </style>

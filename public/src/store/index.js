@@ -40,6 +40,7 @@ export default new vuex.Store({
             yeasts: []
         },
         myRecipes: [],
+        myFavorites: [],
         allRecipes: [],
 
     },
@@ -71,6 +72,21 @@ export default new vuex.Store({
         setAllRecipes(state, payload) {
             console.log("All Recipes", payload)
             state.allRecipes = payload
+        },
+        setMyFavorites(state, payload) {
+            // for (let x = 0; x < state.myFavorites.length; x++) {
+            //     const favRecipe = state.myFavorites[x];
+            //     if (favRecipe._id == payload._id) {
+            //         alert("You already have that Recipe in your Favorites")
+            //     } else {
+                    for (let i = 0; i < payload.length; i++) {
+                        const recipe = payload[i];
+                        if (recipe.favorited == state.user._id) {
+                            state.myFavorites.push(recipe)
+                        }
+                //     }
+                // }
+            }
         },
         addNewRecipeAdjunct(state, payload) {
             state.newRecipe.adjuncts.push(payload)
@@ -208,13 +224,21 @@ export default new vuex.Store({
             ourDB.get('recipes')
                 .then(res => {
                     commit('setAllRecipes', res.data)
+                    commit('setMyFavorites', res.data)
                 })
                 .catch(err => {
                     console.error(err)
                 })
         },
-
-        //#endregion
+        //endregion
+        //Updating a recipe
+        addedToFavorites({ commit, dispatch }, payload) {
+            ourDB.put('recipes/' + payload._id, payload.favorited)
+                .then(res => {
+                    console.log("edited Recipe", res.data)
+                })
+        },
+        //endregion
 
         //region ADD TO NEW RECIPE ACTIONS
         addNewRecipeAdjunct({ commit, dispatch }, payload) {

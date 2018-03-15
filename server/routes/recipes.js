@@ -37,9 +37,7 @@ router.delete('/api/recipes/:recipeId', (req, res, next) => {
     .catch(next)
 })
 
-
-
-//Get Users Recipes
+//Get All Recipes
 router.get('/api/recipes', (req, res, next) => {
   Recipes.find()
     .then(recipe => {
@@ -48,6 +46,7 @@ router.get('/api/recipes', (req, res, next) => {
     .catch(next)
 })
 
+//Get Users Recipes
 router.get('/api/recipes/user', (req, res, next) => {
   Recipes.find({creatorId: req.session.uid})
     .then(recipe => {
@@ -55,7 +54,6 @@ router.get('/api/recipes/user', (req, res, next) => {
     })
     .catch(next)
 })
-
 
 
 module.exports = { router };
