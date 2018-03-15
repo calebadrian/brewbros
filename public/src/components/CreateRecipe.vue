@@ -174,6 +174,11 @@
         this.recipe.hops = recipeIngredients.hops
         this.recipe.yeasts = recipeIngredients.yeasts
         this.recipe.steepingGrains = recipeIngredients.steepingGrains
+        this.recipe.originalGravity = this.stats.originalGravity
+        this.recipe.finalGravity = this.stats.finalGravity
+        this.recipe.abv = this.stats.abv
+        this.recipe.ibu = this.stats.ibu
+        this.recipe.color = this.stats.color
         this.$store.dispatch('addRecipe', this.recipe)
       },
       calcGravities() {

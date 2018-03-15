@@ -18,7 +18,12 @@ let schema = new Schema({
     yeasts: [{}],
     adjuncts: [{}],
     created: { type: Number, required: true, default: Date.now() },
-    favorited: []
+    favorited: [],
+    originalGravity: {type: Number, required: true},
+    finalGravity: {type: Number, required: true},
+    abv: {type: Number, required: true},
+    ibu: {type: Number, required: true},
+    color: {type: Number, required: true}
 })
 
 
