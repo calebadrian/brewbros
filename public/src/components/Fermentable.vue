@@ -1,7 +1,7 @@
 <template>
-    <div class="steepingGrains">
-        <form @submit.prevent='addFermentable'>
-            <div class="form-group">
+    <div class="fermentable">
+        <div class="card-body">
+            <form @submit.prevent='addFermentable'>
                 <label for="fermentableAmount">lbs</label>
                 <input type="number" name="fermentableAmount" v-model="defaultValues.quantity" class="form-control" id="fermentableAmount"
                     placeholder="#">
@@ -10,8 +10,16 @@
                     <option v-for="fermentable in fermentables" :value='fermentable'>{{fermentable.name}}</option>
                 </select>
                 <button class="btn-success">Add Fermentable</button>
+            </form>
+        </div>
+        <div class="card-footer">
+            <div v-if="newRecipeFermentables.length > 0">
+                <h5>Current Grains:</h5>
+                <h6 v-for="newFermentable in newRecipeFermentables">{{newFermentable.quantity}}
+                    <span v-if="newFermentable.quantity > 1">lbs</span>
+                    <span v-else>lb</span> of {{newFermentable.name}}</h6>
             </div>
-        </form>
+        </div>
     </div>
 </template>
 
@@ -31,6 +39,9 @@
         computed: {
             fermentables() {
                 return this.$store.state.fermentables
+            },
+            newRecipeFermentables() {
+                return this.$store.state.newRecipe.fermentables
             }
         },
         methods: {
