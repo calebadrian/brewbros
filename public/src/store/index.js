@@ -74,7 +74,6 @@ export default new vuex.Store({
             state.allRecipes = payload
         },
         setMyFavorites(state, payload) {
-            console.log(payload)
             var tempArr = []
             for (let i = 0; i < payload.length; i++) {
                 const recipe = payload[i];
