@@ -62,7 +62,7 @@
           <div class="col-sm-2">
             <h4>Alcohol Percent</h4>
             <p>
-              {{stats.abv.toFixed(1)}}%
+              {{stats.abv.toFixed(2)}}%
             </p>
           </div>
           <div class="col-sm-2">
@@ -72,9 +72,9 @@
             </p>
           </div>
           <div class="col-sm-2">
-            <h4>Color</h4>
+            <h4>SRM</h4>
             <p>
-              {{stats.color}}
+              {{stats.color.toFixed(2)}}
             </p>
           </div>
         </div>
@@ -162,7 +162,7 @@
           finalGravity: 1,
           abv: 1,
           ibu: 1,
-          color: ''
+          color: 1
         }
       }
     },
@@ -174,29 +174,68 @@
         this.recipe.hops = recipeIngredients.hops
         this.recipe.yeasts = recipeIngredients.yeasts
         this.recipe.steepingGrains = recipeIngredients.steepingGrains
+        this.recipe.originalGravity = this.stats.originalGravity
+        this.recipe.finalGravity = this.stats.finalGravity
+        this.recipe.abv = this.stats.abv
+        this.recipe.ibu = this.stats.ibu
+        this.recipe.color = this.stats.color
         this.$store.dispatch('addRecipe', this.recipe)
       },
       calcGravities() {
         var fermentables = this.$store.state.newRecipe.fermentables
         var sum = 0
         for (var i = 0; i < fermentables.length; i++) {
-          var fermPotential = fermentables[i].potential
+          var fermPotential = 0
+          if (!fermentables[i].potential){
+            fermPotential = 1.028
+          } else {
+            fermPotential = fermentables[i].potential
+          }
           fermPotential = (fermPotential * 1000) - 1000
           var points = fermPotential * fermentables[i].quantity
-          sum += points
+          sum += (points * .72)/this.recipe.batchSize
+          console.log(sum)
         }
-        var og = (sum * .72) / this.recipe.batchSize
-        og = og / 1000
         var atten = 0
         if (this.$store.state.newRecipe.yeasts.length < 1){
           atten = 75
         } else {
           atten = this.$store.state.newRecipe.yeasts[0].attenuationMin
         }
-        var fg = (sum * (1 - (atten / 100))) / 1000
-        this.stats.finalGravity = 1 + fg
-        this.stats.originalGravity = 1 + og
-        this.stats.abv = (((og - fg) * 1.05) / fg) / .79
+        var fg = 1 + (sum * (1 - (atten / 100))) / 1000
+        var og = 1 + (sum/1000)
+        this.stats.finalGravity = fg
+        this.stats.originalGravity = og
+        this.stats.abv = ((((og - fg) * 1.05) / fg) / .79) * 100
+      },
+      calcColor(){
+        var fermentables = this.$store.state.newRecipe.fermentables
+        var sum = 0
+        for (var i = 0; i < fermentables.length; i++) {
+          var srmFerm = 0
+          if (!fermentables[i].srmPrecise){
+            srmFerm = 20
+          } else {
+            srmFerm = fermentables[i].srmPrecise
+          }
+          sum += ((srmFerm + .76 / 1.3546) * fermentables[i].quantity) / this.recipe.batchSize
+        }
+        this.stats.color = 1.49 * (sum * .69)
+      },
+      calcIbu(){
+        var hops = this.$store.state.newRecipe.hops
+        var sum = 0
+        for (var i = 0; i < hops.length; i++){
+          var aa = 0
+          if (!hops[i].alphaAcidMin){
+            aa = 7
+          } else {
+            aa = hops[i].alphaAcidMin
+          }
+          console.log(aa)
+          sum += (75 * (aa * hops[i].quantity) * 1.65 * (Math.pow(.000125, (this.stats.originalGravity - 1))) * ((1 - Math.exp(-.04 * hops[i].boilTime))/4.15))/this.recipe.batchSize
+        }
+        this.stats.ibu = sum
       }
     },
     computed: {
