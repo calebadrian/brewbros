@@ -116,9 +116,9 @@
             title: 'Oops...',
             text: 'Make sure passwords match!'
           })
-          $('#registerModal').modal('hide')
         } else {
           this.$store.dispatch('createUser', this.newUser)
+          $('#registerModal').modal('hide')
         }
       },
       logout(){

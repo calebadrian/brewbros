@@ -368,7 +368,7 @@ export default new vuex.Store({
         createUser({ commit, dispatch, state }, payload) {
             auth.post('register', payload)
                 .then(res => {
-                    commit('updateUser', res.data.user)
+                    commit('updateUser', res.data)
                     swal({
                         position: 'top-end',
                         width: 300,
