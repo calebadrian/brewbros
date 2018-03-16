@@ -80,8 +80,9 @@
           <div class="col-sm-2">
             <h4>Matches Style</h4>
             <div v-if="recipe.style != ''">
-              <i class="fas fa-2x fa-check-circle" v-if="stats.styleCorrect" @click="styleDataToggle = !styleDataToggle"></i>
-              <i class="fas fa-2x fa-times-circle" @click="styleDataToggle = !styleDataToggle" v-else></i>
+              <i class="fas fa-2x fa-check-circle" v-if="!stats.styleCorrect"></i>
+              <i class="fas fa-2x fa-times-circle" v-else></i>
+              <i class="fas fa-question-circle" @click="styleDataToggle = !styleDataToggle"></i>
             </div>
           </div>
         </div>
