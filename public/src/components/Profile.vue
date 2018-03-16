@@ -345,7 +345,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(fermentable, i) in shoppingList.fermentables">
+              <tr v-for="(fermentable, i) in user.shoppingList.fermentables">
                 <th scope="row">{{i + 1}}</th>
                 <td>{{fermentable.quantity}} lb(s)</td>
                 <td>{{fermentable.name}}</td>
@@ -364,7 +364,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(hop, i) in shoppingList.hops">
+              <tr v-for="(hop, i) in user.shoppingList.hops">
                 <th scope="row">{{i + 1}}</th>
                 <td>{{hop.quantity}} oz(s)</td>
                 <td>{{hop.name}}</td>
@@ -382,7 +382,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(grain, i) in shoppingList.steepingGrains">
+              <tr v-for="(grain, i) in user.shoppingList.steepingGrains">
                 <th scope="row">{{i + 1}}</th>
                 <td>{{grain.quantity}} lb(s)</td>
                 <td>{{grain.name}}</td>
@@ -400,7 +400,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(adjunct, i) in shoppingList.adjuncts">
+              <tr v-for="(adjunct, i) in user.shoppingList.adjuncts">
                 <th scope="row">{{i + 1}}</th>
                 <td>{{adjunct.quantity}} oz(s)</td>
                 <td>{{adjunct.name}}</td>
@@ -419,7 +419,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(yeast, i) in shoppingList.yeasts">
+              <tr v-for="(yeast, i) in user.shoppingList.yeasts">
                 <th scope="row">{{i + 1}}</th>
                 <td>{{yeast.name}}</td>
                 <td>{{yeast.pitch}}</td>

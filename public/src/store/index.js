@@ -315,7 +315,15 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        updateShoppingList({commit, dispatch}, payload){
+        updateShoppingList({commit, dispatch, state}, payload){
+            console.log(payload)
+            ourDB.put('users/' + state.user._id, payload)
+                .then(res => {
+                    commit('updateUser', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
             commit('updateShoppingListFermentables', payload)
             commit('updateShoppingListHops', payload)
             commit('updateShoppingListSteepingGrains', payload)

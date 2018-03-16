@@ -19,6 +19,23 @@ router.get('/api/users', (req, res, next) => {
     })
 })
 
+router.put('/api/users/:userid', (req, res, next) => {
+  Users.findById(req.params.userid)
+    .then(user => {
+      user.shoppingList.fermentables = req.body.fermentables
+      user.shoppingList.hops = req.body.hops
+      user.shoppingList.steepingGrains = req.body.steepingGrains
+      user.shoppingList.adjuncts = req.body.adjuncts
+      user.shoppingList.yeasts = req.body.yeasts
+      user.markModified('shoppingList')
+      user.save()
+      res.send(user)
+    })
+    .catch(err => {
+      console.error(err)
+    })
+})
+
 
 
 
