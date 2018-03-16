@@ -28,9 +28,7 @@
             <div class="form-group">
               <div class="d-flex align-items-center">
                 <label for="style">Style:</label>
-                <select class="form-control" id="style" placeholder="Style" v-model="recipe.style">
-                  <option v-for="style in styles" :value="style">{{style.name}}</option>
-                </select>
+                <v-select label="name" v-model="recipe.style" :options="styles" class="selectFormat"></v-select>
               </div>
               <div class="d-flex align-items-center">
                 <label for="subStyle">Sub Style:</label>
@@ -330,6 +328,11 @@
 
   .smallInput {
     max-width: 20%;
+  }
+
+  .selectFormat{
+    width: 30rem;
+    background: white;
   }
 
   .createMe {
