@@ -11,22 +11,15 @@
         <h2>Currently Brewing</h2>
       </div>
       <div class="d-flex justify-content-around">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+        <div class="col-sm-4" v-for="recipe in myRecipes">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{recipe.name}}</h5>
+              <p class="card-text">{{recipe.personalComments}}</p>
+              <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
+                  View Full Recipe
+                </button>
+            </div>
           </div>
         </div>
       </div>
@@ -334,6 +327,7 @@
           </div>
         </div>
         <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab">
+        <div class="container">
           <h5>Fermentables</h5>
           <table class="table">
             <thead>
@@ -431,72 +425,73 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
-  import navbar from './Navbar'
-  export default {
-    name: 'Profile',
-    mounted() {
-      this.$store.dispatch('authenticate')
-      this.$store.dispatch('getMyRecipes')
-      this.$store.dispatch('getRecipes')
-    },
-    data() {
-      return {
+    import navbar from './Navbar'
+    export default {
+        name: 'Profile',
+        mounted() {
+            this.$store.dispatch('authenticate')
+            this.$store.dispatch('getMyRecipes')
+            this.$store.dispatch('getRecipes')
+        },
+        data() {
+            return {
 
-      }
-    },
-    methods: {
-      removeFavRecipe(recipe) {
-        for (let i = 0; i < recipe.favorited.length; i++) {
-          const userId = recipe.favorited[i];
-          if (this.$store.state.user._id == userId) {
-            recipe.favorited.splice(i, 1)
-          }
-        }
-        this.$store.dispatch('updateFavorites', recipe)
-      },
-      addToShopping(recipe) {
-        this.$store.dispatch('updateShoppingList', recipe)
-      }
-    },
-    computed: {
-      user() {
-        return this.$store.state.user
-      },
-      myRecipes() {
-        return this.$store.state.myRecipes
-      },
-      myFavorites() {
-        return this.$store.state.myFavorites
-      },
-      shoppingList() {
-        return this.$store.state.shoppingList
-      }
-    },
-    components: {
-      navbar,
-    },
-  }
+            }
+        },
+        methods: {
+            removeFavRecipe(recipe) {
+                for (let i = 0; i < recipe.favorited.length; i++) {
+                    const userId = recipe.favorited[i];
+                    if (this.$store.state.user._id == userId) {
+                        recipe.favorited.splice(i, 1)
+                    }
+                }
+                this.$store.dispatch('updateFavorites', recipe)
+            },
+            addToShopping(recipe) {
+                this.$store.dispatch('updateShoppingList', recipe)
+            }
+        },
+        computed: {
+            user() {
+                return this.$store.state.user
+            },
+            myRecipes() {
+                return this.$store.state.myRecipes
+            },
+            myFavorites() {
+                return this.$store.state.myFavorites
+            },
+            shoppingList() {
+                return this.$store.state.shoppingList
+            }
+        },
+        components: {
+            navbar,
+        },
+    }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .profile-pic {
-    width: auto;
-    height: 200px;
-  }
-
-  #recipes {
-    min-height: 30%;
-  }
-
-  #shopping {
-    min-height: 30%;
-  }
-
-  #favorites {
-    min-height: 30%;
-  }
+    .profile-pic {
+        width: auto;
+        height: 200px;
+    }
+    
+    #recipes {
+        min-height: 30%;
+    }
+    
+    #shopping {
+        min-height: 30%;
+    }
+    
+    #favorites {
+        min-height: 30%;
+    }
 </style>

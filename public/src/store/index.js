@@ -40,6 +40,7 @@ export default new vuex.Store({
             yeasts: []
         },
         myRecipes: [],
+        currentlyBrewing: [],
         myFavorites: [],
         allRecipes: [],
         shoppingList: {
@@ -107,72 +108,72 @@ export default new vuex.Store({
         addNewRecipeSteepingGrain(state, payload) {
             state.newRecipe.steepingGrains.push(payload)
         },
-        updateShoppingListFermentables(state, payload){
-            for (var i = 0; i < payload.fermentables.length; i++){
+        updateShoppingListFermentables(state, payload) {
+            for (var i = 0; i < payload.fermentables.length; i++) {
                 var found = false
-                for (var j = 0; j < state.shoppingList.fermentables.length; j++){
-                    if (payload.fermentables[i].name == state.shoppingList.fermentables[j].name){
+                for (var j = 0; j < state.shoppingList.fermentables.length; j++) {
+                    if (payload.fermentables[i].name == state.shoppingList.fermentables[j].name) {
                         state.shoppingList.fermentables[j].quantity += payload.fermentables[i].quantity
                         found = true
                     }
                 }
-                if (!found){
+                if (!found) {
                     state.shoppingList.fermentables.push(payload.fermentables[i])
                 }
             }
         },
-        updateShoppingListHops(state, payload){
-            for (var i = 0; i < payload.hops.length; i++){
+        updateShoppingListHops(state, payload) {
+            for (var i = 0; i < payload.hops.length; i++) {
                 var found = false
-                for (var j = 0; j < state.shoppingList.hops.length; j++){
-                    if (payload.hops[i].name == state.shoppingList.hops[j].name){
+                for (var j = 0; j < state.shoppingList.hops.length; j++) {
+                    if (payload.hops[i].name == state.shoppingList.hops[j].name) {
                         state.shoppingList.hops[j].quantity += payload.hops[i].quantity
                         found = true
                     }
                 }
-                if (!found){
+                if (!found) {
                     state.shoppingList.hops.push(payload.hops[i])
                 }
             }
         },
-        updateShoppingListSteepingGrains(state, payload){
-            for (var i = 0; i < payload.steepingGrains.length; i++){
+        updateShoppingListSteepingGrains(state, payload) {
+            for (var i = 0; i < payload.steepingGrains.length; i++) {
                 var found = false
-                for (var j = 0; j < state.shoppingList.steepingGrains.length; j++){
-                    if (payload.steepingGrains[i].name == state.shoppingList.steepingGrains[j].name){
+                for (var j = 0; j < state.shoppingList.steepingGrains.length; j++) {
+                    if (payload.steepingGrains[i].name == state.shoppingList.steepingGrains[j].name) {
                         state.shoppingList.steepingGrains[j].quantity += payload.steepingGrains[i].quantity
                         found = true
                     }
                 }
-                if (!found){
+                if (!found) {
                     state.shoppingList.steepingGrains.push(payload.steepingGrains[i])
                 }
             }
         },
-        updateShoppingListAdjuncts(state, payload){
-            for (var i = 0; i < payload.adjuncts.length; i++){
+        updateShoppingListAdjuncts(state, payload) {
+            for (var i = 0; i < payload.adjuncts.length; i++) {
                 var found = false
-                for (var j = 0; j < state.shoppingList.adjuncts.length; j++){
-                    if (payload.adjuncts[i].name == state.shoppingList.adjuncts[j].name){
+                for (var j = 0; j < state.shoppingList.adjuncts.length; j++) {
+                    if (payload.adjuncts[i].name == state.shoppingList.adjuncts[j].name) {
                         state.shoppingList.adjuncts[j].quantity += payload.adjuncts[i].quantity
                         found = true
                     }
                 }
-                if (!found){
+                if (!found) {
                     state.shoppingList.adjuncts.push(payload.adjuncts[i])
                 }
             }
         },
-        updateShoppingListYeasts(state, payload){
-            for (var i = 0; i < payload.yeasts.length; i++){
+        updateShoppingListYeasts(state, payload) {
+            for (var i = 0; i < payload.yeasts.length; i++) {
                 var found = false
-                for (var j = 0; j < state.shoppingList.yeasts.length; j++){
-                    if (payload.yeasts[i].name == state.shoppingList.yeasts[j].name){
+                for (var j = 0; j < state.shoppingList.yeasts.length; j++) {
+                    if (payload.yeasts[i].name == state.shoppingList.yeasts[j].name) {
                         state.shoppingList.yeasts[j].quantity += payload.yeasts[i].quantity
                         found = true
                     }
                 }
-                if (!found){
+                if (!found) {
                     state.shoppingList.yeasts.push(payload.yeasts[i])
                 }
             }
@@ -315,7 +316,7 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        updateShoppingList({commit, dispatch}, payload){
+        updateShoppingList({ commit, dispatch }, payload) {
             commit('updateShoppingListFermentables', payload)
             commit('updateShoppingListHops', payload)
             commit('updateShoppingListSteepingGrains', payload)
@@ -405,8 +406,8 @@ export default new vuex.Store({
         },
         authenticate({ commit, dispatch }, payload) {
             auth.get('authenticate', payload).then(res => {
-                commit('updateUser', res.data)
-            })
+                    commit('updateUser', res.data)
+                })
                 .catch(err => {
                     console.error(err);
                 })
