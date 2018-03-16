@@ -72,6 +72,7 @@
             <form @submit.prevent="register" class="d-flex flex-column">
               <input type="text" v-model="newUser.name" placeholder="username">
               <input type="email" v-model="newUser.email" placeholder="email">
+              <input type="string" v-model="newUser.profilePic" placeholder="image url">
               <input type="password" v-model="newUser.password" placeholder="password">
               <input type="password" v-model="newUser.confirmPassword" placeholder="confirm password">
               <button type="submit" class="btn-success">Register</button>
@@ -99,6 +100,7 @@
         newUser: {
           name: '',
           email: '',
+          profilePic: '',
           password: '',
           confirmPassword: ''
         }
