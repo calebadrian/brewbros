@@ -9,9 +9,7 @@
                 </div>
                 <div class="form-group">
                     <h6>Ingredient: </h6>
-                    <select class="form-control" id="adjunct" placeholder="Adjunct" v-model="adjunct">
-                        <option v-for="adjunct in adjuncts" :value='adjunct'>{{adjunct.name}}</option>
-                    </select>
+                    <v-select label="name" v-model="adjunct" :options="adjuncts"></v-select>
                 </div>
                 <div class="form-group">
                     <h6>Boil Time: </h6>
@@ -46,7 +44,7 @@
                     boilTime: 60,
                     quantity: 1
                 },
-                adjunct: {}
+                adjunct: ''
             }
         },
         computed: {

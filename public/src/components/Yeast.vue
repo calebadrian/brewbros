@@ -4,9 +4,7 @@
       <form @submit.prevent="addYeast">
         <div class="form-group">
           <label for="yeastVariety">Variety</label>
-          <select type="text" class="form-control" id="yeastVariety" v-model="yeast">
-            <option v-for="yeast in yeasts" :value='yeast'>{{yeast.name}}</option>
-          </select>
+          <v-select label="name" v-model="yeast" :options="yeasts"></v-select>
           <label for="yeastTemp">Temp (F)</label>
           <input type="number" class="form-control" id="yeastTemp" v-model="defaultValues.temp" min="0">
           <label for="yeastPitch">Pitch</label>
@@ -35,7 +33,7 @@
     },
     data() {
       return {
-        yeast: {},
+        yeast: '',
         defaultValues: {
           temp: 1,
           pitch: 1

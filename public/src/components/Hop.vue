@@ -9,9 +9,7 @@
                 </div>
                 <div class="form-group">
                     <h6>Hop: </h6>
-                    <select class="form-control" id="hop" placeholder="Hop" v-model='hop'>
-                        <option v-for="hop in hops" :value='hop'>{{hop.name}}</option>
-                    </select>
+                    <v-select label="name" v-model='hop' :options="hops"></v-select>
                 </div>
                 <div class="form-group">
                     <h6>Boil Time: </h6>
@@ -46,7 +44,7 @@
                     boilTime: 60,
                     quantity: 1
                 },
-                hop: {}
+                hop: ''
             }
         },
         computed: {

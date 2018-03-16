@@ -6,9 +6,7 @@
                 <input type="number" name="fermentableAmount" v-model="defaultValues.quantity" class="form-control" id="fermentableAmount"
                     placeholder="#">
                 <label for="fermentable">Fermentable</label>
-                <select type="text" class="form-control" id="fermentable" plaecholder="Fermentable" v-model="fermentable">
-                    <option v-for="fermentable in fermentables" :value='fermentable'>{{fermentable.name}}</option>
-                </select>
+                <v-select label="name" v-model="fermentable" :options="fermentables"></v-select>
                 <button class="btn-success">Add Fermentable</button>
             </form>
         </div>
@@ -36,7 +34,7 @@
                 defaultValues: {
                     quantity: 1
                 },
-                fermentable: {}
+                fermentable: ''
             }
         },
         computed: {
