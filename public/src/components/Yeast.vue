@@ -47,15 +47,18 @@
         this.yeast.temp = Number(this.defaultValues.temp)
         this.yeast.pitch = Number(this.defaultValues.pitch)
         this.$store.dispatch('addNewRecipeYeast', this.yeast)
+        this.$parent.calcGravities()
+        this.$parent.checkStyle()
       },
       removeYeast(yeast) {
         for (var i = 0; i < this.$store.state.newRecipe.yeasts.length; i++) {
           var search = this.$store.state.newRecipe.yeasts[i]
           if (search.name == yeast.name) {
             this.$store.state.newRecipe.yeasts.splice(i, 1)
-            return
           }
         }
+        this.$parent.calcGravities()
+        this.$parent.checkStyle()
       }
     },
     computed: {

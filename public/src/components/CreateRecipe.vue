@@ -29,7 +29,7 @@
               <div class="d-flex align-items-center">
                 <label for="style">Style:</label>
                 <select class="form-control" id="style" placeholder="Style" v-model="recipe.style">
-                  <option v-for="style in styles">{{style.name}}</option>
+                  <option v-for="style in styles" :value="style">{{style.name}}</option>
                 </select>
               </div>
               <div class="d-flex align-items-center">
@@ -48,7 +48,7 @@
         </div>
         <div class="row d-flex justify-content-around text-center">
           <div class="col-sm-2">
-            <h4>Initial Gravity</h4>
+            <h4>Original Gravity</h4>
             <p>
               {{stats.originalGravity.toFixed(3)}}
             </p>
@@ -75,6 +75,49 @@
             <h4>SRM</h4>
             <p>
               {{stats.color.toFixed(2)}}
+            </p>
+          </div>
+          <div class="col-sm-2">
+            <h4>Matches Style</h4>
+            <div v-if="recipe.style != ''">
+              <i class="fas fa-2x fa-check-circle" v-if="stats.styleCorrect" @click="styleDataToggle = !styleDataToggle"></i>
+              <i class="fas fa-2x fa-times-circle" @click="styleDataToggle = !styleDataToggle" v-else></i>
+            </div>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-around text-center" v-if="recipe.style && styleDataToggle">
+          <div class="col-sm-2">
+            <h4>Minimum Original Gravity</h4>
+            <p>
+              {{recipe.style.ogMin}}
+            </p>
+          </div>
+          <div class="col-sm-2">
+            <h4>Final Gravity Range</h4>
+            <p>
+              {{recipe.style.fgMin}}
+              {{recipe.style.fgMax}}
+            </p>
+          </div>
+          <div class="col-sm-2">
+            <h4>Alcohol Percent Range</h4>
+            <p>
+              {{recipe.style.abvMin}}%
+              {{recipe.style.abvMax}}%
+            </p>
+          </div>
+          <div class="col-sm-2">
+            <h4>IBU Range</h4>
+            <p>
+              {{recipe.style.ibuMin}}
+              {{recipe.style.ibuMax}}
+            </p>
+          </div>
+          <div class="col-sm-2">
+            <h4>SRM Range</h4>
+            <p>
+              {{recipe.style.srmMin}}
+              {{recipe.style.srmMax}}
             </p>
           </div>
         </div>
@@ -162,8 +205,10 @@
           finalGravity: 1,
           abv: 1,
           ibu: 1,
-          color: 1
-        }
+          color: 1,
+          styleCorrect: false
+        },
+        styleDataToggle: false
       }
     },
     methods: {
@@ -179,6 +224,7 @@
         this.recipe.abv = this.stats.abv
         this.recipe.ibu = this.stats.ibu
         this.recipe.color = this.stats.color
+        this.recipe.style = this.recipe.style.name
         this.$store.dispatch('addRecipe', this.recipe)
       },
       calcGravities() {
@@ -186,34 +232,34 @@
         var sum = 0
         for (var i = 0; i < fermentables.length; i++) {
           var fermPotential = 0
-          if (!fermentables[i].potential){
+          if (!fermentables[i].potential) {
             fermPotential = 1.028
           } else {
             fermPotential = fermentables[i].potential
           }
           fermPotential = (fermPotential * 1000) - 1000
           var points = fermPotential * fermentables[i].quantity
-          sum += (points * .72)/this.recipe.batchSize
+          sum += (points * .72) / this.recipe.batchSize
           console.log(sum)
         }
         var atten = 0
-        if (this.$store.state.newRecipe.yeasts.length < 1){
+        if (this.$store.state.newRecipe.yeasts.length < 1) {
           atten = 75
         } else {
           atten = this.$store.state.newRecipe.yeasts[0].attenuationMin
         }
         var fg = 1 + (sum * (1 - (atten / 100))) / 1000
-        var og = 1 + (sum/1000)
+        var og = 1 + (sum / 1000)
         this.stats.finalGravity = fg
         this.stats.originalGravity = og
         this.stats.abv = ((((og - fg) * 1.05) / fg) / .79) * 100
       },
-      calcColor(){
+      calcColor() {
         var fermentables = this.$store.state.newRecipe.fermentables
         var sum = 0
         for (var i = 0; i < fermentables.length; i++) {
           var srmFerm = 0
-          if (!fermentables[i].srmPrecise){
+          if (!fermentables[i].srmPrecise) {
             srmFerm = 20
           } else {
             srmFerm = fermentables[i].srmPrecise
@@ -222,20 +268,33 @@
         }
         this.stats.color = 1.49 * (sum * .69)
       },
-      calcIbu(){
+      calcIbu() {
         var hops = this.$store.state.newRecipe.hops
         var sum = 0
-        for (var i = 0; i < hops.length; i++){
+        for (var i = 0; i < hops.length; i++) {
           var aa = 0
-          if (!hops[i].alphaAcidMin){
+          if (!hops[i].alphaAcidMin) {
             aa = 7
           } else {
             aa = hops[i].alphaAcidMin
           }
           console.log(aa)
-          sum += (75 * (aa * hops[i].quantity) * 1.65 * (Math.pow(.000125, (this.stats.originalGravity - 1))) * ((1 - Math.exp(-.04 * hops[i].boilTime))/4.15))/this.recipe.batchSize
+          sum += (75 * (aa * hops[i].quantity) * 1.65 * (Math.pow(.000125, (this.stats.originalGravity - 1))) * ((1 - Math.exp(-.04 * hops[i].boilTime)) / 4.15)) / this.recipe.batchSize
         }
         this.stats.ibu = sum
+      },
+      checkStyle() {
+        if (this.stats.ibu < this.recipe.style.ibuMax && this.stats.ibu > this.recipe.style.ibuMin) {
+          if (this.stats.abv < this.recipe.style.abvMax && this.stats.abv > this.recipe.style.abvMin) {
+            if (this.stats.color < this.recipe.style.srmMax && this.stats.color > this.recipe.style.srmMin) {
+              if (this.stats.finalGravity < this.recipe.style.fgMax && this.stats.finalGravity > this.recipe.style.fgMin) {
+                if (this.stats.originalGravity > this.recipe.style.ogMin) {
+                  this.stats.styleCorrect = true
+                }
+              }
+            }
+          }
+        }
       }
     },
     computed: {

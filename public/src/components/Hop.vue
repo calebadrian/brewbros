@@ -63,6 +63,7 @@
                 this.hop.quantity = Number(this.defaultValues.quantity)
                 this.$store.dispatch('addNewRecipeHop', this.hop)
                 this.$parent.calcIbu()
+                this.$parent.checkStyle()
             },
             removeHop(hop){
                 for (var i = 0; i < this.$store.state.newRecipe.hops.length; i++){
@@ -72,6 +73,7 @@
                     }
                 }
                 this.$parent.calcIbu()
+                this.$parent.checkStyle()
             }
         },
     }
