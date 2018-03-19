@@ -11,7 +11,7 @@
         <h2>Currently Brewing</h2>
       </div>
       <div class="d-flex justify-content-around">
-        <div class="col-sm-4" v-for="recipe in myRecipes">
+        <div class="col-sm-4" v-for="recipe in currentlyBrewing">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">{{recipe.name}}</h5>
@@ -211,6 +211,7 @@
                   </button>
                   <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">Add To Shopping List</button>
                   <button class="btn btn-success" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)">Add To Favorites</button>
+                  <button class="btn btn-danger" @click="addtoCurrentlyBrewing(recipe)">Start Brewing</button>
                   <!-- Begin Modal Content -->
                   <div class="modal fade" :id="recipe._id" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
@@ -439,6 +440,7 @@
       this.$store.dispatch('getProfileUser', this.$route.params.profileId)
       this.$store.dispatch('getMyRecipes', this.$route.params.profileId)
       this.$store.dispatch('getRecipes')
+      this.$store.dispatch('getCurrentlyBrewing')
     },
     data() {
       return {
@@ -462,13 +464,13 @@
         recipe.favorited.push(this.$store.state.user._id)
         this.$store.dispatch('updateFavorites', recipe)
       },
-      getProfileUser(userId){
+      getProfileUser(userId) {
         this.$store.dispatch('getProfileUser', userId)
       },
-      getMyRecipes(userId){
+      getMyRecipes(userId) {
         this.$store.dispatch('getMyRecipes', userId)
       },
-      getMyFavorites(userId){
+      getMyFavorites(userId) {
 
       }
     },
@@ -487,9 +489,12 @@
       },
       shoppingList() {
         return this.$store.state.shoppingList
+      },
+      currentlyBrewing() {
+        return this.$store.state.currentlyBrewing
       }
     },
-    beforeRouteUpdate(to, from, next){
+    beforeRouteUpdate(to, from, next) {
       this.profileUser = this.getProfileUser(to.params.profileId)
       this.myRecipes = this.getMyRecipes(to.params.profileId)
       this.myFavorites = this.getMyFavorites(to.params.profileId)

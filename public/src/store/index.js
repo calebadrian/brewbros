@@ -11,7 +11,7 @@ var baseUrl = production ? '//brewbook.herokuapp.com/' : '//localhost:3000/'
 
 var ourDB = axios.create({
     baseURL: baseUrl + 'api/',
-    timeout: 5000,
+    timeout: 10000,
     withCredentials: true
 })
 
@@ -57,7 +57,7 @@ export default new vuex.Store({
         updateUser(state, payload) {
             state.user = payload
         },
-        setProfileUser(state, payload){
+        setProfileUser(state, payload) {
             state.profileUser = payload
         },
         setStyles(state, payload) {
@@ -77,6 +77,9 @@ export default new vuex.Store({
         },
         setFermentables(state, payload) {
             state.fermentables = payload
+        },
+        setCurrentlyBrewing(state, payload) {
+            state.currentlyBrewing = payload
         },
         setMyRecipes(state, payload) {
             state.myRecipes = payload
@@ -290,7 +293,16 @@ export default new vuex.Store({
                     })
             }
         },
-        getProfileUser({commit, dispatch}, payload){
+        getCurrentlyBrewing({ commit, dispatch }, paylaod) {
+            ourDB.get('recipes/user/currentlyBrewing')
+                .then(res => {
+                    commit('setCurrentlyBrewing', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        getProfileUser({ commit, dispatch }, payload) {
             ourDB.get('users/' + payload)
                 .then(res => {
                     commit('setProfileUser', res.data)
@@ -329,7 +341,7 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        updateShoppingList({commit, dispatch, state}, payload){
+        updateShoppingList({ commit, dispatch, state }, payload) {
             console.log(payload)
             ourDB.put('users/' + state.user._id, payload)
                 .then(res => {
