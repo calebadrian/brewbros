@@ -10,6 +10,13 @@ let schema = new Schema({
     email: { type: String, required: true, unique: true, dropDups: true },
     password: { type: String, required: true },
     profilePic: { type: String },
+    currentlyBrewing: {
+        type: Object,
+        required: true,
+        default: {
+            currentlyBrewing: []
+        }
+    },
     shoppingList: {
         type: Object,
         required: true,
@@ -19,7 +26,6 @@ let schema = new Schema({
             steepingGrains: [],
             adjuncts: [],
             yeasts: [],
-            currentlyBrewing: []
         }
     },
 })

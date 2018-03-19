@@ -62,13 +62,13 @@
                 </div>
                 <div class="card-footer text-muted">
                   <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                    View Full Recipe
+                      <i class="fas fa-2x fa-external-link-alt"></i>
                   </button>
-                  <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">Add To Shopping List</button>
+                  <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id"><i class="far fa-2x fa-clipboard"></i></button>
                   <button type="button" class="btn btn-danger" :recipe='recipe' @click="removeFavRecipe(recipe)" v-if="profileUser._id == user._id">
                     Remove from Favorites
                   </button>
-                  <button type="button" class="btn btn-success" @click='favorite(recipe)' v-else-if="!recipe.favorited.includes(user._id)">Add To Favorites</button>
+                  <button type="button" class="btn btn-success" @click='favorite(recipe)' v-else-if="!recipe.favorited.includes(user._id)"><i class="far fa-2x fa-heart"></i></button>
                   <!-- Begin Modal Content -->
                   <div class="modal fade" :id="recipe._id" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
@@ -190,7 +190,7 @@
         <div class="tab-pane fade" id="recipes" role="tabpanel" aria-labelledby="recipes-tab">
           <h1>My Recipes</h1>
           <div class="container-fluid">
-            <div class="row">
+            <div class="row my-recipes">
               <div class="col-3" v-for="recipe in myRecipes">
                 <div class="card-header">
                   <h3>{{recipe.name}}</h3>
@@ -208,11 +208,11 @@
                 </div>
                 <div class="card-footer text-muted">
                   <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                    View Full Recipe
+                      <i class="fas fa-2x fa-external-link-alt"></i>
                   </button>
-                  <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">Add To Shopping List</button>
-                  <button class="btn btn-success" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)">Add To Favorites</button>
-                  <button class="btn btn-danger" @click="addtoCurrentlyBrewing(recipe)">Start Brewing</button>
+                  <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id"><i class="far fa-2x fa-clipboard"></i></button>
+                  <button class="btn btn-success" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)"><i class="far fa-2x fa-heart"></i></button>
+                  <button class="btn btn-danger" @click="addtoCurrentlyBrewing(recipe)"><i class="far fa-2x fa-clock"></i></button>
                   <!-- Begin Modal Content -->
                   <div class="modal fade" :id="recipe._id" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
@@ -433,96 +433,105 @@
 </template>
 
 <script>
-  import navbar from './Navbar'
-  export default {
-    name: 'Profile',
-    mounted() {
-      this.$store.dispatch('authenticate')
-      this.$store.dispatch('getProfileUser', this.$route.params.profileId)
-      this.$store.dispatch('getMyRecipes', this.$route.params.profileId)
-      this.$store.dispatch('getRecipes')
-      this.$store.dispatch('getCurrentlyBrewing')
-    },
-    data() {
-      return {
+    import navbar from './Navbar'
+    export default {
+        name: 'Profile',
+        mounted() {
+            this.$store.dispatch('authenticate')
+            this.$store.dispatch('getProfileUser', this.$route.params.profileId)
+            this.$store.dispatch('getMyRecipes', this.$route.params.profileId)
+            this.$store.dispatch('getRecipes')
+            this.$store.dispatch('getCurrentlyBrewing')
+        },
+        data() {
+            return {
 
-      }
-    },
-    methods: {
-      removeFavRecipe(recipe) {
-        for (let i = 0; i < recipe.favorited.length; i++) {
-          const userId = recipe.favorited[i];
-          if (this.$store.state.user._id == userId) {
-            recipe.favorited.splice(i, 1)
-          }
-        }
-        this.$store.dispatch('updateFavorites', recipe)
-      },
-      addToShopping(recipe) {
-        this.$store.dispatch('updateShoppingList', recipe)
-      },
-      favorite(recipe) {
-        recipe.favorited.push(this.$store.state.user._id)
-        this.$store.dispatch('updateFavorites', recipe)
-      },
-      getProfileUser(userId) {
-        this.$store.dispatch('getProfileUser', userId)
-      },
-      getMyRecipes(userId) {
-        this.$store.dispatch('getMyRecipes', userId)
-      },
-      getMyFavorites(userId) {
+            }
+        },
+        methods: {
+            removeFavRecipe(recipe) {
+                for (let i = 0; i < recipe.favorited.length; i++) {
+                    const userId = recipe.favorited[i];
+                    if (this.$store.state.user._id == userId) {
+                        recipe.favorited.splice(i, 1)
+                    }
+                }
+                this.$store.dispatch('updateFavorites', recipe)
+            },
+            addToShopping(recipe) {
+                this.$store.dispatch('updateShoppingList', recipe)
+            },
+            favorite(recipe) {
+                recipe.favorited.push(this.$store.state.user._id)
+                this.$store.dispatch('updateFavorites', recipe)
+            },
+            getProfileUser(userId) {
+                this.$store.dispatch('getProfileUser', userId)
+            },
+            getMyRecipes(userId) {
+                this.$store.dispatch('getMyRecipes', userId)
+            },
+            getMyFavorites(userId) {
 
-      }
-    },
-    computed: {
-      user() {
-        return this.$store.state.user
-      },
-      profileUser() {
-        return this.$store.state.profileUser
-      },
-      myRecipes() {
-        return this.$store.state.myRecipes
-      },
-      myFavorites() {
-        return this.$store.state.myFavorites
-      },
-      shoppingList() {
-        return this.$store.state.shoppingList
-      },
-      currentlyBrewing() {
-        return this.$store.state.currentlyBrewing
-      }
-    },
-    beforeRouteUpdate(to, from, next) {
-      this.profileUser = this.getProfileUser(to.params.profileId)
-      this.myRecipes = this.getMyRecipes(to.params.profileId)
-      this.myFavorites = this.getMyFavorites(to.params.profileId)
-      next()
-    },
-    components: {
-      navbar,
-    },
-  }
+            }
+        },
+        computed: {
+            user() {
+                return this.$store.state.user
+            },
+            profileUser() {
+                return this.$store.state.profileUser
+            },
+            myRecipes() {
+                return this.$store.state.myRecipes
+            },
+            myFavorites() {
+                return this.$store.state.myFavorites
+            },
+            shoppingList() {
+                return this.$store.state.shoppingList
+            },
+            currentlyBrewing() {
+                return this.$store.state.currentlyBrewing
+            }
+        },
+        beforeRouteUpdate(to, from, next) {
+            this.profileUser = this.getProfileUser(to.params.profileId)
+            this.myRecipes = this.getMyRecipes(to.params.profileId)
+            this.myFavorites = this.getMyFavorites(to.params.profileId)
+            next()
+        },
+        components: {
+            navbar,
+        },
+    }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .profile-pic {
-    width: auto;
-    height: 200px;
-  }
-
-  #recipes {
-    min-height: 30%;
-  }
-
-  #shopping {
-    min-height: 30%;
-  }
-
-  #favorites {
-    min-height: 30%;
-  }
+    .profile-pic {
+        width: auto;
+        height: 200px;
+    }
+    
+    #recipes {
+        min-height: 30%;
+    }
+    
+    #shopping {
+        min-height: 30%;
+    }
+    
+    #favorites {
+        min-height: 30%;
+    }
+    
+    .card-footer {
+        display: flex;
+        justify-content: space-around
+    }
+    
+    .my-recipes {
+        justify-content: space-around
+    }
 </style>
