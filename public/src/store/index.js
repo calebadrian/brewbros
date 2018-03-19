@@ -74,6 +74,9 @@ export default new vuex.Store({
         setFermentables(state, payload) {
             state.fermentables = payload
         },
+        setCurrentlyBrewing(state, payload) {
+            state.currentlyBrewing = payload
+        },
         setMyRecipes(state, payload) {
             state.myRecipes = payload
         },
@@ -286,6 +289,15 @@ export default new vuex.Store({
                     })
             }
         },
+        getCurrentlyBrewing({ commit, dispatch }, paylaod) {
+            ourDB.get('recipes/user')
+                .then(res => {
+                    commit('setCurrentlyBrewing', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
         getMyRecipes({ commit, dispatch }, payload) {
             ourDB.get('recipes/user')
                 .then(res => {
@@ -316,7 +328,7 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        updateShoppingList({commit, dispatch, state}, payload){
+        updateShoppingList({ commit, dispatch, state }, payload) {
             console.log(payload)
             ourDB.put('users/' + state.user._id, payload)
                 .then(res => {

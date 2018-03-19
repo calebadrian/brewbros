@@ -11,7 +11,7 @@
         <h2>Currently Brewing</h2>
       </div>
       <div class="d-flex justify-content-around">
-        <div class="col-sm-4" v-for="recipe in myRecipes">
+        <div class="col-sm-4" v-for="recipe in currentlyBrewing">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">{{recipe.name}}</h5>
@@ -209,6 +209,7 @@
                     View Full Recipe
                   </button>
                   <button class="btn btn-success" @click="addToShopping(recipe)">Add To Shopping List</button>
+                  <button class="btn btn-danger" @click="addtoCurrentlyBrewing(recipe)">Start Brewing</button>
                   <!-- Begin Modal Content -->
                   <div class="modal fade" :id="recipe._id" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
@@ -436,6 +437,7 @@
             this.$store.dispatch('authenticate')
             this.$store.dispatch('getMyRecipes')
             this.$store.dispatch('getRecipes')
+            this.$store.dispatch('getCurrentlyBrewing')
         },
         data() {
             return {
@@ -468,6 +470,9 @@
             },
             shoppingList() {
                 return this.$store.state.shoppingList
+            },
+            currentlyBrewing() {
+                return this.$store.state.currentlyBrewing
             }
         },
         components: {
