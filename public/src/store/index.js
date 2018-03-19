@@ -115,6 +115,9 @@ export default new vuex.Store({
         addNewRecipeSteepingGrain(state, payload) {
             state.newRecipe.steepingGrains.push(payload)
         },
+        setShoppingList(state, payload){
+            state.shoppingList = payload
+        },
         updateShoppingListFermentables(state, payload) {
             for (var i = 0; i < payload.fermentables.length; i++) {
                 var found = false
@@ -306,6 +309,7 @@ export default new vuex.Store({
             ourDB.get('users/' + payload)
                 .then(res => {
                     commit('setProfileUser', res.data)
+                    commit('setShoppingList', res.data.shoppingList)
                 })
                 .catch(err => {
                     console.error(err)
@@ -342,7 +346,6 @@ export default new vuex.Store({
                 })
         },
         updateShoppingList({ commit, dispatch, state }, payload) {
-            console.log(payload)
             ourDB.put('users/' + state.user._id, payload)
                 .then(res => {
                     commit('updateUser', res.data)
@@ -355,6 +358,16 @@ export default new vuex.Store({
             commit('updateShoppingListSteepingGrains', payload)
             commit('updateShoppingListAdjuncts', payload)
             commit('updateShoppingListYeasts', payload)
+        },
+        clearShoppingList({commit, dispatch, state}, payload){
+            ourDB.put('users/' + state.user._id, payload)
+                .then(res => {
+                    commit('updateUser', res.data)
+                    commit('setShoppingList', res.data.shoppingList)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
         },
         //endregion
 
