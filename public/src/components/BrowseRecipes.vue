@@ -18,7 +18,7 @@
               <li>Rating: </li>
               <li>Created By:
                 <router-link :to="{name: 'profile', params: {profileId: recipe.creatorId}}">
-                  {{recipe.creatorId}}</router-link>
+                  {{recipe.creatorName}}</router-link>
               </li>
             </ul>
           </div>

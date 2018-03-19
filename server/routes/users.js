@@ -19,6 +19,16 @@ router.get('/api/users', (req, res, next) => {
     })
 })
 
+router.get('/api/users/:userid', (req, res, next) => {
+  Users.findById(req.params.userid)
+    .then(user => {
+      res.send(user)
+    })
+    .catch(err => {
+      console.error(err)
+    })
+})
+
 router.put('/api/users/:userid', (req, res, next) => {
   Users.findById(req.params.userid)
     .then(user => {

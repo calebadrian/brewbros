@@ -3,9 +3,9 @@
     <navbar></navbar>
     <div class="container-fluid">
       <div class="d-flex justify-content-around mt-4">
-        <img v-if="user.profilePic" :src="user.profilePic" class="profile-pic">
+        <img v-if="profileUser.profilePic" :src="profileUser.profilePic" class="profile-pic">
         <img v-else src="../assets/not-found.png" class="profile-pic">
-        <h4>{{user.name}}</h4>
+        <h4>{{profileUser.name}}</h4>
       </div>
       <div class="d-flex flex-column align-items-center mt-4">
         <h2>Currently Brewing</h2>
@@ -340,7 +340,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(fermentable, i) in user.shoppingList.fermentables">
+              <tr v-for="(fermentable, i) in profileUser.shoppingList.fermentables">
                 <th scope="row">{{i + 1}}</th>
                 <td>{{fermentable.quantity}} lb(s)</td>
                 <td>{{fermentable.name}}</td>
@@ -359,7 +359,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(hop, i) in user.shoppingList.hops">
+              <tr v-for="(hop, i) in profileUser.shoppingList.hops">
                 <th scope="row">{{i + 1}}</th>
                 <td>{{hop.quantity}} oz(s)</td>
                 <td>{{hop.name}}</td>
@@ -377,7 +377,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(grain, i) in user.shoppingList.steepingGrains">
+              <tr v-for="(grain, i) in profileUser.shoppingList.steepingGrains">
                 <th scope="row">{{i + 1}}</th>
                 <td>{{grain.quantity}} lb(s)</td>
                 <td>{{grain.name}}</td>
@@ -395,7 +395,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(adjunct, i) in user.shoppingList.adjuncts">
+              <tr v-for="(adjunct, i) in profileUser.shoppingList.adjuncts">
                 <th scope="row">{{i + 1}}</th>
                 <td>{{adjunct.quantity}} oz(s)</td>
                 <td>{{adjunct.name}}</td>
@@ -414,7 +414,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(yeast, i) in user.shoppingList.yeasts">
+              <tr v-for="(yeast, i) in profileUser.shoppingList.yeasts">
                 <th scope="row">{{i + 1}}</th>
                 <td>{{yeast.name}}</td>
                 <td>{{yeast.pitch}}</td>
@@ -437,6 +437,7 @@
             this.$store.dispatch('authenticate')
             this.$store.dispatch('getMyRecipes')
             this.$store.dispatch('getRecipes')
+            this.$store.dispatch('getProfileUser', this.$route.params.profileId)
             this.$store.dispatch('getCurrentlyBrewing')
         },
         data() {
@@ -461,6 +462,9 @@
         computed: {
             user() {
                 return this.$store.state.user
+            },
+            profileUser() {
+                return this.$store.state.profileUser
             },
             myRecipes() {
                 return this.$store.state.myRecipes
