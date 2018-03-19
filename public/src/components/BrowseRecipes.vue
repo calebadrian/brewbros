@@ -6,7 +6,7 @@
         <div class="col-12">
           <v-select label="name" value=" " v-model="style" :options="styles" class="selectFormat" placeholder="Sort by Style"></v-select>
         </div>
-        <div class="col-3" v-if="!recipe.public && !style.name || recipe.style == style.name" v-for="recipe in allRecipes">
+        <div class="col-3" v-if="!recipe.public && !style || recipe.style == style.name" v-for="recipe in allRecipes">
         <div class="card-header">
             <h3>{{recipe.name}}</h3>
           </div>
