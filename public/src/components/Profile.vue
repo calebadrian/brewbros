@@ -64,6 +64,7 @@
                   <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
                     View Full Recipe
                   </button>
+                  <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">Add To Shopping List</button>
                   <button type="button" class="btn btn-danger" :recipe='recipe' @click="removeFavRecipe(recipe)" v-if="profileUser._id == user._id">
                     Remove from Favorites
                   </button>
@@ -330,7 +331,7 @@
           </div>
         </div>
         <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab" v-if="profileUser._id == user._id">
-          <div class="container">
+          <div class="container" v-if="profileUser.shoppingList != undefined">
             <h5>Fermentables</h5>
             <table class="table">
               <thead>
