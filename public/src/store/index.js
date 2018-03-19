@@ -300,7 +300,7 @@ export default new vuex.Store({
                 })
         },
         getMyRecipes({ commit, dispatch }, payload) {
-            ourDB.get('recipes/user')
+            ourDB.get('recipes/user/' + payload)
                 .then(res => {
                     commit('setMyRecipes', res.data)
                 })

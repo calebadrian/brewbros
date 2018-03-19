@@ -50,8 +50,8 @@ router.get('/api/recipes', (req, res, next) => {
 })
 
 //Get Users Recipes
-router.get('/api/recipes/user', (req, res, next) => {
-  Recipes.find({creatorId: req.session.uid})
+router.get('/api/recipes/user/:userid', (req, res, next) => {
+  Recipes.find({creatorId: req.params.userid})
     .then(recipe => {
       return res.send(recipe)
     })
