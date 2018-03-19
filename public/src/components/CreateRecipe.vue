@@ -189,6 +189,7 @@
       return {
         recipe: {
           name: '',
+          creatorName: this.$store.state.user.name,
           batchSize: 1,
           public: false,
           style: '',
