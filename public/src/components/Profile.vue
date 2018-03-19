@@ -192,9 +192,8 @@
           </div>
         </div>
         <div class="tab-pane fade" id="recipes" role="tabpanel" aria-labelledby="recipes-tab">
-          <h1>My Recipes</h1>
           <div class="container-fluid">
-            <div class="row my-recipes">
+            <div class="row my-recipes margin-top">
               <div class="col-3" v-for="recipe in myRecipes">
                 <div class="card-header">
                   <h3>{{recipe.name}}</h3>
@@ -341,7 +340,7 @@
           </div>
         </div>
         <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab" v-if="profileUser._id == user._id">
-          <div class="container" v-if="shoppingList != undefined">
+          <div class="container padding-top" v-if="shoppingList != undefined">
             <h5>Fermentables</h5>
             <button class="btn btn-danger" @click="clearShoppingList">Clear Shopping List</button>
             <table class="table">
@@ -523,29 +522,37 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .profile-pic {
-    width: auto;
-    height: 200px;
-  }
-
-  #recipes {
-    min-height: 30%;
-  }
-
-  #shopping {
-    min-height: 30%;
-  }
-
-  #favorites {
-    min-height: 30%;
-  }
-
-  .card-footer {
-    display: flex;
-    justify-content: space-around
-  }
-
-  .my-recipes {
-    justify-content: space-around
-  }
+    .profile-pic {
+        width: auto;
+        height: 250px;
+    }
+    
+    #recipes {
+        min-height: 30%;
+    }
+    
+    #shopping {
+        min-height: 30%;
+    }
+    
+    #favorites {
+        min-height: 30%;
+    }
+    
+    .card-footer {
+        display: flex;
+        justify-content: space-around
+    }
+    
+    .my-recipes {
+        justify-content: space-around
+    }
+    
+    .padding-top {
+        padding-top: 2rem
+    }
+    
+    .margin-top {
+        margin-top: 2rem
+    }
 </style>

@@ -51,11 +51,11 @@ router.get('/api/recipes', (req, res, next) => {
 
 //Get Users Recipes
 router.get('/api/recipes/user/:userid', (req, res, next) => {
-  Recipes.find({creatorId: req.params.userid})
-    .then(recipe => {
-      return res.send(recipe)
-    })
-    .catch(next)
+    Recipes.find({ creatorId: req.params.userid })
+        .then(recipe => {
+            return res.send(recipe)
+        })
+        .catch(next)
 })
 
 router.get('/api/recipes/user/:userid/favorites', (req, res, next) => {
@@ -75,7 +75,7 @@ router.get('/api/recipes/user/:userid/favorites', (req, res, next) => {
 })
 
 //Get Users Currently Brewing
-router.get('/api/recipes/user/currentlyBrewing', (req, res, next) => {
+router.get('/api/recipes/user/:userid/currentlyBrewing', (req, res, next) => {
     Recipes.find({ creatorId: req.session.uid })
         .then(recipe => {
             return res.send(recipe)
