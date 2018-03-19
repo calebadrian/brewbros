@@ -294,7 +294,7 @@ export default new vuex.Store({
             }
         },
         getCurrentlyBrewing({ commit, dispatch }, paylaod) {
-            ourDB.get('recipes/user')
+            ourDB.get('recipes/user/currentlyBrewing')
                 .then(res => {
                     commit('setCurrentlyBrewing', res.data)
                 })
