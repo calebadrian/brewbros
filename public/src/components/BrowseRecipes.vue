@@ -165,7 +165,7 @@
     methods: {
       favorite({user: user, recipe: recipe}) {
         recipe.favorited.push(user._id)
-        this.$store.dispatch('updateFavorites', recipe)
+        this.$store.dispatch('updateFavorites', {userId: user._id, recipe: recipe})
       }
     },
     computed: {

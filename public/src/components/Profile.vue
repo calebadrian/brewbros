@@ -56,19 +56,23 @@
                     <li>Rating: </li>
                     <li>Created By:
                       <router-link :to="{name: 'profile', params: {profileId: recipe.creatorId}}">
-                        {{recipe.creatorId}}</router-link>
+                        {{recipe.creatorName}}</router-link>
                     </li>
                   </ul>
                 </div>
                 <div class="card-footer text-muted">
                   <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                      <i class="fas fa-2x fa-external-link-alt"></i>
+                    <i class="fas fa-2x fa-external-link-alt"></i>
                   </button>
-                  <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id"><i class="far fa-2x fa-clipboard"></i></button>
+                  <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
+                    <i class="far fa-2x fa-clipboard"></i>
+                  </button>
                   <button type="button" class="btn btn-danger" :recipe='recipe' @click="removeFavRecipe(recipe)" v-if="profileUser._id == user._id">
                     Remove from Favorites
                   </button>
-                  <button type="button" class="btn btn-success" @click='favorite(recipe)' v-else-if="!recipe.favorited.includes(user._id)"><i class="far fa-2x fa-heart"></i></button>
+                  <button type="button" class="btn btn-success" @click='favorite(recipe)' v-else-if="!recipe.favorited.includes(user._id)">
+                    <i class="far fa-2x fa-heart"></i>
+                  </button>
                   <!-- Begin Modal Content -->
                   <div class="modal fade" :id="recipe._id" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
@@ -208,11 +212,17 @@
                 </div>
                 <div class="card-footer text-muted">
                   <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                      <i class="fas fa-2x fa-external-link-alt"></i>
+                    <i class="fas fa-2x fa-external-link-alt"></i>
                   </button>
-                  <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id"><i class="far fa-2x fa-clipboard"></i></button>
-                  <button class="btn btn-success" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)"><i class="far fa-2x fa-heart"></i></button>
-                  <button class="btn btn-danger" @click="addtoCurrentlyBrewing(recipe)"><i class="far fa-2x fa-clock"></i></button>
+                  <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
+                    <i class="far fa-2x fa-clipboard"></i>
+                  </button>
+                  <button class="btn btn-success" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)">
+                    <i class="far fa-2x fa-heart"></i>
+                  </button>
+                  <button class="btn btn-danger" @click="addtoCurrentlyBrewing(recipe)">
+                    <i class="far fa-2x fa-clock"></i>
+                  </button>
                   <!-- Begin Modal Content -->
                   <div class="modal fade" :id="recipe._id" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
@@ -434,49 +444,49 @@
 </template>
 
 <script>
-    import navbar from './Navbar'
-    export default {
-        name: 'Profile',
-        mounted() {
-            this.$store.dispatch('authenticate')
-            this.$store.dispatch('getProfileUser', this.$route.params.profileId)
-            this.$store.dispatch('getMyRecipes', this.$route.params.profileId)
-            this.$store.dispatch('getRecipes')
-            this.$store.dispatch('getCurrentlyBrewing')
-        },
-        data() {
-            return {
+  import navbar from './Navbar'
+  export default {
+    name: 'Profile',
+    mounted() {
+      this.$store.dispatch('authenticate')
+      this.$store.dispatch('getProfileUser', this.$route.params.profileId)
+      this.$store.dispatch('getMyRecipes', this.$route.params.profileId)
+      this.$store.dispatch('getMyFavorites', this.$route.params.profileId)
+      this.$store.dispatch('getCurrentlyBrewing')
+    },
+    data() {
+      return {
 
-            }
-        },
-        methods: {
-            removeFavRecipe(recipe) {
-                for (let i = 0; i < recipe.favorited.length; i++) {
-                    const userId = recipe.favorited[i];
-                    if (this.$store.state.user._id == userId) {
-                        recipe.favorited.splice(i, 1)
-                    }
-                }
-                this.$store.dispatch('updateFavorites', recipe)
-            },
-            addToShopping(recipe) {
-                this.$store.dispatch('updateShoppingList', recipe)
-            },
-            favorite(recipe) {
-                recipe.favorited.push(this.$store.state.user._id)
-                this.$store.dispatch('updateFavorites', recipe)
-            },
-            getProfileUser(userId) {
-                this.$store.dispatch('getProfileUser', userId)
-            },
-            getMyRecipes(userId) {
-                this.$store.dispatch('getMyRecipes', userId)
-            },
-            getMyFavorites(userId) {
-
+      }
+    },
+    methods: {
+      removeFavRecipe(recipe) {
+        for (let i = 0; i < recipe.favorited.length; i++) {
+          const userId = recipe.favorited[i];
+          if (this.$store.state.user._id == userId) {
+            recipe.favorited.splice(i, 1)
+          }
+        }
+        this.$store.dispatch('updateFavorites', {userId: this.user._id, recipe: recipe})
       },
-      clearShoppingList(){
-        this.$store.dispatch('clearShoppingList', {fermentables: [], hops: [], steepingGrains: [], adjuncts: [], yeasts: []})
+      addToShopping(recipe) {
+        this.$store.dispatch('updateShoppingList', recipe)
+      },
+      favorite(recipe) {
+        recipe.favorited.push(this.$store.state.user._id)
+        this.$store.dispatch('updateFavorites', recipe)
+      },
+      getProfileUser(userId) {
+        this.$store.dispatch('getProfileUser', userId)
+      },
+      getMyRecipes(userId) {
+        this.$store.dispatch('getMyRecipes', userId)
+      },
+      getMyFavorites(userId) {
+        this.$store.dispatch('getMyFavorites', userId)
+      },
+      clearShoppingList() {
+        this.$store.dispatch('clearShoppingList', { fermentables: [], hops: [], steepingGrains: [], adjuncts: [], yeasts: [] })
       }
     },
     computed: {
@@ -513,29 +523,29 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .profile-pic {
-        width: auto;
-        height: 200px;
-    }
-    
-    #recipes {
-        min-height: 30%;
-    }
-    
-    #shopping {
-        min-height: 30%;
-    }
-    
-    #favorites {
-        min-height: 30%;
-    }
-    
-    .card-footer {
-        display: flex;
-        justify-content: space-around
-    }
-    
-    .my-recipes {
-        justify-content: space-around
-    }
+  .profile-pic {
+    width: auto;
+    height: 200px;
+  }
+
+  #recipes {
+    min-height: 30%;
+  }
+
+  #shopping {
+    min-height: 30%;
+  }
+
+  #favorites {
+    min-height: 30%;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-around
+  }
+
+  .my-recipes {
+    justify-content: space-around
+  }
 </style>

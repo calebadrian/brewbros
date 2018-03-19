@@ -88,17 +88,7 @@ export default new vuex.Store({
             state.allRecipes = payload
         },
         setMyFavorites(state, payload) {
-            var tempArr = []
-            for (let i = 0; i < payload.length; i++) {
-                const recipe = payload[i];
-                for (let x = 0; x < recipe.favorited.length; x++) {
-                    const userId = recipe.favorited[x];
-                    if (userId == state.user._id) {
-                        tempArr.push(recipe)
-                    }
-                }
-            }
-            state.myFavorites = tempArr
+            state.myFavorites = payload
         },
         addNewRecipeAdjunct(state, payload) {
             state.newRecipe.adjuncts.push(payload)
@@ -334,19 +324,28 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
+        getMyFavorites({commit, dispatch}, payload){
+            ourDB.get('recipes/user/' + payload + '/favorites')
+                .then(res => {
+                    commit('setMyFavorites', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
         //endregion
         //Updating a recipe
         updateFavorites({ commit, dispatch }, payload) {
-            ourDB.put('recipes/' + payload._id, payload.favorited)
+            ourDB.put('recipes/' + payload.recipe._id, payload.recipe.favorited)
                 .then(res => {
-                    dispatch('getRecipes')
+                    dispatch('getMyFavorites', payload.userId)
                 })
                 .catch(err => {
                     console.error(err)
                 })
         },
         updateShoppingList({ commit, dispatch, state }, payload) {
-            ourDB.put('users/' + state.user._id, payload)
+            ourDB.put('users/' + payload.userId, payload.recipe.favorited)
                 .then(res => {
                     commit('updateUser', res.data)
                 })
