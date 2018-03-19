@@ -330,8 +330,9 @@
           </div>
         </div>
         <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab" v-if="profileUser._id == user._id">
-          <div class="container padding-top" v-if="profileUser.shoppingList != undefined">
+          <div class="container padding-top" v-if="shoppingList != undefined">
             <h5>Fermentables</h5>
+            <button class="btn btn-danger" @click="clearShoppingList">Clear Shopping List</button>
             <table class="table">
               <thead>
                 <tr>
@@ -342,7 +343,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(fermentable, i) in profileUser.shoppingList.fermentables" v-if="profileUser.shoppingList.fermentables.length > 0">
+                <tr v-for="(fermentable, i) in shoppingList.fermentables" v-if="shoppingList.fermentables.length > 0">
                   <th scope="row">{{i + 1}}</th>
                   <td>{{fermentable.quantity}} lb(s)</td>
                   <td>{{fermentable.name}}</td>
@@ -361,7 +362,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(hop, i) in profileUser.shoppingList.hops" v-if="profileUser.shoppingList.hops.length > 0">
+                <tr v-for="(hop, i) in shoppingList.hops" v-if="shoppingList.hops.length > 0">
                   <th scope="row">{{i + 1}}</th>
                   <td>{{hop.quantity}} oz(s)</td>
                   <td>{{hop.name}}</td>
@@ -379,7 +380,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(grain, i) in profileUser.shoppingList.steepingGrains" v-if="profileUser.shoppingList.steepingGrains.length > 0">
+                <tr v-for="(grain, i) in shoppingList.steepingGrains" v-if="shoppingList.steepingGrains.length > 0">
                   <th scope="row">{{i + 1}}</th>
                   <td>{{grain.quantity}} lb(s)</td>
                   <td>{{grain.name}}</td>
@@ -397,7 +398,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(adjunct, i) in profileUser.shoppingList.adjuncts" v-if="profileUser.shoppingList.adjuncts.length > 0">
+                <tr v-for="(adjunct, i) in shoppingList.adjuncts" v-if="shoppingList.adjuncts.length > 0">
                   <th scope="row">{{i + 1}}</th>
                   <td>{{adjunct.quantity}} oz(s)</td>
                   <td>{{adjunct.name}}</td>
@@ -416,7 +417,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(yeast, i) in profileUser.shoppingList.yeasts" v-if="profileUser.shoppingList.yeasts.length > 0">
+                <tr v-for="(yeast, i) in shoppingList.yeasts" v-if="shoppingList.yeasts.length > 0">
                   <th scope="row">{{i + 1}}</th>
                   <td>{{yeast.name}}</td>
                   <td>{{yeast.pitch}}</td>
@@ -472,6 +473,15 @@
             },
             getMyFavorites(userId) {
 
+            },
+            clearShoppingList() {
+                this.$store.dispatch('clearShoppingList', {
+                    fermentables: [],
+                    hops: [],
+                    steepingGrains: [],
+                    adjuncts: [],
+                    yeasts: []
+                })
             }
         },
         computed: {
