@@ -62,13 +62,13 @@
                 </div>
                 <div class="card-footer text-muted">
                   <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                    View Full Recipe
+                      <i class="fas fa-2x fa-external-link-alt"></i>
                   </button>
-                  <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">Add To Shopping List</button>
+                  <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id"><i class="far fa-2x fa-clipboard"></i></button>
                   <button type="button" class="btn btn-danger" :recipe='recipe' @click="removeFavRecipe(recipe)" v-if="profileUser._id == user._id">
                     Remove from Favorites
                   </button>
-                  <button type="button" class="btn btn-success" @click='favorite(recipe)' v-else-if="!recipe.favorited.includes(user._id)">Add To Favorites</button>
+                  <button type="button" class="btn btn-success" @click='favorite(recipe)' v-else-if="!recipe.favorited.includes(user._id)"><i class="far fa-2x fa-heart"></i></button>
                   <!-- Begin Modal Content -->
                   <div class="modal fade" :id="recipe._id" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
@@ -188,9 +188,8 @@
           </div>
         </div>
         <div class="tab-pane fade" id="recipes" role="tabpanel" aria-labelledby="recipes-tab">
-          <h1>My Recipes</h1>
           <div class="container-fluid">
-            <div class="row">
+            <div class="row my-recipes margin-top">
               <div class="col-3" v-for="recipe in myRecipes">
                 <div class="card-header">
                   <h3>{{recipe.name}}</h3>
@@ -208,11 +207,11 @@
                 </div>
                 <div class="card-footer text-muted">
                   <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                    View Full Recipe
+                      <i class="fas fa-2x fa-external-link-alt"></i>
                   </button>
-                  <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">Add To Shopping List</button>
-                  <button class="btn btn-success" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)">Add To Favorites</button>
-                  <button class="btn btn-danger" @click="addtoCurrentlyBrewing(recipe)">Start Brewing</button>
+                  <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id"><i class="far fa-2x fa-clipboard"></i></button>
+                  <button class="btn btn-success" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)"><i class="far fa-2x fa-heart"></i></button>
+                  <button class="btn btn-danger" @click="addtoCurrentlyBrewing(recipe)"><i class="far fa-2x fa-clock"></i></button>
                   <!-- Begin Modal Content -->
                   <div class="modal fade" :id="recipe._id" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
@@ -331,8 +330,9 @@
           </div>
         </div>
         <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab" v-if="profileUser._id == user._id">
-          <div class="container" v-if="profileUser.shoppingList != undefined">
+          <div class="container padding-top" v-if="shoppingList != undefined">
             <h5>Fermentables</h5>
+            <button class="btn btn-danger" @click="clearShoppingList">Clear Shopping List</button>
             <table class="table">
               <thead>
                 <tr>
@@ -343,7 +343,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(fermentable, i) in profileUser.shoppingList.fermentables" v-if="profileUser.shoppingList.fermentables.length > 0">
+                <tr v-for="(fermentable, i) in shoppingList.fermentables" v-if="shoppingList.fermentables.length > 0">
                   <th scope="row">{{i + 1}}</th>
                   <td>{{fermentable.quantity}} lb(s)</td>
                   <td>{{fermentable.name}}</td>
@@ -362,7 +362,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(hop, i) in profileUser.shoppingList.hops" v-if="profileUser.shoppingList.hops.length > 0">
+                <tr v-for="(hop, i) in shoppingList.hops" v-if="shoppingList.hops.length > 0">
                   <th scope="row">{{i + 1}}</th>
                   <td>{{hop.quantity}} oz(s)</td>
                   <td>{{hop.name}}</td>
@@ -380,7 +380,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(grain, i) in profileUser.shoppingList.steepingGrains" v-if="profileUser.shoppingList.steepingGrains.length > 0">
+                <tr v-for="(grain, i) in shoppingList.steepingGrains" v-if="shoppingList.steepingGrains.length > 0">
                   <th scope="row">{{i + 1}}</th>
                   <td>{{grain.quantity}} lb(s)</td>
                   <td>{{grain.name}}</td>
@@ -398,7 +398,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(adjunct, i) in profileUser.shoppingList.adjuncts" v-if="profileUser.shoppingList.adjuncts.length > 0">
+                <tr v-for="(adjunct, i) in shoppingList.adjuncts" v-if="shoppingList.adjuncts.length > 0">
                   <th scope="row">{{i + 1}}</th>
                   <td>{{adjunct.quantity}} oz(s)</td>
                   <td>{{adjunct.name}}</td>
@@ -417,7 +417,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(yeast, i) in profileUser.shoppingList.yeasts" v-if="profileUser.shoppingList.yeasts.length > 0">
+                <tr v-for="(yeast, i) in shoppingList.yeasts" v-if="shoppingList.yeasts.length > 0">
                   <th scope="row">{{i + 1}}</th>
                   <td>{{yeast.name}}</td>
                   <td>{{yeast.pitch}}</td>
@@ -433,96 +433,122 @@
 </template>
 
 <script>
-  import navbar from './Navbar'
-  export default {
-    name: 'Profile',
-    mounted() {
-      this.$store.dispatch('authenticate')
-      this.$store.dispatch('getProfileUser', this.$route.params.profileId)
-      this.$store.dispatch('getMyRecipes', this.$route.params.profileId)
-      this.$store.dispatch('getRecipes')
-      this.$store.dispatch('getCurrentlyBrewing')
-    },
-    data() {
-      return {
+    import navbar from './Navbar'
+    export default {
+        name: 'Profile',
+        mounted() {
+            this.$store.dispatch('authenticate')
+            this.$store.dispatch('getProfileUser', this.$route.params.profileId)
+            this.$store.dispatch('getMyRecipes', this.$route.params.profileId)
+            this.$store.dispatch('getRecipes')
+            this.$store.dispatch('getCurrentlyBrewing')
+        },
+        data() {
+            return {
 
-      }
-    },
-    methods: {
-      removeFavRecipe(recipe) {
-        for (let i = 0; i < recipe.favorited.length; i++) {
-          const userId = recipe.favorited[i];
-          if (this.$store.state.user._id == userId) {
-            recipe.favorited.splice(i, 1)
-          }
-        }
-        this.$store.dispatch('updateFavorites', recipe)
-      },
-      addToShopping(recipe) {
-        this.$store.dispatch('updateShoppingList', recipe)
-      },
-      favorite(recipe) {
-        recipe.favorited.push(this.$store.state.user._id)
-        this.$store.dispatch('updateFavorites', recipe)
-      },
-      getProfileUser(userId) {
-        this.$store.dispatch('getProfileUser', userId)
-      },
-      getMyRecipes(userId) {
-        this.$store.dispatch('getMyRecipes', userId)
-      },
-      getMyFavorites(userId) {
+            }
+        },
+        methods: {
+            removeFavRecipe(recipe) {
+                for (let i = 0; i < recipe.favorited.length; i++) {
+                    const userId = recipe.favorited[i];
+                    if (this.$store.state.user._id == userId) {
+                        recipe.favorited.splice(i, 1)
+                    }
+                }
+                this.$store.dispatch('updateFavorites', recipe)
+            },
+            addToShopping(recipe) {
+                this.$store.dispatch('updateShoppingList', recipe)
+            },
+            favorite(recipe) {
+                recipe.favorited.push(this.$store.state.user._id)
+                this.$store.dispatch('updateFavorites', recipe)
+            },
+            getProfileUser(userId) {
+                this.$store.dispatch('getProfileUser', userId)
+            },
+            getMyRecipes(userId) {
+                this.$store.dispatch('getMyRecipes', userId)
+            },
+            getMyFavorites(userId) {
 
-      }
-    },
-    computed: {
-      user() {
-        return this.$store.state.user
-      },
-      profileUser() {
-        return this.$store.state.profileUser
-      },
-      myRecipes() {
-        return this.$store.state.myRecipes
-      },
-      myFavorites() {
-        return this.$store.state.myFavorites
-      },
-      shoppingList() {
-        return this.$store.state.shoppingList
-      },
-      currentlyBrewing() {
-        return this.$store.state.currentlyBrewing
-      }
-    },
-    beforeRouteUpdate(to, from, next) {
-      this.profileUser = this.getProfileUser(to.params.profileId)
-      this.myRecipes = this.getMyRecipes(to.params.profileId)
-      this.myFavorites = this.getMyFavorites(to.params.profileId)
-      next()
-    },
-    components: {
-      navbar,
-    },
-  }
+            },
+            clearShoppingList() {
+                this.$store.dispatch('clearShoppingList', {
+                    fermentables: [],
+                    hops: [],
+                    steepingGrains: [],
+                    adjuncts: [],
+                    yeasts: []
+                })
+            }
+        },
+        computed: {
+            user() {
+                return this.$store.state.user
+            },
+            profileUser() {
+                return this.$store.state.profileUser
+            },
+            myRecipes() {
+                return this.$store.state.myRecipes
+            },
+            myFavorites() {
+                return this.$store.state.myFavorites
+            },
+            shoppingList() {
+                return this.$store.state.shoppingList
+            },
+            currentlyBrewing() {
+                return this.$store.state.currentlyBrewing
+            }
+        },
+        beforeRouteUpdate(to, from, next) {
+            this.profileUser = this.getProfileUser(to.params.profileId)
+            this.myRecipes = this.getMyRecipes(to.params.profileId)
+            this.myFavorites = this.getMyFavorites(to.params.profileId)
+            next()
+        },
+        components: {
+            navbar,
+        },
+    }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .profile-pic {
-    width: auto;
-    height: 200px;
-  }
-
-  #recipes {
-    min-height: 30%;
-  }
-
-  #shopping {
-    min-height: 30%;
-  }
-
-  #favorites {
-    min-height: 30%;
-  }
+    .profile-pic {
+        width: auto;
+        height: 250px;
+    }
+    
+    #recipes {
+        min-height: 30%;
+    }
+    
+    #shopping {
+        min-height: 30%;
+    }
+    
+    #favorites {
+        min-height: 30%;
+    }
+    
+    .card-footer {
+        display: flex;
+        justify-content: space-around
+    }
+    
+    .my-recipes {
+        justify-content: space-around
+    }
+    
+    .padding-top {
+        padding-top: 2rem
+    }
+    
+    .margin-top {
+        margin-top: 2rem
+    }
 </style>
