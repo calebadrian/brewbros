@@ -26,6 +26,7 @@ vue.use(vuex)
 export default new vuex.Store({
     state: {
         user: {},
+        profileUser: {},
         styles: [],
         categories: [],
         hops: [],
@@ -55,6 +56,9 @@ export default new vuex.Store({
     mutations: {
         updateUser(state, payload) {
             state.user = payload
+        },
+        setProfileUser(state, payload){
+            state.profileUser = payload
         },
         setStyles(state, payload) {
             state.styles = payload
@@ -285,6 +289,15 @@ export default new vuex.Store({
                         console.error(err)
                     })
             }
+        },
+        getProfileUser({commit, dispatch}, payload){
+            ourDB.get('users/' + payload)
+                .then(res => {
+                    commit('setProfileUser', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
         },
         getMyRecipes({ commit, dispatch }, payload) {
             ourDB.get('recipes/user')

@@ -12,6 +12,7 @@ let schema = new Schema({
     boilTime: { type: Number, required: true },
     personalComments: { type: String },
     creatorId: { type: ObjectId, ref: 'User', required: true },
+    creatorName: {type: String, required: true},
     fermentables: [{}],
     steepingGrains: [{}],
     hops: [{}],
