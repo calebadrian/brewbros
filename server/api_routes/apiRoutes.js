@@ -108,31 +108,33 @@ router.get('/api/yeasts', (req, res, next) => {
 })
 
 router.get('/api/adjuncts', (req, res, next) => {
-  var page = 0
-  var promises = []
-  for (let i = 0; i < 15; i++) {
-    page++
-    promises.push(beerDB.get('http://api.brewerydb.com/v2/adjuncts' + key + '&p=' + page)
-      .then(response => {
-        return response.data.data
+  setTimeout(function () {
+    var page = 0
+    var promises = []
+    for (let i = 0; i < 15; i++) {
+      page++
+      promises.push(beerDB.get('http://api.brewerydb.com/v2/adjuncts' + key + '&p=' + page)
+        .then(response => {
+          return response.data.data
+        })
+        .catch(err => {
+          console.error(err)
+        })
+      )
+    }
+    Promise.all(promises)
+      .then(results => {
+        var adjunctsArr = []
+        for (let i = 0; i < results.length; i++) {
+          const adjunctArr = results[i];
+          adjunctsArr = adjunctsArr.concat(adjunctArr)
+        }
+        res.send(adjunctsArr)
       })
       .catch(err => {
         console.error(err)
       })
-    )
-  }
-  Promise.all(promises)
-    .then(results => {
-      var adjunctsArr = []
-      for (let i = 0; i < results.length; i++) {
-        const adjunctArr = results[i];
-        adjunctsArr = adjunctsArr.concat(adjunctArr)
-      }
-      res.send(adjunctsArr)
-    })
-    .catch(err => {
-      console.error(err)
-    })
+  }, 200)
 })
 
 

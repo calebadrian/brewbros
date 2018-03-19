@@ -11,7 +11,7 @@ var baseUrl = production ? '//brewbook.herokuapp.com/' : '//localhost:3000/'
 
 var ourDB = axios.create({
     baseURL: baseUrl + 'api/',
-    timeout: 5000,
+    timeout: 10000,
     withCredentials: true
 })
 
