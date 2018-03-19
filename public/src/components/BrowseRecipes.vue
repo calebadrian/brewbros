@@ -18,7 +18,7 @@
               <li>Rating: </li>
               <li>Created By:
                 <router-link :to="{name: 'profile', params: {profileId: recipe.creatorId}}">
-                  {{recipe.creatorId}}</router-link>
+                  {{recipe.creatorName}}</router-link>
               </li>
             </ul>
           </div>
@@ -26,7 +26,7 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
               View Full Recipe
             </button>
-            <button type="button" class="btn btn-success" :recipe='recipe' v-if="recipe.creatorId != user._id" @click="favorite({user: user, recipe: recipe})">
+            <button type="button" class="btn btn-success" :recipe='recipe' v-if="recipe.creatorId != user._id && !recipe.favorited.includes(user._id)" @click="favorite({user: user, recipe: recipe})">
               Add to Favorites
             </button>
             <!-- Begin Modal Content -->
