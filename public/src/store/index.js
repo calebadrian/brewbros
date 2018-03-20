@@ -390,10 +390,11 @@ export default new vuex.Store({
 
         //region POSTING TO DB
         addRecipe({ commit, dispatch }, payload) {
+            console.log(payload)
             ourDB.post('recipes', payload)
                 .then(res => {
-                    dispatch('getMyRecipes')
-                    router.push({ name: 'profile', params: { profileId: payload.creatorId } })
+                    dispatch('getMyRecipes', res.data.creatorId)
+                    router.push({ name: 'profile', params: { profileId: res.data.creatorId } })
                 })
                 .catch(err => {
                     console.error(err)
