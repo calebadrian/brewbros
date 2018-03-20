@@ -27,8 +27,8 @@
           <div class="col-sm-6">
             <div class="form-group">
               <div class="d-flex align-items-center">
-                <label for="subStyle">Category:</label>
-                <select class="form-control" id="subStyle" placeholder="Category" v-model="recipe.category" @change="filterStyle">
+                <label for="category">Category:</label>
+                <select class="form-control" id="category" placeholder="Category" v-model="recipe.category" @change="filterStyle">
                   <option v-for="category in categories">{{category.name}}</option>
                 </select>
               </div>
