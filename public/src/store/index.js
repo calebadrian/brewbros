@@ -41,7 +41,7 @@ export default new vuex.Store({
             yeasts: []
         },
         myRecipes: [],
-        currentlyBrewing: [],
+        brewingSessions: [],
         myFavorites: [],
         allRecipes: [],
         shoppingList: {
@@ -78,8 +78,8 @@ export default new vuex.Store({
         setFermentables(state, payload) {
             state.fermentables = payload
         },
-        setCurrentlyBrewing(state, payload) {
-            state.currentlyBrewing = payload
+        setBrewingSessions(state, payload) {
+            state.brewingSessions = payload
         },
         setMyRecipes(state, payload) {
             state.myRecipes = payload
@@ -109,7 +109,7 @@ export default new vuex.Store({
             state.shoppingList = payload
         },
         updateShoppingListFermentables(state, payload) {
-            if (!state.shoppingList.fermentables){
+            if (!state.shoppingList.fermentables) {
                 state.shoppingList.fermentables = []
             }
             for (var i = 0; i < payload.fermentables.length; i++) {
@@ -126,7 +126,7 @@ export default new vuex.Store({
             }
         },
         updateShoppingListHops(state, payload) {
-            if (!state.shoppingList.hops){
+            if (!state.shoppingList.hops) {
                 state.shoppingList.hops = []
             }
             for (var i = 0; i < payload.hops.length; i++) {
@@ -143,7 +143,7 @@ export default new vuex.Store({
             }
         },
         updateShoppingListSteepingGrains(state, payload) {
-            if (!state.shoppingList.steepingGrains){
+            if (!state.shoppingList.steepingGrains) {
                 state.shoppingList.steepingGrains = []
             }
             for (var i = 0; i < payload.steepingGrains.length; i++) {
@@ -160,7 +160,7 @@ export default new vuex.Store({
             }
         },
         updateShoppingListAdjuncts(state, payload) {
-            if (!state.shoppingList.adjuncts){
+            if (!state.shoppingList.adjuncts) {
                 state.shoppingList.adjuncts = []
             }
             for (var i = 0; i < payload.adjuncts.length; i++) {
@@ -177,7 +177,7 @@ export default new vuex.Store({
             }
         },
         updateShoppingListYeasts(state, payload) {
-            if (!state.shoppingList.yeasts){
+            if (!state.shoppingList.yeasts) {
                 state.shoppingList.yeasts = []
             }
             for (var i = 0; i < payload.yeasts.length; i++) {
@@ -301,10 +301,12 @@ export default new vuex.Store({
                     })
             }
         },
-        getCurrentlyBrewing({ commit, dispatch }, paylaod) {
-            ourDB.get('recipes/user/:userId/currentlyBrewing')
+        getBrewingSessions({ commit, dispatch }, payload) {
+            debugger
+            ourDB.get('user/' + payload + '/brewingSessions')
                 .then(res => {
-                    commit('setCurrentlyBrewing', res.data)
+                    commit('setBrewingSessions', res.data)
+                    console.log(res)
                 })
                 .catch(err => {
                     console.error(err)
@@ -339,7 +341,7 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        getMyFavorites({commit, dispatch}, payload){
+        getMyFavorites({ commit, dispatch }, payload) {
             ourDB.get('recipes/user/' + payload + '/favorites')
                 .then(res => {
                     commit('setMyFavorites', res.data)
@@ -383,6 +385,16 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
+
+        createBrewingSession({ commit, dispatch }, payload) {
+            ourDB.post('brewingSessions', payload)
+                .then(res => {
+                    dispatch('getBrewingSessions', res.data.creatorId)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
         //endregion
 
         //region ADD TO NEW RECIPE ACTIONS
@@ -414,7 +426,7 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        removeRecipe({commit, dispatch}, payload){
+        removeRecipe({ commit, dispatch }, payload) {
             ourDB.delete('recipes/' + payload._id)
                 .then(res => {
                     dispatch('getMyRecipes', payload.creatorId)
@@ -479,7 +491,7 @@ export default new vuex.Store({
                 })
                 .catch(err => {
                     console.error(err);
-                    router.push({name: 'Home'})
+                    router.push({ name: 'Home' })
                 })
         },
         logout({ commit, dispatch }, payload) {
