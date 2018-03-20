@@ -20,7 +20,7 @@
               <h6>gal</h6>
             </div>
             <div class="private-box">
-              <input class="form-check-input" type="checkbox" id="private" v-model="recipe.public">
+              <input class="form-check-input" type="checkbox" id="private" v-model="recipe.private">
               <label for="private">Private</label>
             </div>
           </div>
@@ -191,7 +191,7 @@
           name: '',
           creatorName: this.$store.state.user.name,
           batchSize: 1,
-          public: false,
+          private: false,
           style: '',
           boilTime: 60,
           personalComments: ''
