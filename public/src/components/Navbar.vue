@@ -21,7 +21,7 @@
               <router-link :to="{name: 'createRecipe'}">
                 <a class="dropdown-item">Create Recipes</a>
               </router-link>
-              <router-link :to="{name: 'profile', params: {profileId: user._id}}">
+              <router-link :to="{name: 'profile', params: {profileId: user._id}}" v-if="user._id">
                 <a class="dropdown-item">My Profile</a>
               </router-link>
               <!-- <a class="dropdown-item" href='#'>Find User</a> -->

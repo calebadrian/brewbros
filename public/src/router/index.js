@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store/index'
+import swal from 'sweetalert2'
 import Home from '@/components/Home'
 import createRecipe from '@/components/createRecipe'
 import Profile from '@/components/Profile'
@@ -16,12 +18,36 @@ export default new Router({
         {
             path: '/createRecipe',
             name: 'createRecipe',
-            component: createRecipe
+            component: createRecipe,
+            beforeEnter: (to, from, next) => {
+                if (!store.state.user.name){
+                    swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Please login to continue!'
+                    })
+                    next(false)
+                } else {
+                    next()
+                }
+            }
         },
         {
             path: '/profile/:profileId',
             name: 'profile',
-            component: Profile
+            component: Profile,
+            beforeEnter: (to, from, next) => {
+                if (!store.state.user.name){
+                    swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Please login to continue!'
+                    })
+                    next(false)
+                } else {
+                    next()
+                }
+            }
         },
         {
             path: '/browse',
