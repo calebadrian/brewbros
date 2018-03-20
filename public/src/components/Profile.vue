@@ -13,7 +13,7 @@
         </div>
           <div class="row justify-content-around re-adjust">
               <div class="col-sm-4" v-for="recipe in currentlyBrewing">
-                <div class="card">
+                <div class="card current-brew-card">
                   <div class="card-body">
                     <h5 class="card-title">{{recipe.name}}</h5>
                     <div class="row">
@@ -582,5 +582,10 @@
         margin-left: 0px;
         margin-right: 0px;
         margin-top: 2rem
+    }
+    
+    .current-brew-card {
+        margin-bottom: 2rem;
+        text-align: center
     }
 </style>
