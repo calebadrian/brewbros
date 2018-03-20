@@ -161,7 +161,7 @@
                 <h5 class="card-title">Description/Notes</h5>
               </div>
               <div class="card-body">
-                <textarea type="text" placeholder="description" v-model="recipe.personalComments" rows="4"></textarea>
+                <textarea type="text" placeholder="Description" v-model="recipe.personalComments" rows="8"></textarea>
               </div>
             </div>
           </div>
@@ -374,6 +374,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  textarea{
+    width: 100%
+  }
   .private-box {
     padding-left: 2rem
   }
