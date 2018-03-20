@@ -1,24 +1,26 @@
 <template>
   <div class="Profile">
     <navbar></navbar>
-    <div class="container-fluid">
-      <div class="d-flex justify-content-around mt-4">
-        <img v-if="profileUser.profilePic" :src="profileUser.profilePic" class="profile-pic">
-        <img v-else src="../assets/not-found.png" class="profile-pic">
-        <h4>{{profileUser.name}}</h4>
-      </div>
-      <div class="d-flex flex-column align-items-center mt-4">
-        <h2>Currently Brewing</h2>
-      </div>
-      <div class="d-flex justify-content-around">
-        <div class="col-sm-4" v-for="recipe in currentlyBrewing">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{recipe.name}}</h5>
-              <p class="card-text">{{recipe.personalComments}}</p>
-              <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                View Full Recipe
-              </button>
+    <div class="main-profile">
+      <div class="container-fluid">
+        <div class="d-flex justify-content-around mt-4">
+          <img v-if="profileUser.profilePic" :src="profileUser.profilePic" class="profile-pic">
+          <img v-else src="../assets/not-found.png" class="profile-pic">
+          <h4>{{profileUser.name}}</h4>
+        </div>
+        <div class="d-flex flex-column align-items-center mt-4">
+          <h2>Currently Brewing</h2>
+        </div>
+        <div class="d-flex justify-content-around">
+          <div class="col-sm-4" v-for="recipe in currentlyBrewing">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{recipe.name}}</h5>
+                <p class="card-text">{{recipe.personalComments}}</p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
+                  View Full Recipe
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -469,7 +471,7 @@
         this.$store.dispatch('updateFavorites', {userId: this.user._id, recipe: recipe})
       },
       addToShopping(recipe) {
-        this.$store.dispatch('updateShoppingList', recipe)
+        this.$store.dispatch('updateShoppingList', {userId: this.user._id, recipe: recipe})
       },
       favorite(recipe) {
         recipe.favorited.push(this.$store.state.user._id)
