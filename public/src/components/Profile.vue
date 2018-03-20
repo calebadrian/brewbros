@@ -16,7 +16,15 @@
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">{{recipe.name}}</h5>
-                    <p class="card-text">{{recipe.personalComments}}</p>
+                    <div class="row">
+
+                      <div class="col-sm-6 justify-start">
+                        <p class="card-text" maxlenght="30">startDate{{recipe.startDate}}</p>
+                      </div>
+                      <div class="col-sm-6 justify-end">
+                        <p class="card-text" maxlenght="30">endDate{{recipe.startDate}}</p>
+                      </div>
+                    </div>
                     <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
                       View Full Recipe
                     </button>
