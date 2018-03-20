@@ -27,14 +27,14 @@
           <div class="col-sm-6">
             <div class="form-group">
               <div class="d-flex align-items-center">
-                <label for="style">Style:</label>
-                <v-select label="name" v-model="recipe.style" :options="styles" class="selectFormat"></v-select>
-              </div>
-              <div class="d-flex align-items-center">
-                <label for="subStyle">Sub Style:</label>
-                <select class="form-control" id="subStyle" placeholder="Sub-Style" v-model="recipe.subStyle">
+                <label for="subStyle">Category:</label>
+                <select class="form-control" id="subStyle" placeholder="Category" v-model="recipe.category" @change="filterStyle">
                   <option v-for="category in categories">{{category.name}}</option>
                 </select>
+              </div>
+              <div class="d-flex align-items-center">
+                <label for="style">Style:</label>
+                <v-select label="name" v-model="recipe.style" :options="filteredStyles" class="selectFormat" placeholder="Select a Category First"></v-select>
               </div>
               <div class="d-flex align-items-center">
                 <label for="boilTime" class="mr-2">Boil Time:</label>
@@ -194,6 +194,7 @@
           batchSize: 1,
           private: false,
           style: '',
+          category: '',
           boilTime: 60,
           personalComments: ''
         },
@@ -250,7 +251,8 @@
           39: '#3A070B',
           40: '#36080A',
         },
-        styleDataToggle: false
+        styleDataToggle: false,
+        filteredStyles: []
       }
     },
     methods: {
@@ -336,6 +338,17 @@
                 }
               }
             }
+          }
+        }
+      },
+      filterStyle(){
+        this.filteredStyles = []
+        var styles = this.$store.state.styles
+        var category = this.recipe.category
+        for (let i = 0; i < styles.length; i++) {
+          const style = styles[i];
+          if(category == style.category.name){
+            this.filteredStyles.push(style)
           }
         }
       }

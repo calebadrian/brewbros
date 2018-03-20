@@ -8,7 +8,7 @@ let schema = new Schema({
     batchSize: { type: Number, required: true },
     private: { type: Boolean, default: false },
     style: { type: String, required: true },
-    subStyle: { type: String },
+    category: { type: String },
     boilTime: { type: Number, required: true },
     personalComments: { type: String },
     creatorId: { type: ObjectId, ref: 'User', required: true },

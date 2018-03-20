@@ -20,7 +20,7 @@ export default new Router({
             name: 'createRecipe',
             component: createRecipe,
             beforeEnter: (to, from, next) => {
-                if (!store.state.user.name){
+                if (!store.state.user.name && from.name){
                     swal({
                         type: 'error',
                         title: 'Oops...',
@@ -37,7 +37,8 @@ export default new Router({
             name: 'profile',
             component: Profile,
             beforeEnter: (to, from, next) => {
-                if (!store.state.user.name){
+                store.dispatch('authenticate')
+                if (!store.state.user.name && from.name){
                     swal({
                         type: 'error',
                         title: 'Oops...',
