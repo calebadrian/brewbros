@@ -12,7 +12,7 @@ let schema = new Schema({
     boilTime: { type: Number, required: true },
     personalComments: { type: String },
     creatorId: { type: ObjectId, ref: 'User', required: true },
-    creatorName: {type: String, required: true},
+    creatorName: { type: String, required: true },
     fermentables: [{}],
     steepingGrains: [{}],
     hops: [{}],
@@ -20,11 +20,21 @@ let schema = new Schema({
     adjuncts: [{}],
     created: { type: Number, required: true, default: Date.now() },
     favorited: [],
-    originalGravity: {type: Number, required: true},
-    finalGravity: {type: Number, required: true},
-    abv: {type: Number, required: true},
-    ibu: {type: Number, required: true},
-    color: {type: Number, required: true}
+    originalGravity: { type: Number, required: true },
+    finalGravity: { type: Number, required: true },
+    abv: { type: Number, required: true },
+    ibu: { type: Number, required: true },
+    color: { type: Number, required: true },
+    startBrewing: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    endBrewing: {
+        type: Number,
+        required: true,
+        default: 0
+    }
 })
 
 
