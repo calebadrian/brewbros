@@ -24,7 +24,7 @@
               <router-link :to="{name: 'profile', params: {profileId: user._id}}">
                 <a class="dropdown-item">My Profile</a>
               </router-link>
-              <a class="dropdown-item" href='#'>Find User</a>
+              <!-- <a class="dropdown-item" href='#'>Find User</a> -->
             </div>
           </li>
         </ul>

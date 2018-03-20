@@ -3,8 +3,11 @@
     <navbar></navbar>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-3" v-if="recipe.public == false" v-for="recipe in allRecipes">
-          <div class="card-header">
+        <div class="col-12">
+          <v-select label="name" value=" " v-model="style" :options="styles" class="selectFormat" placeholder="Sort by Style"></v-select>
+        </div>
+        <div class="col-3" v-if="recipe.private && !style || recipe.style == style.name" v-for="recipe in allRecipes">
+        <div class="card-header">
             <h3>{{recipe.name}}</h3>
           </div>
           <div class="card-body">
@@ -26,7 +29,8 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
               View Full Recipe
             </button>
-            <button type="button" class="btn btn-success" :recipe='recipe' v-if="recipe.creatorId != user._id && !recipe.favorited.includes(user._id)" @click="favorite({user: user, recipe: recipe})">
+            <button type="button" class="btn btn-success" :recipe='recipe' v-if="recipe.creatorId != user._id && !recipe.favorited.includes(user._id)"
+              @click="favorite({user: user, recipe: recipe})">
               Add to Favorites
             </button>
             <!-- Begin Modal Content -->
@@ -156,16 +160,18 @@
     name: 'BrowseRecipes',
     mounted() {
       this.$store.dispatch('getRecipes')
+      this.$store.dispatch('getStyles')
     },
     data() {
       return {
-
+        style: ''
       }
     },
     methods: {
-      favorite({user: user, recipe: recipe}) {
+      favorite({ user: user, recipe: recipe }) {
+        console.log(this.style)
         recipe.favorited.push(user._id)
-        this.$store.dispatch('updateFavorites', recipe)
+        this.$store.dispatch('updateFavorites', {userId: user._id, recipe: recipe})
       }
     },
     computed: {
@@ -174,7 +180,10 @@
       },
       allRecipes() {
         return this.$store.state.allRecipes
-      }
+      },
+      styles() {
+        return this.$store.state.styles
+      },
     },
     components: {
       navbar

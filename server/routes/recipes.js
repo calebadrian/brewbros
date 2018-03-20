@@ -58,6 +58,22 @@ router.get('/api/recipes/user/:userid', (req, res, next) => {
         .catch(next)
 })
 
+router.get('/api/recipes/user/:userid/favorites', (req, res, next) => {
+    Recipes.find()
+        .then(recipes => {
+            var temp = []
+            for (var i = 0; i < recipes.length; i++){
+                if (recipes[i].favorited.includes(req.params.userid)){
+                    temp.push(recipes[i])
+                }
+            }
+            res.send(temp)
+        })
+        .catch(err => {
+            console.error(err)
+        })
+})
+
 //Get Users Currently Brewing
 router.get('/api/recipes/user/:userid/currentlyBrewing', (req, res, next) => {
     Recipes.find({ creatorId: req.session.uid })
