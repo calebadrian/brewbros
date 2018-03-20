@@ -17,7 +17,7 @@
       <div v-if="newRecipeYeasts.length > 0">
         <h5>Current Yeasts:</h5>
         <div v-for="newYeast in newRecipeYeasts">
-          <h6>{{newYeast.name}} with attenuation of {{newYeast.attenuationMin}}%</h6>
+          <h6>{{newYeast.name}} with attenuation of <span v-if="newYeast.attenuationMin">{{newYeast.attenuationMin}}</span><span v-else>75</span>%</h6>
           <i class="fas fa-2x fa-ban" @click="removeYeast(newYeast)"></i>
         </div>
       </div>
@@ -35,7 +35,7 @@
       return {
         yeast: '',
         defaultValues: {
-          temp: 1,
+          temp: 70,
           pitch: 1
         }
       }

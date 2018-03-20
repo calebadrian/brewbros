@@ -182,6 +182,7 @@
   export default {
     name: 'CreateRecipe',
     mounted() {
+      this.$store.dispatch('authenticate')
       this.$store.dispatch('getStyles')
       this.$store.dispatch('getCategories')
     },
@@ -284,7 +285,7 @@
           console.log(sum)
         }
         var atten = 0
-        if (this.$store.state.newRecipe.yeasts.length < 1) {
+        if (this.$store.state.newRecipe.yeasts.length < 1 || !this.$store.state.newRecipe.yeasts[0].attenuationMin) {
           atten = 75
         } else {
           atten = this.$store.state.newRecipe.yeasts[0].attenuationMin

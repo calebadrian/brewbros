@@ -12,7 +12,7 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
               View Full Recipe
             </button>
-            <button type="button" class="btn btn-success" :recipe='recipe' v-if="recipe.creatorId != user._id && !recipe.favorited.includes(user._id)"
+            <button type="button" class="btn btn-success" :recipe='recipe' v-if="recipe.creatorId != user._id && !recipe.favorited.includes(user._id) && user.name"
               @click="favorite({user: user, recipe: recipe})">
               Add to Favorites
             </button>

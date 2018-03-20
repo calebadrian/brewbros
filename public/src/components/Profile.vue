@@ -13,10 +13,18 @@
         </div>
           <div class="row justify-content-around re-adjust">
               <div class="col-sm-4" v-for="recipe in currentlyBrewing">
-                <div class="card">
+                <div class="card current-brew-card">
                   <div class="card-body">
                     <h5 class="card-title">{{recipe.name}}</h5>
-                    <p class="card-text">{{recipe.personalComments}}</p>
+                    <div class="row">
+
+                      <div class="col-sm-6 justify-start">
+                        <p class="card-text" maxlenght="30">startDate{{recipe.startDate}}</p>
+                      </div>
+                      <div class="col-sm-6 justify-end">
+                        <p class="card-text" maxlenght="30">endDate{{recipe.startDate}}</p>
+                      </div>
+                    </div>
                     <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
                       View Full Recipe
                     </button>
@@ -221,6 +229,7 @@
                   <button class="btn btn-success" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)">
                     <i class="far fa-2x fa-heart"></i>
                   </button>
+                  <button class="btn btn-danger" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
                   <button class="btn btn-danger" @click="addtoCurrentlyBrewing(recipe)">
                     <i class="far fa-2x fa-clock"></i>
                   </button>
@@ -500,6 +509,9 @@
                     adjuncts: [],
                     yeasts: []
                 })
+            },
+            removeRecipe(recipe){
+              this.$store.dispatch('removeRecipe', recipe)
             }
         },
         computed: {
@@ -574,5 +586,10 @@
         margin-left: 0px;
         margin-right: 0px;
         margin-top: 2rem
+    }
+    
+    .current-brew-card {
+        margin-bottom: 2rem;
+        text-align: center
     }
 </style>
