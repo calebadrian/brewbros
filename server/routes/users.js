@@ -34,6 +34,22 @@ router.get('/api/users/:userid', (req, res, next) => {
 router.put('/api/users/:userid', (req, res, next) => {
   Users.findById(req.params.userid)
     .then(user => {
+      for (var key in req.body){
+        if (key != 'password' && key != '_id'){
+          user[key] = req.body[key]
+        }
+      }
+      user.save()
+      res.send(user)
+    })
+    .catch(err => {
+      console.error(err)
+    })
+})
+
+router.put('/api/users/:userid/shoppingList', (req, res, next) => {
+  Users.findById(req.params.userid)
+    .then(user => {
       user.shoppingList.fermentables = req.body.fermentables
       user.shoppingList.hops = req.body.hops
       user.shoppingList.steepingGrains = req.body.steepingGrains

@@ -8,6 +8,13 @@
           <img v-else src="../assets/not-found.png" class="profile-pic">
           <h4>{{profileUser.name}}</h4>
         </div>
+        <button class="btn btn-info" v-if="profileUser._id == user._id" @click="formHide = !formHide">Edit Profile</button>
+        <form @submit.prevent="editProfile" v-if="!formHide">
+          <input v-model="profileUser.name">
+          <input v-model="profileUser.email">
+          <input v-model="profileUser.profilePic">
+          <button type="submit" class="btn btn-success">Edit Profile</button>
+        </form>
         <div class="row flex-column align-items-center mt-4">
           <h2>Currently Brewing</h2>
         </div>
@@ -463,7 +470,7 @@
         },
         data() {
             return {
-
+              formHide: true
             }
         },
         methods: {
@@ -514,6 +521,9 @@
                 this.$store.dispatch('createBrewingSession', {
                     recipe: recipe,
                 })
+            },
+            editProfile(){
+              this.$store.dispatch('editProfile', this.profileUser)
             }
         },
         computed: {

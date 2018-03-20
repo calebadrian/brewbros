@@ -305,7 +305,6 @@ export default new vuex.Store({
             ourDB.get('user/' + payload + '/brewingSessions')
                 .then(res => {
                     commit('setBrewingSessions', res.data)
-                    console.log(res)
                 })
                 .catch(err => {
                     console.error(err)
@@ -361,7 +360,7 @@ export default new vuex.Store({
                 })
         },
         updateShoppingList({ commit, dispatch, state }, payload) {
-            ourDB.put('users/' + payload.userId, payload.recipe)
+            ourDB.put('users/' + payload.userId + '/shoppingList', payload.recipe)
                 .then(res => {
                     commit('updateUser', res.data)
                 })
@@ -458,6 +457,16 @@ export default new vuex.Store({
                         title: 'Oops...',
                         text: 'Something went wrong!'
                     })
+                })
+        },
+        editProfile({commit, dispatch}, payload){
+            ourDB.put('users/' + payload._id, payload)
+                .then(res => {
+                    commit('updateUser', res.data)
+                    commit('setProfileUser', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
                 })
         },
         login({ commit, dispatch, state }, payload) {

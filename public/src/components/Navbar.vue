@@ -28,7 +28,7 @@
             </div>
           </li>
         </ul>
-        <div v-if="!user.name">
+        <div v-if="!user._id">
           <button class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#loginModal">Login</button>
           <button class="btn btn-outline-primary my-2 my-sm-0 ml-2" data-toggle="modal" data-target="#registerModal">Register</button>
         </div>
