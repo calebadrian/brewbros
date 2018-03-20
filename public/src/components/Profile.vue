@@ -8,24 +8,24 @@
           <img v-else src="../assets/not-found.png" class="profile-pic">
           <h4>{{profileUser.name}}</h4>
         </div>
-        <div class="d-flex flex-column align-items-center mt-4">
+        <div class="row flex-column align-items-center mt-4">
           <h2>Currently Brewing</h2>
         </div>
-        <div class="d-flex justify-content-around">
-          <div class="col-sm-4" v-for="recipe in currentlyBrewing">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">{{recipe.name}}</h5>
-                <p class="card-text">{{recipe.personalComments}}</p>
-                <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                  View Full Recipe
-                </button>
+          <div class="row justify-content-around re-adjust">
+              <div class="col-sm-4" v-for="recipe in currentlyBrewing">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">{{recipe.name}}</h5>
+                    <p class="card-text">{{recipe.personalComments}}</p>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
+                      View Full Recipe
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
     <div class="mt-4">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
@@ -445,81 +445,93 @@
 </template>
 
 <script>
-  import navbar from './Navbar'
-  export default {
-    name: 'Profile',
-    mounted() {
-      this.$store.dispatch('authenticate')
-      this.$store.dispatch('getProfileUser', this.$route.params.profileId)
-      this.$store.dispatch('getMyRecipes', this.$route.params.profileId)
-      this.$store.dispatch('getMyFavorites', this.$route.params.profileId)
-      this.$store.dispatch('getCurrentlyBrewing')
-    },
-    data() {
-      return {
+    import navbar from './Navbar'
+    export default {
+        name: 'Profile',
+        mounted() {
+            this.$store.dispatch('authenticate')
+            this.$store.dispatch('getProfileUser', this.$route.params.profileId)
+            this.$store.dispatch('getMyRecipes', this.$route.params.profileId)
+            this.$store.dispatch('getMyFavorites', this.$route.params.profileId)
+            this.$store.dispatch('getCurrentlyBrewing')
+        },
+        data() {
+            return {
 
-      }
-    },
-    methods: {
-      removeFavRecipe(recipe) {
-        for (let i = 0; i < recipe.favorited.length; i++) {
-          const userId = recipe.favorited[i];
-          if (this.$store.state.user._id == userId) {
-            recipe.favorited.splice(i, 1)
-          }
-        }
-        this.$store.dispatch('updateFavorites', {userId: this.user._id, recipe: recipe})
-      },
-      addToShopping(recipe) {
-        this.$store.dispatch('updateShoppingList', {userId: this.user._id, recipe: recipe})
-      },
-      favorite(recipe) {
-        recipe.favorited.push(this.$store.state.user._id)
-        this.$store.dispatch('updateFavorites', recipe)
-      },
-      getProfileUser(userId) {
-        this.$store.dispatch('getProfileUser', userId)
-      },
-      getMyRecipes(userId) {
-        this.$store.dispatch('getMyRecipes', userId)
-      },
-      getMyFavorites(userId) {
-        this.$store.dispatch('getMyFavorites', userId)
-      },
-      clearShoppingList() {
-        this.$store.dispatch('clearShoppingList', { fermentables: [], hops: [], steepingGrains: [], adjuncts: [], yeasts: [] })
-      }
-    },
-    computed: {
-      user() {
-        return this.$store.state.user
-      },
-      profileUser() {
-        return this.$store.state.profileUser
-      },
-      myRecipes() {
-        return this.$store.state.myRecipes
-      },
-      myFavorites() {
-        return this.$store.state.myFavorites
-      },
-      shoppingList() {
-        return this.$store.state.shoppingList
-      },
-      currentlyBrewing() {
-        return this.$store.state.currentlyBrewing
-      }
-    },
-    beforeRouteUpdate(to, from, next) {
-      this.profileUser = this.getProfileUser(to.params.profileId)
-      this.myRecipes = this.getMyRecipes(to.params.profileId)
-      this.myFavorites = this.getMyFavorites(to.params.profileId)
-      next()
-    },
-    components: {
-      navbar,
-    },
-  }
+            }
+        },
+        methods: {
+            removeFavRecipe(recipe) {
+                for (let i = 0; i < recipe.favorited.length; i++) {
+                    const userId = recipe.favorited[i];
+                    if (this.$store.state.user._id == userId) {
+                        recipe.favorited.splice(i, 1)
+                    }
+                }
+                this.$store.dispatch('updateFavorites', {
+                    userId: this.user._id,
+                    recipe: recipe
+                })
+            },
+            addToShopping(recipe) {
+                this.$store.dispatch('updateShoppingList', {
+                    userId: this.user._id,
+                    recipe: recipe
+                })
+            },
+            favorite(recipe) {
+                recipe.favorited.push(this.$store.state.user._id)
+                this.$store.dispatch('updateFavorites', recipe)
+            },
+            getProfileUser(userId) {
+                this.$store.dispatch('getProfileUser', userId)
+            },
+            getMyRecipes(userId) {
+                this.$store.dispatch('getMyRecipes', userId)
+            },
+            getMyFavorites(userId) {
+                this.$store.dispatch('getMyFavorites', userId)
+            },
+            clearShoppingList() {
+                this.$store.dispatch('clearShoppingList', {
+                    fermentables: [],
+                    hops: [],
+                    steepingGrains: [],
+                    adjuncts: [],
+                    yeasts: []
+                })
+            }
+        },
+        computed: {
+            user() {
+                return this.$store.state.user
+            },
+            profileUser() {
+                return this.$store.state.profileUser
+            },
+            myRecipes() {
+                return this.$store.state.myRecipes
+            },
+            myFavorites() {
+                return this.$store.state.myFavorites
+            },
+            shoppingList() {
+                return this.$store.state.shoppingList
+            },
+            currentlyBrewing() {
+                return this.$store.state.currentlyBrewing
+            }
+        },
+        beforeRouteUpdate(to, from, next) {
+            this.profileUser = this.getProfileUser(to.params.profileId)
+            this.myRecipes = this.getMyRecipes(to.params.profileId)
+            this.myFavorites = this.getMyFavorites(to.params.profileId)
+            next()
+        },
+        components: {
+            navbar,
+        },
+    }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -555,6 +567,12 @@
     }
     
     .margin-top {
+        margin-top: 2rem
+    }
+    
+    .re-adjust {
+        margin-left: 0px;
+        margin-right: 0px;
         margin-top: 2rem
     }
 </style>
