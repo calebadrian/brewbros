@@ -109,6 +109,9 @@ export default new vuex.Store({
             state.shoppingList = payload
         },
         updateShoppingListFermentables(state, payload) {
+            if (!state.shoppingList.fermentables){
+                state.shoppingList.fermentables = []
+            }
             for (var i = 0; i < payload.fermentables.length; i++) {
                 var found = false
                 for (var j = 0; j < state.shoppingList.fermentables.length; j++) {
@@ -123,6 +126,9 @@ export default new vuex.Store({
             }
         },
         updateShoppingListHops(state, payload) {
+            if (!state.shoppingList.hops){
+                state.shoppingList.hops = []
+            }
             for (var i = 0; i < payload.hops.length; i++) {
                 var found = false
                 for (var j = 0; j < state.shoppingList.hops.length; j++) {
@@ -137,6 +143,9 @@ export default new vuex.Store({
             }
         },
         updateShoppingListSteepingGrains(state, payload) {
+            if (!state.shoppingList.steepingGrains){
+                state.shoppingList.steepingGrains = []
+            }
             for (var i = 0; i < payload.steepingGrains.length; i++) {
                 var found = false
                 for (var j = 0; j < state.shoppingList.steepingGrains.length; j++) {
@@ -151,6 +160,9 @@ export default new vuex.Store({
             }
         },
         updateShoppingListAdjuncts(state, payload) {
+            if (!state.shoppingList.adjuncts){
+                state.shoppingList.adjuncts = []
+            }
             for (var i = 0; i < payload.adjuncts.length; i++) {
                 var found = false
                 for (var j = 0; j < state.shoppingList.adjuncts.length; j++) {
@@ -165,6 +177,9 @@ export default new vuex.Store({
             }
         },
         updateShoppingListYeasts(state, payload) {
+            if (!state.shoppingList.yeasts){
+                state.shoppingList.yeasts = []
+            }
             for (var i = 0; i < payload.yeasts.length; i++) {
                 var found = false
                 for (var j = 0; j < state.shoppingList.yeasts.length; j++) {
@@ -345,18 +360,18 @@ export default new vuex.Store({
                 })
         },
         updateShoppingList({ commit, dispatch, state }, payload) {
-            ourDB.put('users/' + payload.userId, payload.recipe.favorited)
+            ourDB.put('users/' + payload.userId, payload.recipe)
                 .then(res => {
                     commit('updateUser', res.data)
                 })
                 .catch(err => {
                     console.error(err)
                 })
-            commit('updateShoppingListFermentables', payload)
-            commit('updateShoppingListHops', payload)
-            commit('updateShoppingListSteepingGrains', payload)
-            commit('updateShoppingListAdjuncts', payload)
-            commit('updateShoppingListYeasts', payload)
+            commit('updateShoppingListFermentables', payload.recipe)
+            commit('updateShoppingListHops', payload.recipe)
+            commit('updateShoppingListSteepingGrains', payload.recipe)
+            commit('updateShoppingListAdjuncts', payload.recipe)
+            commit('updateShoppingListYeasts', payload.recipe)
         },
         clearShoppingList({ commit, dispatch, state }, payload) {
             ourDB.put('users/' + state.user._id, payload)
@@ -392,8 +407,8 @@ export default new vuex.Store({
         addRecipe({ commit, dispatch }, payload) {
             ourDB.post('recipes', payload)
                 .then(res => {
-                    dispatch('getMyRecipes')
                     router.push({ name: 'profile', params: { profileId: payload.creatorId } })
+                    dispatch('getMyRecipes')
                 })
                 .catch(err => {
                     console.error(err)

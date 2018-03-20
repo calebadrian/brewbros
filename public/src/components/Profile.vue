@@ -469,7 +469,7 @@
         this.$store.dispatch('updateFavorites', {userId: this.user._id, recipe: recipe})
       },
       addToShopping(recipe) {
-        this.$store.dispatch('updateShoppingList', recipe)
+        this.$store.dispatch('updateShoppingList', {userId: this.user._id, recipe: recipe})
       },
       favorite(recipe) {
         recipe.favorited.push(this.$store.state.user._id)
