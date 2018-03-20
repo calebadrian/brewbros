@@ -405,11 +405,19 @@ export default new vuex.Store({
 
         //region POSTING TO DB
         addRecipe({ commit, dispatch }, payload) {
-            console.log(payload)
             ourDB.post('recipes', payload)
                 .then(res => {
                     dispatch('getMyRecipes', res.data.creatorId)
                     router.push({ name: 'profile', params: { profileId: res.data.creatorId } })
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        removeRecipe({commit, dispatch}, payload){
+            ourDB.delete('recipes/' + payload._id)
+                .then(res => {
+                    dispatch('getMyRecipes', payload.creatorId)
                 })
                 .catch(err => {
                     console.error(err)

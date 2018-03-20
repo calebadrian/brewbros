@@ -229,6 +229,7 @@
                   <button class="btn btn-success" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)">
                     <i class="far fa-2x fa-heart"></i>
                   </button>
+                  <button class="btn btn-danger" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
                   <button class="btn btn-danger" @click="addtoCurrentlyBrewing(recipe)">
                     <i class="far fa-2x fa-clock"></i>
                   </button>
@@ -508,6 +509,9 @@
                     adjuncts: [],
                     yeasts: []
                 })
+            },
+            removeRecipe(recipe){
+              this.$store.dispatch('removeRecipe', recipe)
             }
         },
         computed: {
