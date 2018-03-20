@@ -58,12 +58,12 @@
         background-position: center center;
         background-repeat: no-repeat;
         background-size: fill;
-        min-height: 70vh;
+        min-height: 92vh;
         color: white;
     }
     
     .description {
-        min-height: 50vh;
+        min-height: 65vh;
         background: black;
         color: white;
         padding: 1rem
