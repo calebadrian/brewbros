@@ -12,22 +12,19 @@
           <h2>Currently Brewing</h2>
         </div>
           <div class="row justify-content-around re-adjust">
-              <div class="col-sm-4" v-for="recipe in currentlyBrewing">
+              <div class="col-sm-4" v-for="brewingSession in brewingSessions">
                 <div class="card current-brew-card">
                   <div class="card-body">
-                    <h5 class="card-title">{{recipe.name}}</h5>
+                    <h5 class="card-title">{{brewingSession.recipe.name}}</h5>
                     <div class="row">
 
                       <div class="col-sm-6 justify-start">
-                        <p class="card-text" maxlenght="30">startDate{{recipe.startDate}}</p>
+                        <p class="card-text" maxlenght="30">{{brewingSession.startBrewing}}</p>
                       </div>
                       <div class="col-sm-6 justify-end">
-                        <p class="card-text" maxlenght="30">endDate{{recipe.startDate}}</p>
+                        <p class="card-text" maxlenght="30">{{brewingSession.endBrewing}}</p>
                       </div>
                     </div>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                      View Full Recipe
-                    </button>
                   </div>
                 </div>
               </div>
@@ -230,7 +227,7 @@
                     <i class="far fa-2x fa-heart"></i>
                   </button>
                   <button class="btn btn-danger" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
-                  <button class="btn btn-danger" @click="addtoCurrentlyBrewing(recipe)">
+                  <button class="btn btn-danger" @click="createBrewingSession(recipe)">
                     <i class="far fa-2x fa-clock"></i>
                   </button>
                   <!-- Begin Modal Content -->
@@ -462,7 +459,7 @@
             this.$store.dispatch('getProfileUser', this.$route.params.profileId)
             this.$store.dispatch('getMyRecipes', this.$route.params.profileId)
             this.$store.dispatch('getMyFavorites', this.$route.params.profileId)
-            this.$store.dispatch('getCurrentlyBrewing')
+            this.$store.dispatch('getBrewingSessions', this.$route.params.profileId)
         },
         data() {
             return {
@@ -510,8 +507,13 @@
                     yeasts: []
                 })
             },
-            removeRecipe(recipe){
-              this.$store.dispatch('removeRecipe', recipe)
+            removeRecipe(recipe) {
+                this.$store.dispatch('removeRecipe', recipe)
+            },
+            createBrewingSession(recipe) {
+                this.$store.dispatch('createBrewingSession', {
+                    recipe: recipe,
+                })
             }
         },
         computed: {
@@ -530,14 +532,15 @@
             shoppingList() {
                 return this.$store.state.shoppingList
             },
-            currentlyBrewing() {
-                return this.$store.state.currentlyBrewing
+            brewingSessions() {
+                return this.$store.state.brewingSessions
             }
         },
         beforeRouteUpdate(to, from, next) {
             this.profileUser = this.getProfileUser(to.params.profileId)
             this.myRecipes = this.getMyRecipes(to.params.profileId)
             this.myFavorites = this.getMyFavorites(to.params.profileId)
+            this.brewingSessions = this.getBrewingSession(to.params.profileId)
             next()
         },
         components: {

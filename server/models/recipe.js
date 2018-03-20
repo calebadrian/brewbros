@@ -24,17 +24,7 @@ let schema = new Schema({
     finalGravity: { type: Number, required: true },
     abv: { type: Number, required: true },
     ibu: { type: Number, required: true },
-    color: { type: Number, required: true },
-    startBrewing: {
-        type: Number,
-        required: true,
-        default: 0
-    },
-    endBrewing: {
-        type: Number,
-        required: true,
-        default: 0
-    }
+    color: { type: Number, required: true }
 })
 
 
