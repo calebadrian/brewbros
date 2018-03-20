@@ -41,6 +41,8 @@ router.put('/api/users/:userid', (req, res, next) => {
       user.shoppingList.yeasts = req.body.yeasts
       user.markModified('shoppingList')
       user.save()
+      user.password = null // probably Mongoose doesn't let you delete the password!!
+      delete user.password
       res.send(user)
     })
     .catch(err => {
