@@ -474,6 +474,7 @@ export default new vuex.Store({
 
         },
         authenticate({ commit, dispatch }, payload) {
+            debugger
             auth.get('authenticate', payload).then(res => {
                     commit('updateUser', res.data)
                 })
