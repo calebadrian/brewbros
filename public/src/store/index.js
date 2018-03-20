@@ -302,7 +302,6 @@ export default new vuex.Store({
             }
         },
         getBrewingSessions({ commit, dispatch }, payload) {
-            debugger
             ourDB.get('user/' + payload + '/brewingSessions')
                 .then(res => {
                     commit('setBrewingSessions', res.data)
