@@ -30,41 +30,42 @@
 </template>
 
 <script>
-  import navbar from './Navbar'
-  import foot from './Foot'
-  export default {
-    name: 'Home',
-    data() {
-      return {
+    import navbar from './Navbar'
+    import foot from './Foot'
+    export default {
+        name: 'Home',
+        data() {
+            return {
 
-      }
-    },
-    computed: {
-      user() {
-        return this.$store.state.user
-      }
-    },
-    components: {
-      navbar,
-      foot
+            }
+        },
+        computed: {
+            user() {
+                return this.$store.state.user
+            }
+        },
+        components: {
+            navbar,
+            foot
+        }
     }
-  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .call {
-    background: url('../assets/beer-bg.jpeg');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: fill;
-    min-height: 70vh;
-    color: white;
-  }
-
-  .description {
-    min-height: 50vh;
-    background: black;
-    color: white;
-  }
+    .call {
+        background: url('../assets/beer-bg.jpeg');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: fill;
+        min-height: 70vh;
+        color: white;
+    }
+    
+    .description {
+        min-height: 50vh;
+        background: black;
+        color: white;
+        padding: 1rem
+    }
 </style>
