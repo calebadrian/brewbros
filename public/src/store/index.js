@@ -471,6 +471,7 @@ export default new vuex.Store({
                 })
                 .catch(err => {
                     console.error(err);
+                    router.push({name: 'Home'})
                 })
         },
         logout({ commit, dispatch }, payload) {

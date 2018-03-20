@@ -182,6 +182,7 @@
   export default {
     name: 'CreateRecipe',
     mounted() {
+      this.$store.dispatch('authenticate')
       this.$store.dispatch('getStyles')
       this.$store.dispatch('getCategories')
     },
