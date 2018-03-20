@@ -58,7 +58,7 @@
         background-position: center center;
         background-repeat: no-repeat;
         background-size: fill;
-        min-height: 92vh;
+        min-height: 91.5vh;
         color: white;
     }
     
