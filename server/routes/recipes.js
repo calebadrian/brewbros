@@ -28,6 +28,17 @@ router.put('/api/recipes/:recipeId', (req, res, next) => {
         .catch(next)
 })
 
+router.put('/api/recipes/:recipeId/ratings', (req, res, next) => {
+    Recipes.findById(req.params.recipeId)
+        .then(recipe => {
+            recipe.ratings[req.body.userId] = req.body.rating
+            recipe.markModified('ratings')
+            recipe.save()
+            return res.send(recipe)
+        })
+        .catch(next)
+})
+
 //Delete a recipe
 router.delete('/api/recipes/:recipeId', (req, res, next) => {
     Recipes.findById(req.params.recipeId)

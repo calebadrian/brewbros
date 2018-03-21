@@ -383,6 +383,15 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
+        addRating({ commit, dispatch }, payload) {
+            ourDB.put('recipes/' + payload.recipeId + '/ratings', payload)
+                .then(res => {
+                    dispatch('getRecipes')
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
 
         createBrewingSession({ commit, dispatch }, payload) {
             ourDB.post('brewingSessions', payload)
@@ -459,7 +468,7 @@ export default new vuex.Store({
                     })
                 })
         },
-        editProfile({commit, dispatch}, payload){
+        editProfile({ commit, dispatch }, payload) {
             ourDB.put('users/' + payload._id, payload)
                 .then(res => {
                     commit('updateUser', res.data)
@@ -469,7 +478,7 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        addFollower({commit, dispatch}, payload){
+        addFollower({ commit, dispatch }, payload) {
             ourDB.put('users/' + payload.user._id + '/followers', payload.follower)
                 .then(res => {
                     commit('updateUser', res.data)
@@ -504,8 +513,8 @@ export default new vuex.Store({
         },
         authenticate({ commit, dispatch }, payload) {
             auth.get('authenticate', payload).then(res => {
-                    commit('updateUser', res.data)
-                })
+                commit('updateUser', res.data)
+            })
                 .catch(err => {
                     console.error(err);
                     router.push({ name: 'Home' })
