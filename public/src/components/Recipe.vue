@@ -17,8 +17,12 @@
             {{recipe.creatorName}}</router-link>
         </li>
       </ul>
+      <fa-rating :glyph="beer" v-model="rating" inactive-color=" #e6e6e6" active-color="#e1b871" increment="0.25" fixed-points="2">
+      </fa-rating>
       <span class="favorited">
-        <h6><b>{{recipe.favorited.length}}</b></h6>
+        <h6>
+          <b>{{recipe.favorited.length}}</b>
+        </h6>
         <img class="hop" src="../assets/hopIcon.png" alt="">
       </span>
     </div>
@@ -140,34 +144,42 @@
 </template>
 
 <script>
+  import Beer from 'vue-rate-it/glyphs/beer';
+
   export default {
     name: 'recipe',
     props: ['recipe'],
     mounted() {
       this.$store.dispatch('getRecipes')
-
     },
     data() {
       return {
+        beer: '',
+        rating: 0
       }
     },
     methods: {
+
     },
     computed: {
       allRecipes() {
         return this.$store.state.allRecipes
       },
     },
+    created() {
+      this.beer = Beer
+    },
     components: {
-    }
+    },
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  h6{
+  h6 {
     font-size: 1.3rem;
   }
+
   .favorited {
     display: flex;
     align-items: flex-end;

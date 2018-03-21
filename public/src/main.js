@@ -6,9 +6,13 @@ import App from './App'
 import router from './router'
 import store from './store'
 import vSelect from 'vue-select'
+import Raters from 'vue-rate-it'
 
 Vue.config.productionTip = false
 Vue.component('v-select', vSelect)
+Vue.component('fa-rating', Raters.FaRating);
+
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
