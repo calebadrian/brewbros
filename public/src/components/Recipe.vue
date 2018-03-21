@@ -17,9 +17,13 @@
             {{recipe.creatorName}}</router-link>
         </li>
       </ul>
-      <fa-rating :glyph="beer" v-if="!recipe.ratings[user._id]" v-model="rating" @rating-selected="addRating" inactive-color="#e6e6e6" active-color="#e1b871" :increment="0.25" :fixed-points="2">
+      <p>Average Rating: {{avgRating}}</p>
+      <p>My Rating:</p>
+      <fa-rating :glyph="beer" v-if="!recipe.ratings[user._id]" v-model="rating" @rating-selected="addRating" inactive-color="#e6e6e6"
+        active-color="#e1b871" :increment="0.25" :fixed-points="2">
       </fa-rating>
-      <fa-rating :glyph="beer" v-else v-model="recipe.ratings[user._id]" @rating-selected="addRating" inactive-color="#e6e6e6" active-color="#e1b871" :increment="0.25" :fixed-points="2">
+      <fa-rating :glyph="beer" v-else v-model="recipe.ratings[user._id]" @rating-selected="addRating" inactive-color="#e6e6e6"
+        active-color="#e1b871" :increment="0.25" :fixed-points="2">
       </fa-rating>
       <span class="favorited">
         <h6>
@@ -154,23 +158,38 @@
     mounted() {
       this.$store.dispatch('authenticate')
       this.$store.dispatch('getRecipes')
+      this.avgRatingCalc()
     },
     data() {
       return {
         beer: '',
-        rating: 0
+        rating: 0,
+        avgRating: 0,
       }
     },
     methods: {
-      addRating(){
-        this.$store.dispatch('addRating', {rating: this.rating, recipeId: this.recipe._id, userId: this.user._id })
+      avgRatingCalc() {
+        var ratings = this.recipe.ratings
+        var sum = 0
+        var count = 0
+        for (const key in ratings) {
+          if (ratings.hasOwnProperty(key)) {
+            const rating = ratings[key];
+            sum += rating
+            count++
+          }
+        }
+        this.avgRating = sum / count
+      },
+      addRating() {
+        this.$store.dispatch('addRating', { rating: this.rating, recipeId: this.recipe._id, userId: this.user._id })
       }
     },
     computed: {
       allRecipes() {
         return this.$store.state.allRecipes
       },
-      user(){
+      user() {
         return this.$store.state.user
       }
     },
