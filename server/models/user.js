@@ -21,6 +21,7 @@ let schema = new Schema({
             yeasts: [],
         }
     },
+    following: []
 })
 
 schema.statics.generateHash = function(password) {

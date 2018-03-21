@@ -9,35 +9,40 @@
           <h4>{{profileUser.name}}</h4>
         </div>
         <button class="btn btn-info" v-if="profileUser._id == user._id" @click="formHide = !formHide">Edit Profile</button>
+        <button class="btn btn-primary" v-else-if="!user.following.find(hasProfileUser)" @click="addFollower">Follow This Person</button>
         <form @submit.prevent="editProfile" v-if="!formHide">
           <input v-model="profileUser.name">
           <input v-model="profileUser.email">
           <input v-model="profileUser.profilePic">
           <button type="submit" class="btn btn-success">Edit Profile</button>
         </form>
+        <h4>Followers: </h4>
+        <div v-for="follower in profileUser.following">
+          <router-link :to="{name: 'profile', params: {profileId: follower._id}}">{{follower.name}}</router-link>
+        </div>
         <div class="row flex-column align-items-center mt-4">
           <h2>Currently Brewing</h2>
         </div>
-          <div class="row justify-content-around re-adjust">
-              <div class="col-sm-4" v-for="brewingSession in brewingSessions">
-                <div class="card current-brew-card">
-                  <div class="card-body">
-                    <h5 class="card-title">{{brewingSession.recipe.name}}</h5>
-                    <div class="row">
+        <div class="row justify-content-around re-adjust">
+          <div class="col-sm-4" v-for="brewingSession in brewingSessions">
+            <div class="card current-brew-card">
+              <div class="card-body">
+                <h5 class="card-title">{{brewingSession.recipe.name}}</h5>
+                <div class="row">
 
-                      <div class="col-sm-6 justify-start">
-                        <p class="card-text" maxlenght="30">{{brewingSession.startBrewing}}</p>
-                      </div>
-                      <div class="col-sm-6 justify-end">
-                        <p class="card-text" maxlenght="30">{{brewingSession.endBrewing}}</p>
-                      </div>
-                    </div>
+                  <div class="col-sm-6 justify-start">
+                    <p class="card-text" maxlenght="30">{{brewingSession.startBrewing}}</p>
+                  </div>
+                  <div class="col-sm-6 justify-end">
+                    <p class="card-text" maxlenght="30">{{brewingSession.endBrewing}}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
     <div class="mt-4">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
@@ -458,151 +463,166 @@
 </template>
 
 <script>
-    import navbar from './Navbar'
-    export default {
-        name: 'Profile',
-        mounted() {
-            this.$store.dispatch('authenticate')
-            this.$store.dispatch('getProfileUser', this.$route.params.profileId)
-            this.$store.dispatch('getMyRecipes', this.$route.params.profileId)
-            this.$store.dispatch('getMyFavorites', this.$route.params.profileId)
-            this.$store.dispatch('getBrewingSessions', this.$route.params.profileId)
-        },
-        data() {
-            return {
-              formHide: true
-            }
-        },
-        methods: {
-            removeFavRecipe(recipe) {
-                for (let i = 0; i < recipe.favorited.length; i++) {
-                    const userId = recipe.favorited[i];
-                    if (this.$store.state.user._id == userId) {
-                        recipe.favorited.splice(i, 1)
-                    }
-                }
-                this.$store.dispatch('updateFavorites', {
-                    userId: this.user._id,
-                    recipe: recipe
-                })
-            },
-            addToShopping(recipe) {
-                this.$store.dispatch('updateShoppingList', {
-                    userId: this.user._id,
-                    recipe: recipe
-                })
-            },
-            favorite(recipe) {
-                recipe.favorited.push(this.$store.state.user._id)
-                this.$store.dispatch('updateFavorites', recipe)
-            },
-            getProfileUser(userId) {
-                this.$store.dispatch('getProfileUser', userId)
-            },
-            getMyRecipes(userId) {
-                this.$store.dispatch('getMyRecipes', userId)
-            },
-            getMyFavorites(userId) {
-                this.$store.dispatch('getMyFavorites', userId)
-            },
-            clearShoppingList() {
-                this.$store.dispatch('clearShoppingList', {
-                    fermentables: [],
-                    hops: [],
-                    steepingGrains: [],
-                    adjuncts: [],
-                    yeasts: []
-                })
-            },
-            removeRecipe(recipe) {
-                this.$store.dispatch('removeRecipe', recipe)
-            },
-            createBrewingSession(recipe) {
-                this.$store.dispatch('createBrewingSession', {
-                    recipe: recipe,
-                })
-            },
-            editProfile(){
-              this.$store.dispatch('editProfile', this.profileUser)
-            }
-        },
-        computed: {
-            user() {
-                return this.$store.state.user
-            },
-            profileUser() {
-                return this.$store.state.profileUser
-            },
-            myRecipes() {
-                return this.$store.state.myRecipes
-            },
-            myFavorites() {
-                return this.$store.state.myFavorites
-            },
-            shoppingList() {
-                return this.$store.state.shoppingList
-            },
-            brewingSessions() {
-                return this.$store.state.brewingSessions
-            }
-        },
-        beforeRouteUpdate(to, from, next) {
-            this.profileUser = this.getProfileUser(to.params.profileId)
-            this.myRecipes = this.getMyRecipes(to.params.profileId)
-            this.myFavorites = this.getMyFavorites(to.params.profileId)
-            this.brewingSessions = this.getBrewingSession(to.params.profileId)
-            next()
-        },
-        components: {
-            navbar,
-        },
-    }
+  import navbar from './Navbar'
+  export default {
+    name: 'Profile',
+    mounted() {
+      this.$store.dispatch('authenticate')
+      this.$store.dispatch('getProfileUser', this.$route.params.profileId)
+      this.$store.dispatch('getMyRecipes', this.$route.params.profileId)
+      this.$store.dispatch('getMyFavorites', this.$route.params.profileId)
+      this.$store.dispatch('getBrewingSessions', this.$route.params.profileId)
+    },
+    data() {
+      return {
+        formHide: true
+      }
+    },
+    methods: {
+      removeFavRecipe(recipe) {
+        for (let i = 0; i < recipe.favorited.length; i++) {
+          const userId = recipe.favorited[i];
+          if (this.$store.state.user._id == userId) {
+            recipe.favorited.splice(i, 1)
+          }
+        }
+        this.$store.dispatch('updateFavorites', {
+          userId: this.user._id,
+          recipe: recipe
+        })
+      },
+      addToShopping(recipe) {
+        this.$store.dispatch('updateShoppingList', {
+          userId: this.user._id,
+          recipe: recipe
+        })
+      },
+      favorite(recipe) {
+        recipe.favorited.push(this.$store.state.user._id)
+        this.$store.dispatch('updateFavorites', recipe)
+      },
+      getProfileUser(userId) {
+        this.$store.dispatch('getProfileUser', userId)
+      },
+      getMyRecipes(userId) {
+        this.$store.dispatch('getMyRecipes', userId)
+      },
+      getMyFavorites(userId) {
+        this.$store.dispatch('getMyFavorites', userId)
+      },
+      clearShoppingList() {
+        this.$store.dispatch('clearShoppingList', {
+          fermentables: [],
+          hops: [],
+          steepingGrains: [],
+          adjuncts: [],
+          yeasts: []
+        })
+      },
+      removeRecipe(recipe) {
+        this.$store.dispatch('removeRecipe', recipe)
+      },
+      createBrewingSession(recipe) {
+        this.$store.dispatch('createBrewingSession', {
+          recipe: recipe,
+        })
+      },
+      editProfile() {
+        this.$store.dispatch('editProfile', this.profileUser)
+        this.formHide = true;
+      },
+      getBrewingSession(userId) {
+        this.$store.dispatch('getBrewingSessions', userId)
+      },
+      addFollower() {
+        this.$store.dispatch('addFollower', { user: this.user, follower: { name: this.profileUser.name, _id: this.profileUser._id, profilePic: this.profileUser.profilePic } })
+      },
+      hasProfileUser(element, index, array) {
+        for (var i = 0; i < array.length; i++) {
+          if (array[i]._id == this.profileUser._id) {
+            return true
+          }
+        }
+        return false
+      }
+    },
+    computed: {
+      user() {
+        return this.$store.state.user
+      },
+      profileUser() {
+        return this.$store.state.profileUser
+      },
+      myRecipes() {
+        return this.$store.state.myRecipes
+      },
+      myFavorites() {
+        return this.$store.state.myFavorites
+      },
+      shoppingList() {
+        return this.$store.state.shoppingList
+      },
+      brewingSessions() {
+        return this.$store.state.brewingSessions
+      }
+    },
+    beforeRouteUpdate(to, from, next) {
+      this.profileUser = this.getProfileUser(to.params.profileId)
+      this.myRecipes = this.getMyRecipes(to.params.profileId)
+      this.myFavorites = this.getMyFavorites(to.params.profileId)
+      this.brewingSessions = this.getBrewingSession(to.params.profileId)
+      next()
+    },
+    components: {
+      navbar,
+    },
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .profile-pic {
-        width: auto;
-        height: 250px;
-    }
-    
-    #recipes {
-        min-height: 30%;
-    }
-    
-    #shopping {
-        min-height: 30%;
-    }
-    
-    #favorites {
-        min-height: 30%;
-    }
-    
-    .card-footer {
-        display: flex;
-        justify-content: space-around
-    }
-    
-    .my-recipes {
-        justify-content: space-around
-    }
-    
-    .padding-top {
-        padding-top: 2rem
-    }
-    
-    .margin-top {
-        margin-top: 2rem
-    }
-    
-    .re-adjust {
-        margin-left: 0px;
-        margin-right: 0px;
-        margin-top: 2rem
-    }
-    
-    .current-brew-card {
-        margin-bottom: 2rem;
-        text-align: center
-    }
+  .profile-pic {
+    width: auto;
+    height: 250px;
+  }
+
+  #recipes {
+    min-height: 30%;
+  }
+
+  #shopping {
+    min-height: 30%;
+  }
+
+  #favorites {
+    min-height: 30%;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-around
+  }
+
+  .my-recipes {
+    justify-content: space-around
+  }
+
+  .padding-top {
+    padding-top: 2rem
+  }
+
+  .margin-top {
+    margin-top: 2rem
+  }
+
+  .re-adjust {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 2rem
+  }
+
+  .current-brew-card {
+    margin-bottom: 2rem;
+    text-align: center
+  }
 </style>

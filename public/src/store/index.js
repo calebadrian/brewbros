@@ -469,6 +469,15 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
+        addFollower({commit, dispatch}, payload){
+            ourDB.put('users/' + payload.user._id + '/followers', payload.follower)
+                .then(res => {
+                    commit('updateUser', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
         login({ commit, dispatch, state }, payload) {
             auth.post('login', payload)
                 .then(res => {
