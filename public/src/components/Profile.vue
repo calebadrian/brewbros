@@ -3,7 +3,7 @@
     <navbar></navbar>
     <div class="main-profile">
       <div class="container-fluid">
-        <div class="d-flex justify-content-around mt-4">
+        <div class="row justify-content-around padding-top">
           <img v-if="profileUser.profilePic" :src="profileUser.profilePic" class="profile-pic">
           <img v-else src="../assets/not-found.png" class="profile-pic">
           <h4>{{profileUser.name}}</h4>
@@ -38,7 +38,7 @@
             </div>
           </div>
         </div>
-    <div class="mt-4">
+    <div class="">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" id="favorites-tab" data-toggle="tab" href="#favorites" role="tab" aria-controls="favorites" aria-selected="true">Favorites</a>
@@ -470,7 +470,7 @@
         },
         data() {
             return {
-              formHide: true
+                formHide: true
             }
         },
         methods: {
@@ -522,8 +522,8 @@
                     recipe: recipe,
                 })
             },
-            editProfile(){
-              this.$store.dispatch('editProfile', this.profileUser)
+            editProfile() {
+                this.$store.dispatch('editProfile', this.profileUser)
             }
         },
         computed: {
@@ -561,21 +561,35 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .main-profile {
+        background: url("https://images7.alphacoders.com/336/336381.jpg");
+        background-size: cover;
+        background-position: center;
+        position: sticky
+    }
+    
     .profile-pic {
         width: auto;
         height: 250px;
     }
     
     #recipes {
-        min-height: 30%;
+        min-height: 50vh;
     }
     
     #shopping {
-        min-height: 30%;
+        min-height: 50vh;
+        background: url("http://www.photos-public-domain.com/wp-content/uploads/2012/05/ivory-off-white-paper-texture.jpg");
+        background-size: cover;
+        background-position: center
     }
     
     #favorites {
-        min-height: 30%;
+        min-height: 50vh;
+        background: url("http://moziru.com/images/stone-wall-clipart-brick-wall-background-3.jpg");
+        background-size: cover;
+        background-position: center;
+        position: sticky
     }
     
     .card-footer {
