@@ -66,6 +66,19 @@ router.put('/api/users/:userid/shoppingList', (req, res, next) => {
     })
 })
 
+router.put('/api/users/:userid/followers', (req, res, next) => {
+  Users.findById(req.params.userid)
+    .then(user => {
+      user.following.push(req.body)
+      user.markModified('following')
+      user.save()
+      res.send(user)
+    })
+    .catch(err => {
+      console.error(err)
+    })
+})
+
 
 
 
