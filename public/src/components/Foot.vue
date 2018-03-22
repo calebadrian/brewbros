@@ -4,7 +4,7 @@
         <img class="breweryDB" src="../assets/Powered-By-BreweryDB.png">
         <div>
             <i class="fab fa-2x fa-twitter-square"></i>
-            <i class="fab fa-2x fa-facebook"></i>
+            <i class="fb fab fa-2x fa-facebook"></i>
         </div>
         <div>
             <h5>Contact Us!</h5>
@@ -35,5 +35,9 @@
     }
     .breweryDB{
         height: 10vh
+    }
+    .fb{
+        color: rgb(73,103,173);
+        background-color: white;
     }
 </style>
