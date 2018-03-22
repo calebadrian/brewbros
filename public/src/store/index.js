@@ -43,6 +43,7 @@ export default new vuex.Store({
         myRecipes: [],
         brewingSessions: [],
         myFavorites: [],
+        myFollowersRecipes: [],
         allRecipes: [],
         shoppingList: {
             fermentables: [],
@@ -89,6 +90,20 @@ export default new vuex.Store({
         },
         setMyFavorites(state, payload) {
             state.myFavorites = payload
+        },
+        setMyFollowersRecipes(state, payload){
+            var tempArr = []
+            if (!state.user.name){
+                return;
+            }
+            for (var i = 0; i < payload.length; i++){
+                for (var j = 0; j < state.user.following.length; j++){
+                    if (state.user.following[j]._id == payload[i].creatorId){
+                        tempArr.push(payload[i])
+                    }
+                }
+            }
+            state.myFollowersRecipes = tempArr;
         },
         addNewRecipeAdjunct(state, payload) {
             state.newRecipe.adjuncts.push(payload)
@@ -334,6 +349,7 @@ export default new vuex.Store({
                 .then(res => {
                     commit('setAllRecipes', res.data)
                     commit('setMyFavorites', res.data)
+                    commit('setMyFollowersRecipes', res.data)
                 })
                 .catch(err => {
                     console.error(err)
@@ -378,6 +394,15 @@ export default new vuex.Store({
                 .then(res => {
                     commit('updateUser', res.data)
                     commit('setShoppingList', res.data.shoppingList)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        addRating({ commit, dispatch }, payload) {
+            ourDB.put('recipes/' + payload.recipeId + '/ratings', payload)
+                .then(res => {
+                    dispatch('getRecipes')
                 })
                 .catch(err => {
                     console.error(err)
@@ -459,7 +484,7 @@ export default new vuex.Store({
                     })
                 })
         },
-        editProfile({commit, dispatch}, payload){
+        editProfile({ commit, dispatch }, payload) {
             ourDB.put('users/' + payload._id, payload)
                 .then(res => {
                     commit('updateUser', res.data)
@@ -469,10 +494,20 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        addFollower({commit, dispatch}, payload){
+        addFollower({ commit, dispatch }, payload) {
             ourDB.put('users/' + payload.user._id + '/followers', payload.follower)
                 .then(res => {
                     commit('updateUser', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        removeFollower({commit, dispatch, state}, payload){
+            ourDB.delete('users/' + state.user._id + '/followers/' + payload._id)
+                .then(res => {
+                    commit('updateUser', res.data)
+                    commit('setProfileUser', res.data)
                 })
                 .catch(err => {
                     console.error(err)
@@ -504,8 +539,8 @@ export default new vuex.Store({
         },
         authenticate({ commit, dispatch }, payload) {
             auth.get('authenticate', payload).then(res => {
-                    commit('updateUser', res.data)
-                })
+                commit('updateUser', res.data)
+            })
                 .catch(err => {
                     console.error(err);
                     router.push({ name: 'Home' })

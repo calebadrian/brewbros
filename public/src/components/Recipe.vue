@@ -17,8 +17,16 @@
             {{recipe.creatorName}}</router-link>
         </li>
       </ul>
-      <fa-rating :glyph="beer" v-model="rating" inactive-color=" #e6e6e6" active-color="#e1b871" increment="0.25" fixed-points="2">
-      </fa-rating>
+      <p>Average Rating: {{avgRating}}</p>
+      <div v-if="user.name">
+        <p>My Rating:</p>
+        <fa-rating :glyph="beer" v-if="!recipe.ratings[user._id]" v-model="rating" @rating-selected="addRating" inactive-color="#e6e6e6"
+          active-color="#e1b871" :increment="0.25" :fixed-points="2">
+        </fa-rating>
+        <fa-rating :glyph="beer" v-else v-model="recipe.ratings[user._id]" @rating-selected="editRating" inactive-color="#e6e6e6"
+          active-color="#e1b871" :increment="0.25" :fixed-points="2">
+        </fa-rating>
+      </div>
       <span class="favorited">
         <h6>
           <b>{{recipe.favorited.length}}</b>
@@ -150,24 +158,56 @@
     name: 'recipe',
     props: ['recipe'],
     mounted() {
+      // this.$store.dispatch('authenticate')
       this.$store.dispatch('getRecipes')
+      this.avgRatingCalc()
     },
     data() {
       return {
         beer: '',
-        rating: 0
+        rating: 0,
+        avgRating: 0,
+        userRating: 0
       }
     },
     methods: {
-
+      avgRatingCalc() {
+        var ratings = this.recipe.ratings
+        var sum = 0
+        var count = 0
+        for (const key in ratings) {
+          if (ratings.hasOwnProperty(key)) {
+            const rating = ratings[key];
+            sum += rating
+            count++
+          }
+        }
+        this.avgRating = sum / count
+      },
+      addRating() {
+        this.$store.dispatch('addRating', { rating: this.rating, recipeId: this.recipe._id, userId: this.user._id })
+        this.userRating = this.rating
+      },
+      editRating() {
+        this.$store.dispatch('addRating', { rating: this.recipe.ratings[this.user._id], recipeId: this.recipe._id, userId: this.user._id})
+        this.userRating = this.recipe.ratings[this.user._id]
+      }
     },
     computed: {
       allRecipes() {
         return this.$store.state.allRecipes
       },
+      user() {
+        return this.$store.state.user
+      }
     },
     created() {
       this.beer = Beer
+    },
+    watch: {
+      userRating: function(val){
+        this.avgRatingCalc()
+      }
     },
     components: {
     },

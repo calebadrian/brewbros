@@ -79,6 +79,23 @@ router.put('/api/users/:userid/followers', (req, res, next) => {
     })
 })
 
+router.delete('/api/users/:userid/followers/:followerid', (req, res, next) => {
+  Users.findById(req.params.userid)
+    .then(user => {
+      for (var i = 0; i < user.following.length; i++){
+        if (user.following[i]._id == req.params.followerid){
+          user.following.splice(i, 1)
+          user.save()
+          break;
+        }
+      }
+      res.send(user)
+    })
+    .catch(err => {
+      console.error(err)
+    })
+})
+
 
 
 

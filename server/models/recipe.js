@@ -20,12 +20,13 @@ let schema = new Schema({
     adjuncts: [{}],
     created: { type: Number, required: true, default: Date.now() },
     favorited: [],
+    ratings: {type: Schema.Types.Mixed, default: {}, required:true},
     originalGravity: { type: Number, required: true },
     finalGravity: { type: Number, required: true },
     abv: { type: Number, required: true },
     ibu: { type: Number, required: true },
     color: { type: Number, required: true }
-})
+}, {minimize: false})
 
 
 module.exports = mongoose.model(schemaName, schema)

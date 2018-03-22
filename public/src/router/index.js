@@ -37,7 +37,6 @@ export default new Router({
             name: 'profile',
             component: Profile,
             beforeEnter: (to, from, next) => {
-                store.dispatch('authenticate')
                 if (!store.state.user.name && from.name){
                     swal({
                         type: 'error',
