@@ -22,7 +22,7 @@
       <fa-rating :glyph="beer" v-if="!recipe.ratings[user._id]" v-model="rating" @rating-selected="addRating" inactive-color="#e6e6e6"
         active-color="#e1b871" :increment="0.25" :fixed-points="2">
       </fa-rating>
-      <fa-rating :glyph="beer" v-else v-model="recipe.ratings[user._id]" @rating-selected="addRating" inactive-color="#e6e6e6"
+      <fa-rating :glyph="beer" v-else v-model="recipe.ratings[user._id]" @rating-selected="editRating" inactive-color="#e6e6e6"
         active-color="#e1b871" :increment="0.25" :fixed-points="2">
       </fa-rating>
       <span class="favorited">
@@ -165,6 +165,7 @@
         beer: '',
         rating: 0,
         avgRating: 0,
+        userRating: 0
       }
     },
     methods: {
@@ -183,6 +184,11 @@
       },
       addRating() {
         this.$store.dispatch('addRating', { rating: this.rating, recipeId: this.recipe._id, userId: this.user._id })
+        this.userRating = this.rating
+      },
+      editRating() {
+        this.$store.dispatch('addRating', { rating: this.recipe.ratings[this.user._id], recipeId: this.recipe._id, userId: this.user._id})
+        this.userRating = this.recipe.ratings[this.user._id]
       }
     },
     computed: {
@@ -195,6 +201,11 @@
     },
     created() {
       this.beer = Beer
+    },
+    watch: {
+      userRating: function(val){
+        this.avgRatingCalc()
+      }
     },
     components: {
     },
