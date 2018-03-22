@@ -1,6 +1,7 @@
 <template>
-    <div class="foot d-flex justify-content-between align-items-center">
+    <div class="foot container-fluid d-flex justify-content-between align-items-center">
         <h4>Brew Bros</h4>
+        <img class="breweryDB" src="../assets/Powered-By-BreweryDB.png">
         <div>
             <i class="fab fa-2x fa-twitter-square"></i>
             <i class="fab fa-2x fa-facebook"></i>
@@ -31,5 +32,8 @@
 <style scoped>
     .foot{
         min-height: 15vh;
+    }
+    .breweryDB{
+        height: 10vh
     }
 </style>

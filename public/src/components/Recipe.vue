@@ -160,7 +160,7 @@
     props: ['recipe'],
     mounted() {
       // this.$store.dispatch('authenticate')
-      this.$store.dispatch('getRecipes')
+      // this.$store.dispatch('getRecipes')
       this.avgRatingCalc()
     },
     data() {
