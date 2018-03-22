@@ -43,6 +43,7 @@ export default new vuex.Store({
         myRecipes: [],
         brewingSessions: [],
         myFavorites: [],
+        myFollowersRecipes: [],
         allRecipes: [],
         shoppingList: {
             fermentables: [],
@@ -89,6 +90,17 @@ export default new vuex.Store({
         },
         setMyFavorites(state, payload) {
             state.myFavorites = payload
+        },
+        setMyFollowersRecipes(state, payload){
+            var tempArr = []
+            for (var i = 0; i < payload.length; i++){
+                for (var j = 0; j < state.user.following.length; j++){
+                    if (state.user.following[j]._id == payload[i].creatorId){
+                        tempArr.push(payload[i])
+                    }
+                }
+            }
+            state.myFollowersRecipes = tempArr;
         },
         addNewRecipeAdjunct(state, payload) {
             state.newRecipe.adjuncts.push(payload)
@@ -334,6 +346,7 @@ export default new vuex.Store({
                 .then(res => {
                     commit('setAllRecipes', res.data)
                     commit('setMyFavorites', res.data)
+                    commit('setMyFollowersRecipes', res.data)
                 })
                 .catch(err => {
                     console.error(err)
