@@ -19,6 +19,7 @@
           <h4>Followers: </h4>
           <div v-for="follower in profileUser.following">
             <router-link :to="{name: 'profile', params: {profileId: follower._id}}">{{follower.name}}</router-link>
+            <i class="far fa-times-circle" v-if="profileUser._id == user._id" @click="removeFollower(follower)"></i>
           </div>
           <div class="row flex-column align-items-center mt-4">
             <h2>Currently Brewing</h2>
@@ -543,6 +544,9 @@
                         profilePic: this.profileUser.profilePic
                     }
                 })
+            },
+            removeFollower(follower){
+              this.$store.dispatch('removeFollower', follower)
             },
             hasProfileUser(element, index, array) {
                 for (var i = 0; i < array.length; i++) {

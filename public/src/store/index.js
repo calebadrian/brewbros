@@ -500,6 +500,16 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
+        removeFollower({commit, dispatch, state}, payload){
+            ourDB.delete('users/' + state.user._id + '/followers/' + payload._id)
+                .then(res => {
+                    commit('updateUser', res.data)
+                    commit('setProfileUser', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
         login({ commit, dispatch, state }, payload) {
             auth.post('login', payload)
                 .then(res => {
