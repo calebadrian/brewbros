@@ -546,10 +546,11 @@ export default new vuex.Store({
                     router.push({ name: 'Home' })
                 })
         },
-        logout({ commit, dispatch }, payload) {
+        logout({ commit, dispatch, state }, payload) {
             auth.delete('logout')
                 .then(res => {
                     commit('updateUser', {})
+                    state.myFollowersRecipes = []
                     router.push({ name: 'Home' })
                 })
                 .catch(err => {

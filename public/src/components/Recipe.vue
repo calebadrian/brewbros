@@ -17,7 +17,8 @@
             {{recipe.creatorName}}</router-link>
         </li>
       </ul>
-      <p>Average Rating: {{avgRating}}</p>
+      <p>Average Rating: {{avgRating.toFixed(2)}}</p>
+      <p>Number of Ratings: {{Object.keys(recipe.ratings).length}}</p>
       <div v-if="user.name">
         <p>My Rating:</p>
         <fa-rating :glyph="beer" v-if="!recipe.ratings[user._id]" v-model="rating" @rating-selected="addRating" inactive-color="#e6e6e6"
