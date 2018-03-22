@@ -93,6 +93,9 @@ export default new vuex.Store({
         },
         setMyFollowersRecipes(state, payload){
             var tempArr = []
+            if (!state.user.name){
+                return;
+            }
             for (var i = 0; i < payload.length; i++){
                 for (var j = 0; j < state.user.following.length; j++){
                     if (state.user.following[j]._id == payload[i].creatorId){

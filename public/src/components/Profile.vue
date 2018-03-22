@@ -16,7 +16,7 @@
             <input v-model="profileUser.profilePic">
             <button type="submit" class="btn btn-success">Edit Profile</button>
           </form>
-          <h4>Followers: </h4>
+          <h4>Who you follow: </h4>
           <div v-for="follower in profileUser.following">
             <router-link :to="{name: 'profile', params: {profileId: follower._id}}">{{follower.name}}</router-link>
             <i class="far fa-times-circle" v-if="profileUser._id == user._id" @click="removeFollower(follower)"></i>
