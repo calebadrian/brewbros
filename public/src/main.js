@@ -7,17 +7,19 @@ import router from './router'
 import store from './store'
 import vSelect from 'vue-select'
 import Raters from 'vue-rate-it'
+import vCalendar from 'v-calendar'
+import 'v-calendar/lib/v-calendar.min.css';
 
 Vue.config.productionTip = false
 Vue.component('v-select', vSelect)
 Vue.component('fa-rating', Raters.FaRating);
-
+Vue.use(vCalendar)
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    store,
+    components: { App },
+    template: '<App/>'
 })

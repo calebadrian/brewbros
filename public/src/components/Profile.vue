@@ -240,228 +240,252 @@
                       <i class="far fa-2x fa-heart"></i>
                     </button>
                     <button class="btn btn-danger" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
-                    <button class="btn btn-danger" @click="createBrewingSession(recipe)">
-                      <i class="far fa-2x fa-clock"></i>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                      Start Brewing
                     </button>
-                    <!-- Begin Modal Content -->
-                    <div class="modal fade" :id="recipe._id" tabindex="-1" role="dialog">
-                      <div class="modal-dialog modal-lg" role="document">
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h3 class="modal-title">{{recipe.name}}</h3>
-                            <button type="button" class="close" data-dismiss="modal">
-                              <span>&times;</span>
+                            <h5 class="modal-title" id="exampleModalLabel">Time Selector Brewing</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
-                            <h5>Fermentables</h5>
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">Amount</th>
-                                  <th scope="col">Fermentable</th>
-                                  <th scope="col">Potential</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr v-for="(fermentable, i) in recipe.fermentables">
-                                  <th scope="row">{{i+1}}</th>
-                                  <td>{{fermentable.quantity}} lb(s)</td>
-                                  <td>{{fermentable.name}}</td>
-                                  <td>{{fermentable.potential}}</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <h5>Hops</h5>
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">Amount</th>
-                                  <th scope="col">Hop</th>
-                                  <th scope="col">Boil Time</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr v-for="(hop, i) in recipe.hops">
-                                  <th scope="row">{{i+1}}</th>
-                                  <td>{{hop.quantity}} oz(s)</td>
-                                  <td>{{hop.name}}</td>
-                                  <td>{{hop.boilTime}} min</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <h5>Steeping Grains</h5>
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">Amount</th>
-                                  <th scope="col">Grain</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr v-for="(grain, i) in recipe.steepingGrains">
-                                  <th scope="row">{{i+1}}</th>
-                                  <td>{{grain.quantity}} lb(s)</td>
-                                  <td>{{grain.name}}</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <h5>Other Ingredients</h5>
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">Amount</th>
-                                  <th scope="col">Ingredient</th>
-                                  <th scope="col">Boil Time</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr v-for="(adjunct, i) in recipe.adjuncts">
-                                  <th scope="row">{{i+1}}</th>
-                                  <td>{{adjunct.quantity}} oz(s)</td>
-                                  <td>{{adjunct.name}}</td>
-                                  <td>{{adjunct.boilTime}} min</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <h5>Yeast</h5>
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">Yeast</th>
-                                  <th scope="col">Pitch</th>
-                                  <th scope="col">Temp(F)</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr v-for="(yeast, i) in recipe.yeasts">
-                                  <th scope="row">{{i+1}}</th>
-                                  <td>{{yeast.name}}</td>
-                                  <td>{{yeast.pitch}}</td>
-                                  <td>{{yeast.temp}} F</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <h5>Notes/Comments:</h5>
-                            <p>{{recipe.personalComments}}</p>
-                          </div>
-                          <div class="modal-footer">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                              <v-calendar is-extended :attributes='attrs'>
+                              </v-calendar>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button class="btn btn-danger" @click="createBrewingSession(recipe)">
+                                                    <i class="far fa-2x fa-clock"></i>
+                                                  </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Begin Modal Content -->
+<div class="modal fade" :id="recipe._id" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">{{recipe.name}}</h3>
+                <button type="button" class="close" data-dismiss="modal">
+                              <span>&times;</span>
+                            </button>
             </div>
-          </div>
-          <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab" v-if="profileUser._id == user._id">
-            <div class="container padding-top" v-if="shoppingList != undefined">
-              <h5>Fermentables</h5>
-              <button class="btn btn-danger" @click="clearShoppingList">Clear Shopping List</button>
-              <table class="table">
-                <thead>
-                  <tr>
+            <div class="modal-body">
+                <h5>Fermentables</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Fermentable</th>
+                            <th scope="col">Potential</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(fermentable, i) in recipe.fermentables">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{fermentable.quantity}} lb(s)</td>
+                            <td>{{fermentable.name}}</td>
+                            <td>{{fermentable.potential}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5>Hops</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Hop</th>
+                            <th scope="col">Boil Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(hop, i) in recipe.hops">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{hop.quantity}} oz(s)</td>
+                            <td>{{hop.name}}</td>
+                            <td>{{hop.boilTime}} min</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5>Steeping Grains</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Grain</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(grain, i) in recipe.steepingGrains">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{grain.quantity}} lb(s)</td>
+                            <td>{{grain.name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5>Other Ingredients</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Ingredient</th>
+                            <th scope="col">Boil Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(adjunct, i) in recipe.adjuncts">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{adjunct.quantity}} oz(s)</td>
+                            <td>{{adjunct.name}}</td>
+                            <td>{{adjunct.boilTime}} min</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5>Yeast</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Yeast</th>
+                            <th scope="col">Pitch</th>
+                            <th scope="col">Temp(F)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(yeast, i) in recipe.yeasts">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{yeast.name}}</td>
+                            <td>{{yeast.pitch}}</td>
+                            <td>{{yeast.temp}} F</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5>Notes/Comments:</h5>
+                <p>{{recipe.personalComments}}</p>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab" v-if="profileUser._id == user._id">
+    <div class="container padding-top" v-if="shoppingList != undefined">
+        <h5>Fermentables</h5>
+        <button class="btn btn-danger" @click="clearShoppingList">Clear Shopping List</button>
+        <table class="table">
+            <thead>
+                <tr>
                     <th scope="col">#</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Fermentable</th>
                     <th scope="col">Potential</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(fermentable, i) in shoppingList.fermentables" v-if="shoppingList.fermentables.length > 0">
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(fermentable, i) in shoppingList.fermentables" v-if="shoppingList.fermentables.length > 0">
                     <th scope="row">{{i + 1}}</th>
                     <td>{{fermentable.quantity}} lb(s)</td>
                     <td>{{fermentable.name}}</td>
                     <td>{{fermentable.potential}}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5>Hops</h5>
-              <table class="table">
-                <thead>
-                  <tr>
+                </tr>
+            </tbody>
+        </table>
+        <h5>Hops</h5>
+        <table class="table">
+            <thead>
+                <tr>
                     <th scope="col">#</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Hop</th>
                     <th scope="col">Boil Time</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(hop, i) in shoppingList.hops" v-if="shoppingList.hops.length > 0">
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(hop, i) in shoppingList.hops" v-if="shoppingList.hops.length > 0">
                     <th scope="row">{{i + 1}}</th>
                     <td>{{hop.quantity}} oz(s)</td>
                     <td>{{hop.name}}</td>
                     <td>{{hop.boilTime}} min</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5>Steeping Grains</h5>
-              <table class="table">
-                <thead>
-                  <tr>
+                </tr>
+            </tbody>
+        </table>
+        <h5>Steeping Grains</h5>
+        <table class="table">
+            <thead>
+                <tr>
                     <th scope="col">#</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Grain</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(grain, i) in shoppingList.steepingGrains" v-if="shoppingList.steepingGrains.length > 0">
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(grain, i) in shoppingList.steepingGrains" v-if="shoppingList.steepingGrains.length > 0">
                     <th scope="row">{{i + 1}}</th>
                     <td>{{grain.quantity}} lb(s)</td>
                     <td>{{grain.name}}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5>Other Ingredients</h5>
-              <table class="table">
-                <thead>
-                  <tr>
+                </tr>
+            </tbody>
+        </table>
+        <h5>Other Ingredients</h5>
+        <table class="table">
+            <thead>
+                <tr>
                     <th scope="col">#</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Ingredient</th>
                     <th scope="col">Boil Time</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(adjunct, i) in shoppingList.adjuncts" v-if="shoppingList.adjuncts.length > 0">
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(adjunct, i) in shoppingList.adjuncts" v-if="shoppingList.adjuncts.length > 0">
                     <th scope="row">{{i + 1}}</th>
                     <td>{{adjunct.quantity}} oz(s)</td>
                     <td>{{adjunct.name}}</td>
                     <td>{{adjunct.boilTime}} min</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5>Yeast</h5>
-              <table class="table">
-                <thead>
-                  <tr>
+                </tr>
+            </tbody>
+        </table>
+        <h5>Yeast</h5>
+        <table class="table">
+            <thead>
+                <tr>
                     <th scope="col">#</th>
                     <th scope="col">Yeast</th>
                     <th scope="col">Pitch</th>
                     <th scope="col">Temp(F)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(yeast, i) in shoppingList.yeasts" v-if="shoppingList.yeasts.length > 0">
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(yeast, i) in shoppingList.yeasts" v-if="shoppingList.yeasts.length > 0">
                     <th scope="row">{{i + 1}}</th>
                     <td>{{yeast.name}}</td>
                     <td>{{yeast.pitch}}</td>
                     <td>{{yeast.temp}} F</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+                </tr>
+            </tbody>
+        </table>
     </div>
-  </template>
+</div>
+</div>
+</div>
+</div>
+</template>
 
 <script>
     import navbar from './Navbar'
@@ -476,6 +500,19 @@
         },
         data() {
             return {
+                attrs: [{
+                    key: 'dayOne',
+                    highlight: {
+                        backgroundColor: '#ff8080'
+                    },
+                    dates: new Date(Date.now())
+                }, {
+                    key: 'dayTwo',
+                    highlight: {
+                        backgroundColor: '#ff8082'
+                    },
+                    dates: new Date(Date.now())
+                }],
                 formHide: true
             }
         },
