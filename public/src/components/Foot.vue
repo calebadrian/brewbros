@@ -3,8 +3,9 @@
         <h4>Brew Bros</h4>
         <img class="breweryDB" src="../assets/Powered-By-BreweryDB.png">
         <div>
-            <i class="fab fa-2x fa-twitter-square"></i>
-            <i class="fb fab fa-2x fa-facebook"></i>
+            <img src="../assets/twitter-original.svg" class="svg">
+            <img src="../assets/facebook-original.svg" class="svg">
+            <img src="../assets/github-original-wordmark.svg" class="svg">
         </div>
         <div>
             <h5>Contact Us!</h5>
@@ -31,13 +32,15 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .foot{
-        min-height: 15vh;
+        height: 8rem;
+        background-color: rgb(50, 50, 50);
+        color: white;
     }
     .breweryDB{
         height: 10vh
     }
-    .fb{
-        color: rgb(73,103,173);
-        background-color: white;
+    .svg{
+        width: 2rem;
+        height: 2rem;
     }
 </style>
