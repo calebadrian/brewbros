@@ -6,7 +6,7 @@ import swal from 'sweetalert2'
 
 
 var production = !window.location.host.includes('localhost')
-var baseUrl = production ? '//brewbook.herokuapp.com/' : '//localhost:3000/'
+var baseUrl = production ? '//brewbros.herokuapp.com/' : '//localhost:3000/'
 
 
 var ourDB = axios.create({
