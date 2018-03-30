@@ -8,19 +8,14 @@ let schema = new Schema({
     creatorId: { type: ObjectId, ref: 'User', required: true },
     private: { type: Boolean, default: false },
     startBrewing: {
-        type: Number,
+        type: Date,
         required: true,
         default: Date.now()
     },
     endBrewing: {
-        type: Number,
+        type: Date,
         default: 0
     },
-    bottlingDate: {
-        type: Number,
-        default: 0
-    }
-
 })
 
 module.exports = mongoose.model(schemaName, schema)

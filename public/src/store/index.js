@@ -91,14 +91,14 @@ export default new vuex.Store({
         setMyFavorites(state, payload) {
             state.myFavorites = payload
         },
-        setMyFollowersRecipes(state, payload){
+        setMyFollowersRecipes(state, payload) {
             var tempArr = []
-            if (!state.user.name){
+            if (!state.user.name) {
                 return;
             }
-            for (var i = 0; i < payload.length; i++){
-                for (var j = 0; j < state.user.following.length; j++){
-                    if (state.user.following[j]._id == payload[i].creatorId){
+            for (var i = 0; i < payload.length; i++) {
+                for (var j = 0; j < state.user.following.length; j++) {
+                    if (state.user.following[j]._id == payload[i].creatorId) {
                         tempArr.push(payload[i])
                     }
                 }
@@ -503,7 +503,7 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        removeFollower({commit, dispatch, state}, payload){
+        removeFollower({ commit, dispatch, state }, payload) {
             ourDB.delete('users/' + state.user._id + '/followers/' + payload._id)
                 .then(res => {
                     commit('updateUser', res.data)
@@ -539,8 +539,8 @@ export default new vuex.Store({
         },
         authenticate({ commit, dispatch }, payload) {
             auth.get('authenticate', payload).then(res => {
-                commit('updateUser', res.data)
-            })
+                    commit('updateUser', res.data)
+                })
                 .catch(err => {
                     console.error(err);
                     router.push({ name: 'Home' })

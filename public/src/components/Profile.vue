@@ -135,7 +135,7 @@
                                                     <v-date-picker
                                                     :min-date='new Date(Date.now())'
                                                     is-double-paned
-                                                    v-model='selectedDays.start'
+                                                    v-model='selectedDays.startBrewing'
                                                     show-caps @dayclick="selectDate"
                                                     mode="range">
                                                 </v-date-picker>
@@ -273,42 +273,32 @@
         },
         data() {
             return {
-                // attrs: [{
-                //     key: 'dayOne',
-                //     highlight: {
-                //         backgroundColor: '#ff8080'
-                //     },
-                //     dates: new Date(Date.now())
-                // },
-                //  {
-                //     key: 'dayTwo',
-                //     highlight: {
-                //         backgroundColor: '#ff8082'
-                //     },
-                //     dates: new Date(Date.now())
-                // }
-                // ],
+                attrs: [{
+                    highlight: {
+                        backgroundColor: '#BADA55'
+                    },
+                }],
 
                 selectedDays: {
-                    start: new Date(),
-                    end: Date
+                    startBrewing: new Date(Date.now()),
+                    endBrewing: new Date(Date.now())
                 }
             }
         },
         methods: {
-            getDateString(date) {
-                const options = {
-                    weekday: 'short',
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                };
-                return date.toLocaleDateString(window.navigator.userLanguage || window.navigator.language, options);
-            },
+            // getDateString(date) {
+            //     const options = {
+            //         weekday: 'short',
+            //         year: 'numeric',
+            //         month: 'short',
+            //         day: 'numeric'
+            //     };
+            //     return date.toLocaleDateString(window.navigator.userLanguage || window.navigator.language, options);
+            // },
             selectDate(day) {
                 // var addTime = 2592000000
                 // this.selectedDay.start = day;
-                this.selectedDay.end = new Date(day);
+                this.selectedDays.endBrewing = new Date(day);
             },
             removeFavRecipe(recipe) {
                 for (let i = 0; i < recipe.favorited.length; i++) {
@@ -356,6 +346,8 @@
             createBrewingSession(recipe) {
                 this.$store.dispatch('createBrewingSession', {
                     recipe: recipe,
+                    startBrewing: this.selectedDays.startBrewing.start,
+                    endBrewing: this.selectedDays.startBrewing.end
                 })
             },
             editProfile() {
