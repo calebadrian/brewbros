@@ -1,7 +1,7 @@
 <template>
   <div class="createRecipe">
     <navbar></navbar>
-    <div class="container-fluid createMe">
+    <div class="container-fluid createMe pb-4">
       <form @submit.prevent='submit'>
         <div class="row">
           <div class="col-sm-12 d-flex justify-content-center">
@@ -12,11 +12,11 @@
           <div class="col-sm-4">
             <div class="d-flex align-items-center">
               <label for="name">Recipe Name:</label>
-              <input type="text" class="form-control" id="name" placeholder="recipe name" v-model="recipe.name">
+              <input type="text" class="form-control" id="name" placeholder="recipe name" v-model="recipe.name" required>
             </div>
             <div class="d-flex align-items-center">
               <label for="batchSize" class="mr-2">Batch Size:</label>
-              <input type="number" class="form-control mr-2 smallInput" id="batchSize" placeholder="#" v-model="recipe.batchSize">
+              <input type="number" class="form-control mr-2 smallInput" id="batchSize" placeholder="#" v-model="recipe.batchSize" required>
               <h6>gal</h6>
             </div>
             <div class="private-box">
@@ -26,14 +26,12 @@
           </div>
           <div class="col-sm-6">
             <div class="form-group">
-              <div class="d-flex align-items-center">
-                <label for="category">Category:</label>
-                <select class="form-control" id="category" placeholder="Category" v-model="recipe.category" @change="filterStyle">
-                  <option v-for="category in categories">{{category.name}}</option>
-                </select>
+              <div class="d-flex align-items-center mb-2">
+                <label class="mr-2" for="category">Category:</label>
+                <v-select class="selectFormat" label="name" :options="categories" v-model="recipe.category" @change="filterStyle"></v-select>
               </div>
-              <div class="d-flex align-items-center">
-                <label for="style">Style:</label>
+              <div class="d-flex align-items-center mb-2">
+                <label class="mr-2" for="style">Style:</label>
                 <v-select label="name" v-model="recipe.style" :options="filteredStyles" class="selectFormat" placeholder="Select a Category First"></v-select>
               </div>
               <div class="d-flex align-items-center">
@@ -163,10 +161,12 @@
               <div class="card-body">
                 <textarea type="text" placeholder="Description" v-model="recipe.personalComments" rows="8"></textarea>
               </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-success">Submit Recipe</button>
+              </div>
             </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-success">Submit Recipe</button>
       </form>
     </div>
     <foot></foot>
@@ -343,13 +343,13 @@
           }
         }
       },
-      filterStyle(){
+      filterStyle() {
         this.filteredStyles = []
         var styles = this.$store.state.styles
         var category = this.recipe.category
         for (let i = 0; i < styles.length; i++) {
           const style = styles[i];
-          if(category == style.category.name){
+          if (category == style.category.name) {
             this.filteredStyles.push(style)
           }
         }
@@ -377,9 +377,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  textarea{
+  textarea {
     width: 100%
   }
+
   .private-box {
     padding-left: 2rem
   }
