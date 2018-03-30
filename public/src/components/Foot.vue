@@ -37,17 +37,18 @@
         justify-content: space-between;
         align-items: center; */
     }
-    .footer{
+    
+    .footer {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-content: center;
     }
-
+    
     .breweryDB {
         /* width: 100%; */
         max-height: 3rem
     }
-
+    
     .svg {
         width: 2rem;
         height: 2rem;

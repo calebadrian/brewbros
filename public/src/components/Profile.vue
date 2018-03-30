@@ -281,7 +281,6 @@
 
                 selectedDays: {
                     startBrewing: new Date(Date.now()),
-                    endBrewing: new Date(Date.now())
                 }
             }
         },

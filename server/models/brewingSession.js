@@ -8,13 +8,12 @@ let schema = new Schema({
     creatorId: { type: ObjectId, ref: 'User', required: true },
     private: { type: Boolean, default: false },
     startBrewing: {
-        type: Date,
+        type: String,
         required: true,
-        default: Date.now()
     },
     endBrewing: {
         type: Date,
-        default: 0
+        required: true,
     },
 })
 
