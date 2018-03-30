@@ -14,12 +14,5 @@ export default {
 </script>
 
 <style>
-.btn-primary{
-  background-color: aqua;
-  color: black;
-}
-.btn-success{
-  background-color: blanchedalmond;
-  color: black;
-}
+
 </style>

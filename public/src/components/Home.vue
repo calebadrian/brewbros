@@ -78,9 +78,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <foot></foot>
-        </div>
+        <foot></foot>
     </div>
 </template>
 
