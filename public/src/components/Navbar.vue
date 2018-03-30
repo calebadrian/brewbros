@@ -150,7 +150,7 @@
   }
 
   .dropdown-item:hover {
-    background-color: lightgrey;
+    background-color: grey;
   }
 
   .modal-body button{

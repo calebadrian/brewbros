@@ -132,6 +132,12 @@
         color: white;
         padding: 1rem;
         justify-content: flex-start;
+
+    }
+    .description-section .col-md-6{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
     }
 
     .summary {
