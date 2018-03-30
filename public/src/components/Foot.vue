@@ -33,19 +33,18 @@
         background-color: rgb(50, 50, 50);
         color: white;
     }
-
     .footer {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-content: center;
         margin: 1rem 0;
     }
-
+    
     .breweryDB {
         /* width: 100%; */
         max-height: 3rem
     }
-
+    
     .svg {
         width: 2rem;
         height: 2rem;
