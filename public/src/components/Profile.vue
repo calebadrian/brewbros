@@ -4,46 +4,58 @@
         <div class="main-profile">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div v-for="follower in profileUser.following">
-                            <router-link :to="{name: 'profile', params: {profileId: follower._id}}">{{follower.name}}</router-link>
-                            <i class="far fa-times-circle" v-if="profileUser._id == user._id" @click="removeFollower(follower)"></i>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 d-flex justify-content-between align-items-center">
+                    <div class="col-sm-6 d-flex flex-column align-items-center">
+                        <h4>{{profileUser.name}}</h4>
                         <div class="d-flex justify-content-around mt-4">
                             <img v-if="profileUser.profilePic" :src="profileUser.profilePic" class="profile-pic">
                             <img v-else src="../assets/not-found.png" class="profile-pic">
                         </div>
                         <div>
-                            <h4>{{profileUser.name}}</h4>
-                            <button class="btn btn-info" v-if="profileUser._id == user._id" @click="formHide = !formHide">Edit Profile</button>
+                            <button class="btn btn-info" v-if="profileUser._id == user._id" data-toggle="modal" data-target="#editModal">Edit Profile</button>
                             <button class="btn btn-primary" v-else-if="!user.following.find(hasProfileUser)" @click="addFollower">Follow This Person</button>
-                            <form @submit.prevent="editProfile" v-if="!formHide">
-                                <input v-model="profileUser.name">
-                                <input v-model="profileUser.email">
-                                <input v-model="profileUser.profilePic">
-                                <button type="submit" class="btn btn-success">Edit Profile</button>
-                            </form>
+                            <h4>Who you follow: </h4>
+                            <div v-for="follower in profileUser.following">
+                                <router-link :to="{name: 'profile', params: {profileId: follower._id}}">{{follower.name}}</router-link>
+                                <i class="far fa-times-circle" v-if="profileUser._id == user._id" @click="removeFollower(follower)"></i>
+                            </div>
+                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit Your Profile</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form @submit.prevent="editProfile" class="d-flex flex-column">
+                                                <input v-model="profileUser.name">
+                                                <input v-model="profileUser.email">
+                                                <input v-model="profileUser.profilePic">
+                                                <button type="submit" class="btn btn-success">Edit Profile</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <h4>Who you follow: </h4>
-                <div class="row flex-column align-items-center mt-4">
-                    <h2>Currently Brewing</h2>
-                </div>
-                <div class="row justify-content-around re-adjust">
-                    <div class="col-sm-4" v-for="brewingSession in brewingSessions">
-                        <div class="card current-brew-card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{brewingSession.recipe.name}}</h5>
-                                <div class="row">
-
-                                    <div class="col-sm-6 justify-start">
-                                        <p class="card-text" maxlenght="30">{{brewingSession.startBrewing}}</p>
-                                    </div>
-                                    <div class="col-sm-6 justify-end">
-                                        <p class="card-text" maxlenght="30">{{brewingSession.endBrewing}}</p>
+                    <div class="col-sm-6 d-flex flex-column" v-for="brewingSession in brewingSessions">
+                        <h4>Currently Brewing:</h4>
+                        <div v-for="(brewingSession, i) in brewingSessions">
+                            <div v-if="i < 4">
+                                <div class="card current-brew-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{brewingSession.recipe.name}}</h5>
+                                        <div class="row">
+        
+                                            <div class="col-sm-6 justify-start">
+                                                <p class="card-text" maxlenght="30">{{brewingSession.startBrewing}}</p>
+                                            </div>
+                                            <div class="col-sm-6 justify-end">
+                                                <p class="card-text" maxlenght="30">{{brewingSession.endBrewing}}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +288,6 @@
                 //     dates: new Date(Date.now())
                 // }
                 // ],
-                formHide: true,
 
                 selectedDays: {
                     start: new Date(),

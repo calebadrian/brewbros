@@ -1,14 +1,12 @@
 <template>
-    <div class="foot col-12">
-        <h4>BrewBros</h4>
-        <img class="breweryDB" src="../assets/Powered-By-BreweryDB.png">
-        <div class="d-flex justify-content-between">
-            <img src="../assets/twitter-original.svg" class="svg">
-            <img src="../assets/facebook-original.svg" class="svg">
-            <img src="../assets/github-original-wordmark.svg" class="svg">
-        </div>
-        <div>
-            <h5>Contact Us!</h5>
+    <div class="foot row">
+        <div class="col-sm-12 footer">
+            <img class="breweryDB" src="../assets/Powered-By-BreweryDB.png">
+            <div>
+                <img src="../assets/twitter-original.svg" class="svg">
+                <img src="../assets/facebook-original.svg" class="svg">
+                <img src="../assets/github-original-wordmark.svg" class="svg">
+            </div>
         </div>
     </div>
 </template>
@@ -32,18 +30,24 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .foot {
-        height: 4rem;
+        /* height: 4rem; */
         background-color: rgb(50, 50, 50);
         color: white;
+        /* display: inline-flex;
+        justify-content: space-between;
+        align-items: center; */
+    }
+    .footer{
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-content: center;
     }
-    
+
     .breweryDB {
-        height: 4rem
+        /* width: 100%; */
+        max-height: 3rem
     }
-    
+
     .svg {
         width: 2rem;
         height: 2rem;
