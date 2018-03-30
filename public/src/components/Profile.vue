@@ -3,24 +3,32 @@
         <navbar></navbar>
         <div class="main-profile">
             <div class="container-fluid">
-                <div class="d-flex justify-content-around mt-4">
-                    <img v-if="profileUser.profilePic" :src="profileUser.profilePic" class="profile-pic">
-                    <img v-else src="../assets/not-found.png" class="profile-pic">
-                    <h4>{{profileUser.name}}</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div v-for="follower in profileUser.following">
+                            <router-link :to="{name: 'profile', params: {profileId: follower._id}}">{{follower.name}}</router-link>
+                            <i class="far fa-times-circle" v-if="profileUser._id == user._id" @click="removeFollower(follower)"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-around mt-4">
+                            <img v-if="profileUser.profilePic" :src="profileUser.profilePic" class="profile-pic">
+                            <img v-else src="../assets/not-found.png" class="profile-pic">
+                        </div>
+                        <div>
+                            <h4>{{profileUser.name}}</h4>
+                            <button class="btn btn-info" v-if="profileUser._id == user._id" @click="formHide = !formHide">Edit Profile</button>
+                            <button class="btn btn-primary" v-else-if="!user.following.find(hasProfileUser)" @click="addFollower">Follow This Person</button>
+                            <form @submit.prevent="editProfile" v-if="!formHide">
+                                <input v-model="profileUser.name">
+                                <input v-model="profileUser.email">
+                                <input v-model="profileUser.profilePic">
+                                <button type="submit" class="btn btn-success">Edit Profile</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <button class="btn btn-info" v-if="profileUser._id == user._id" @click="formHide = !formHide">Edit Profile</button>
-                <button class="btn btn-primary" v-else-if="!user.following.find(hasProfileUser)" @click="addFollower">Follow This Person</button>
-                <form @submit.prevent="editProfile" v-if="!formHide">
-                    <input v-model="profileUser.name">
-                    <input v-model="profileUser.email">
-                    <input v-model="profileUser.profilePic">
-                    <button type="submit" class="btn btn-success">Edit Profile</button>
-                </form>
                 <h4>Who you follow: </h4>
-                <div v-for="follower in profileUser.following">
-                    <router-link :to="{name: 'profile', params: {profileId: follower._id}}">{{follower.name}}</router-link>
-                    <i class="far fa-times-circle" v-if="profileUser._id == user._id" @click="removeFollower(follower)"></i>
-                </div>
                 <div class="row flex-column align-items-center mt-4">
                     <h2>Currently Brewing</h2>
                 </div>
@@ -95,23 +103,25 @@
                                         <i class="far fa-2x fa-heart"></i>
                                     </button>
                                     <button class="btn btn-danger" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#startBrewingModal">
                                         Start Brewing
                                     </button>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="startBrewingModal" tabindex="-1" role="dialog" aria-labelledby="startBrewingModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Time Selector Brewing</h5>
+                                                    <h5 class="modal-title" id="startBrewingModalLabel">Time Selector Brewing</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <v-calendar is-extended :attributes='attrs'>
-                                                    </v-calendar>
+                                                    <!-- <v-calendar is-extended :attributes='attrs'>
+                                                    </v-calendar> -->
+                                                    <v-date-picker mode='range' v-model='selectedDate' show-caps>
+                                                    </v-date-picker>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -246,20 +256,26 @@
         },
         data() {
             return {
-                attrs: [{
-                    key: 'dayOne',
-                    highlight: {
-                        backgroundColor: '#ff8080'
-                    },
-                    dates: new Date(Date.now())
-                }, {
-                    key: 'dayTwo',
-                    highlight: {
-                        backgroundColor: '#ff8082'
-                    },
-                    dates: new Date(Date.now())
-                }],
-                formHide: true
+                // attrs: [{
+                //     key: 'dayOne',
+                //     highlight: {
+                //         backgroundColor: '#ff8080'
+                //     },
+                //     dates: new Date(Date.now())
+                // },
+                //  {
+                //     key: 'dayTwo',
+                //     highlight: {
+                //         backgroundColor: '#ff8082'
+                //     },
+                //     dates: new Date(Date.now())
+                // }
+                // ],
+                formHide: true,
+                selectedInstanceOne: {
+                    start: new Date(Date.now()),
+                    end: new Date(Date.now() + 2592000000)
+                }
             }
         },
         methods: {
@@ -391,7 +407,7 @@
     }
 
     #favorites {
-        min-height: 30%;
+        min-height: 21.5vh;
     }
 
     .card-footer {

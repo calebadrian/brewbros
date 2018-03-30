@@ -2,7 +2,7 @@
     <div class="foot col-12">
         <h4>BrewBros</h4>
         <img class="breweryDB" src="../assets/Powered-By-BreweryDB.png">
-        <div>
+        <div class="d-flex justify-content-between">
             <img src="../assets/twitter-original.svg" class="svg">
             <img src="../assets/facebook-original.svg" class="svg">
             <img src="../assets/github-original-wordmark.svg" class="svg">
@@ -31,18 +31,20 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .foot{
-        height: 8rem;
+    .foot {
+        height: 4rem;
         background-color: rgb(50, 50, 50);
         color: white;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    .breweryDB{
-        height: 10vh
+    
+    .breweryDB {
+        height: 4rem
     }
-    .svg{
+    
+    .svg {
         width: 2rem;
         height: 2rem;
     }
