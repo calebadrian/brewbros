@@ -3,7 +3,7 @@
         <navbar></navbar>
         <div class="row">
             <div class="col-sm-12 hero">
-                <h1>Welcome to BrewBros!</h1>
+                <h1>Welcome to BrewBros</h1>
                 <h2>Organizing all of your Homebrewing needs</h2>
                 <div class="hero-content">
                     <router-link :to="{name: 'browse'}">
@@ -140,9 +140,16 @@
     h1 {
         font-size: 6rem;
         text-shadow: 4px 4px 10px rgba(147, 220, 251, 0.8);
-        /* font-family: 'Sanchez', serif; */
         font-family: 'Viga', sans-serif;
         font-style: italic;
+    }
+    @media screen and (max-width: 1024px) {
+        h1 {
+            font-size: 4rem;
+            text-shadow: 4px 4px 10px rgba(147, 220, 251, 0.8);
+            font-family: 'Viga', sans-serif;
+            font-style: italic;
+        }
     }
 
     h2 {

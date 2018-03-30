@@ -1,5 +1,5 @@
 <template>
-  <div class="Navbar row">
+  <div class="Navbar">
     <div class="col-sm-12">
       <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <router-link :to="{name: 'Home'}">
@@ -138,7 +138,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .Navbar {
+  .navbar {
     height: 4rem
   }
 </style>
