@@ -132,8 +132,10 @@
                                                 <div class="modal-body">
                                                     <!-- <v-calendar is-extended :attributes='attrs'>
                                                     </v-calendar> -->
-                                                    <v-date-picker mode='range' v-model='selectedDate' show-caps>
-                                                    </v-date-picker>
+                                                    <v-date-picker
+                                                    v-model='selectedDay.start'
+                                                    show-caps @dayclick="selectDate">
+                                                </v-date-picker>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -283,13 +285,20 @@
                 //     dates: new Date(Date.now())
                 // }
                 // ],
-                selectedInstanceOne: {
+
+                selectedDay: {
                     start: new Date(Date.now()),
-                    end: new Date(Date.now() + 2592000000)
+                    end: Date
                 }
             }
         },
         methods: {
+            selectDate(day) {
+                var addTime = 2592000000
+                this.selectedDay.start = day;
+                this.selectedDay.end = new Date(day + addTime);
+            },
+
             removeFavRecipe(recipe) {
                 for (let i = 0; i < recipe.favorited.length; i++) {
                     const userId = recipe.favorited[i];
@@ -408,42 +417,42 @@
         width: auto;
         height: 250px;
     }
-
+    
     #recipes {
         min-height: 30%;
     }
-
+    
     #shopping {
         min-height: 30%;
     }
-
+    
     #favorites {
         min-height: 21.5vh;
     }
-
+    
     .card-footer {
         display: flex;
         justify-content: space-around
     }
-
+    
     .my-recipes {
         justify-content: space-around
     }
-
+    
     .padding-top {
         padding-top: 2rem
     }
-
+    
     .margin-top {
         margin-top: 2rem
     }
-
+    
     .re-adjust {
         margin-left: 0px;
         margin-right: 0px;
         margin-top: 2rem
     }
-
+    
     .current-brew-card {
         margin-bottom: 2rem;
         text-align: center
