@@ -48,13 +48,10 @@
             </div>
             <div class="modal-body">
               <form @submit.prevent="login" class="d-flex flex-column">
-                <input type="email" v-model="loginUser.email" placeholder="email">
-                <input type="password" v-model="loginUser.password" placeholder="password">
+                <input class="email" type="email" v-model="loginUser.email" placeholder="email">
+                <input class="password" type="password" v-model="loginUser.password" placeholder="password">
                 <button type="submit" class="btn-success">Login</button>
               </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
@@ -70,16 +67,13 @@
             </div>
             <div class="modal-body">
               <form @submit.prevent="register" class="d-flex flex-column">
-                <input type="text" v-model="newUser.name" placeholder="username">
-                <input type="email" v-model="newUser.email" placeholder="email">
-                <input type="string" v-model="newUser.profilePic" placeholder="image url">
-                <input type="password" v-model="newUser.password" placeholder="password">
-                <input type="password" v-model="newUser.confirmPassword" placeholder="confirm password">
+                <input class="username" type="text" v-model="newUser.name" placeholder="username">
+                <input class="email" type="email" v-model="newUser.email" placeholder="email">
+                <input class="profilePic" type="string" v-model="newUser.profilePic" placeholder="image url">
+                <input class="password" type="password" v-model="newUser.password" placeholder="password">
+                <input class="password" type="password" v-model="newUser.confirmPassword" placeholder="confirm password">
                 <button type="submit" class="btn-success">Register</button>
               </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
@@ -157,5 +151,33 @@
 
   .dropdown-item:hover {
     background-color: lightgrey;
+  }
+
+  .modal-body button{
+    margin: .5rem;
+  }
+
+   .modal-body input{
+    margin: 5px 0;
+    background-position: 5px 0px;
+    /* background-image: url('../assets/searchicon.png'); */
+    background-repeat: no-repeat;
+    padding-left: 40px;
+  }
+
+  .email {
+    background-image: url('../assets/envelope.svg');
+  }
+
+  .password {
+    background-image: url('../assets/key.svg');
+  }
+
+  .username {
+    background-image: url('../assets/user-circle.svg');
+  }
+
+  .profilePic {
+    background-image: url('../assets/image.svg');
   }
 </style>
