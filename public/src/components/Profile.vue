@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 d-flex flex-column">
+                    <div class="col-sm-5 d-flex flex-column text-center">
                             <h4>Currently Brewing:</h4>
                         <div v-for="(brewingSession, i) in brewingSessions">
                             <div v-if="i < 4">
@@ -50,9 +50,11 @@
                                         <div class="row">
         
                                             <div class="col-sm-6 justify-start">
+                                                <h6>Start Date:</h6>
                                                 <p class="card-text" maxlenght="30">{{moment(brewingSession.startBrewing).format("MMM Do YYYY")}}</p>
                                             </div>
                                             <div class="col-sm-6 justify-end">
+                                                <h6>End Date:</h6>
                                                 <p class="card-text" maxlenght="30">{{moment(brewingSession.endBrewing).format("MMM Do YYYY")}}</p>
                                             </div>
                                         </div>
