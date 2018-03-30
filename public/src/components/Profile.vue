@@ -402,7 +402,7 @@
     }
     
     #favorites {
-        min-height: 30%;
+        min-height: 21.5vh;
     }
     
     .card-footer {
