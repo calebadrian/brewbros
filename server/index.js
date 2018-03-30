@@ -15,7 +15,7 @@ var adjunctRoutes = require('./routes/adjuncts')
 var userRoutes = require('./routes/users')
 var brewingRoutes = require('./routes/brewingSessions')
 
-var whitelist = ['http://localhost:8080', 'https://brewbros.herokuapp.com']
+var whitelist = ['http://localhost:8080', '//brewbros.herokuapp.com']
 var corsOptions = {
     origin: function(origin, callback) {
         var originIsWhitelisted = whitelist.indexOf(origin) !== -1
