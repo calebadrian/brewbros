@@ -50,10 +50,10 @@
                                         <div class="row">
         
                                             <div class="col-sm-6 justify-start">
-                                                <p class="card-text" maxlenght="30">{{brewingSession.startBrewing}}</p>
+                                                <p class="card-text" maxlenght="30">{{moment(brewingSession.startBrewing).format("MMM Do YYYY")}}</p>
                                             </div>
                                             <div class="col-sm-6 justify-end">
-                                                <p class="card-text" maxlenght="30">{{brewingSession.endBrewing}}</p>
+                                                <p class="card-text" maxlenght="30">{{moment(brewingSession.endBrewing).format("MMM Do YYYY")}}</p>
                                             </div>
                                         </div>
                                     </div>
