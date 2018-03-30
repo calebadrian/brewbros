@@ -3,24 +3,32 @@
         <navbar></navbar>
         <div class="main-profile">
             <div class="container-fluid">
-                <div class="d-flex justify-content-around mt-4">
-                    <img v-if="profileUser.profilePic" :src="profileUser.profilePic" class="profile-pic">
-                    <img v-else src="../assets/not-found.png" class="profile-pic">
-                    <h4>{{profileUser.name}}</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div v-for="follower in profileUser.following">
+                            <router-link :to="{name: 'profile', params: {profileId: follower._id}}">{{follower.name}}</router-link>
+                            <i class="far fa-times-circle" v-if="profileUser._id == user._id" @click="removeFollower(follower)"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-around mt-4">
+                            <img v-if="profileUser.profilePic" :src="profileUser.profilePic" class="profile-pic">
+                            <img v-else src="../assets/not-found.png" class="profile-pic">
+                        </div>
+                        <div>
+                            <h4>{{profileUser.name}}</h4>
+                            <button class="btn btn-info" v-if="profileUser._id == user._id" @click="formHide = !formHide">Edit Profile</button>
+                            <button class="btn btn-primary" v-else-if="!user.following.find(hasProfileUser)" @click="addFollower">Follow This Person</button>
+                            <form @submit.prevent="editProfile" v-if="!formHide">
+                                <input v-model="profileUser.name">
+                                <input v-model="profileUser.email">
+                                <input v-model="profileUser.profilePic">
+                                <button type="submit" class="btn btn-success">Edit Profile</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <button class="btn btn-info" v-if="profileUser._id == user._id" @click="formHide = !formHide">Edit Profile</button>
-                <button class="btn btn-primary" v-else-if="!user.following.find(hasProfileUser)" @click="addFollower">Follow This Person</button>
-                <form @submit.prevent="editProfile" v-if="!formHide">
-                    <input v-model="profileUser.name">
-                    <input v-model="profileUser.email">
-                    <input v-model="profileUser.profilePic">
-                    <button type="submit" class="btn btn-success">Edit Profile</button>
-                </form>
                 <h4>Who you follow: </h4>
-                <div v-for="follower in profileUser.following">
-                    <router-link :to="{name: 'profile', params: {profileId: follower._id}}">{{follower.name}}</router-link>
-                    <i class="far fa-times-circle" v-if="profileUser._id == user._id" @click="removeFollower(follower)"></i>
-                </div>
                 <div class="row flex-column align-items-center mt-4">
                     <h2>Currently Brewing</h2>
                 </div>
@@ -265,7 +273,8 @@
                 //     dates: new Date(Date.now())
                 // }
                 // ],
-                // formHide: true
+                formHide: true,
+
                 selectedDay: {
                     start: new Date(Date.now()),
                     end: Date
