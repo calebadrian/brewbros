@@ -113,9 +113,8 @@
                                                     <!-- <v-calendar is-extended :attributes='attrs'>
                                                     </v-calendar> -->
                                                     <v-date-picker
-                                                    mode='range'
-                                                    v-model='selectedDate'
-                                                    show-caps>
+                                                    v-model='selectedDay.start'
+                                                    show-caps @dayclick="selectDate">
                                                 </v-date-picker>
                                                 </div>
                                                 <div class="modal-footer">
@@ -267,13 +266,19 @@
                 // }
                 // ],
                 // formHide: true
-                selectedInstanceOne: {
+                selectedDay: {
                     start: new Date(Date.now()),
-                    end: new Date(Date.now() + 2592000000)
+                    end: Date
                 }
             }
         },
         methods: {
+            selectDate(day) {
+                var addTime = 2592000000
+                this.selectedDay.start = day;
+                this.selectedDay.end = new Date(day + addTime);
+            },
+
             removeFavRecipe(recipe) {
                 for (let i = 0; i < recipe.favorited.length; i++) {
                     const userId = recipe.favorited[i];
