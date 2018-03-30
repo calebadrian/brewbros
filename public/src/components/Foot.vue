@@ -1,6 +1,6 @@
 <template>
     <div class="foot container-fluid d-flex justify-content-between align-items-center">
-        <h4>Brew Bros</h4>
+        <h4>BrewBros</h4>
         <img class="breweryDB" src="../assets/Powered-By-BreweryDB.png">
         <div>
             <img src="../assets/twitter-original.svg" class="svg">

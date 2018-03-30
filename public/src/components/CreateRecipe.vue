@@ -169,6 +169,7 @@
         <button type="submit" class="btn btn-success">Submit Recipe</button>
       </form>
     </div>
+    <foot></foot>
   </div>
 </template>
 
@@ -179,6 +180,7 @@
   import steepingGrain from './SteepingGrain'
   import adjunct from './Adjunct'
   import yeast from './yeast'
+  import foot from './Foot'
   export default {
     name: 'CreateRecipe',
     mounted() {
@@ -368,6 +370,7 @@
       steepingGrain,
       adjunct,
       yeast,
+      foot
     }
   }
 </script>

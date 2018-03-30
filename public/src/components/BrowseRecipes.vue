@@ -37,13 +37,14 @@
         </div>
       </div>
     </div>
-  </div>
+    <foot></foot>
   </div>
 </template>
 
 <script>
   import navbar from './Navbar'
   import recipe from './Recipe'
+  import foot from './Foot'
   export default {
     name: 'BrowseRecipes',
     mounted() {
@@ -78,7 +79,8 @@
     },
     components: {
       navbar,
-      recipe
+      recipe,
+      foot
     }
   }
 </script>
