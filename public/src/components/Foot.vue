@@ -1,5 +1,5 @@
 <template>
-    <div class="foot container-fluid d-flex justify-content-between align-items-center">
+    <div class="foot col-12">
         <h4>BrewBros</h4>
         <img class="breweryDB" src="../assets/Powered-By-BreweryDB.png">
         <div>
@@ -35,6 +35,9 @@
         height: 8rem;
         background-color: rgb(50, 50, 50);
         color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
     .breweryDB{
         height: 10vh
