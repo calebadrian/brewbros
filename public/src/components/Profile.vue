@@ -40,8 +40,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 d-flex flex-column" v-for="brewingSession in brewingSessions">
-                        <h4>Currently Brewing:</h4>
+                    <div class="col-sm-6 d-flex flex-column">
+                            <h4>Currently Brewing:</h4>
                         <div v-for="(brewingSession, i) in brewingSessions">
                             <div v-if="i < 4">
                                 <div class="card current-brew-card">
