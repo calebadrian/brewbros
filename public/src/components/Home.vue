@@ -1,6 +1,8 @@
 <template>
     <div class="Home container-fluid">
-        <navbar></navbar>
+        <div class="row">
+            <navbar></navbar>
+        </div>
         <div class="row">
             <div class="col-sm-12 hero">
                 <h1>Welcome to BrewBros</h1>
@@ -143,6 +145,7 @@
         font-family: 'Viga', sans-serif;
         font-style: italic;
     }
+
     @media screen and (max-width: 1024px) {
         h1 {
             font-size: 4rem;
