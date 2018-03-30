@@ -121,8 +121,11 @@
                                                     <!-- <v-calendar is-extended :attributes='attrs'>
                                                     </v-calendar> -->
                                                     <v-date-picker
-                                                    v-model='selectedDay.start'
-                                                    show-caps @dayclick="selectDate">
+                                                    :min-date='new Date(Date.now())'
+                                                    is-double-paned
+                                                    v-model='selectedDays.start'
+                                                    show-caps @dayclick="selectDate"
+                                                    mode="range">
                                                 </v-date-picker>
                                                 </div>
                                                 <div class="modal-footer">
@@ -275,19 +278,27 @@
                 // ],
                 formHide: true,
 
-                selectedDay: {
-                    start: new Date(Date.now()),
+                selectedDays: {
+                    start: new Date(),
                     end: Date
                 }
             }
         },
         methods: {
-            selectDate(day) {
-                var addTime = 2592000000
-                this.selectedDay.start = day;
-                this.selectedDay.end = new Date(day + addTime);
+            getDateString(date) {
+                const options = {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                };
+                return date.toLocaleDateString(window.navigator.userLanguage || window.navigator.language, options);
             },
-
+            selectDate(day) {
+                // var addTime = 2592000000
+                // this.selectedDay.start = day;
+                this.selectedDay.end = new Date(day);
+            },
             removeFavRecipe(recipe) {
                 for (let i = 0; i < recipe.favorited.length; i++) {
                     const userId = recipe.favorited[i];
@@ -383,7 +394,16 @@
             },
             brewingSessions() {
                 return this.$store.state.brewingSessions
-            }
+            },
+            date() {
+                return this.attribute.targetDate
+            },
+            isDate() {
+                return this.date.isDate;
+            },
+            isRange() {
+                return this.date.isRange;
+            },
         },
         beforeRouteUpdate(to, from, next) {
             this.profileUser = this.getProfileUser(to.params.profileId)
