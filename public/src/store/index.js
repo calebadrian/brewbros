@@ -356,10 +356,8 @@ export default new vuex.Store({
                 })
         },
         getMyFavorites({ commit, dispatch }, payload) {
-            console.log(payload)
             ourDB.get('recipes/user/' + payload + '/favorites')
                 .then(res => {
-                    console.log(res)
                     commit('setMyFavorites', res.data)
                 })
                 .catch(err => {
