@@ -95,23 +95,28 @@
                                         <i class="far fa-2x fa-heart"></i>
                                     </button>
                                     <button class="btn btn-danger" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#startBrewingModal">
                                         Start Brewing
                                     </button>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="startBrewingModal" tabindex="-1" role="dialog" aria-labelledby="startBrewingModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Time Selector Brewing</h5>
+                                                    <h5 class="modal-title" id="startBrewingModalLabel">Time Selector Brewing</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <v-calendar is-extended :attributes='attrs'>
-                                                    </v-calendar>
+                                                    <!-- <v-calendar is-extended :attributes='attrs'>
+                                                    </v-calendar> -->
+                                                    <v-date-picker
+                                                    mode='range'
+                                                    v-model='selectedDate'
+                                                    show-caps>
+                                                </v-date-picker>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -244,20 +249,26 @@
         },
         data() {
             return {
-                attrs: [{
-                    key: 'dayOne',
-                    highlight: {
-                        backgroundColor: '#ff8080'
-                    },
-                    dates: new Date(Date.now())
-                }, {
-                    key: 'dayTwo',
-                    highlight: {
-                        backgroundColor: '#ff8082'
-                    },
-                    dates: new Date(Date.now())
-                }],
-                formHide: true
+                // attrs: [{
+                //     key: 'dayOne',
+                //     highlight: {
+                //         backgroundColor: '#ff8080'
+                //     },
+                //     dates: new Date(Date.now())
+                // },
+                //  {
+                //     key: 'dayTwo',
+                //     highlight: {
+                //         backgroundColor: '#ff8082'
+                //     },
+                //     dates: new Date(Date.now())
+                // }
+                // ],
+                // formHide: true
+                selectedInstanceOne: {
+                    start: new Date(Date.now()),
+                    end: new Date(Date.now() + 2592000000)
+                }
             }
         },
         methods: {
@@ -378,42 +389,42 @@
         width: auto;
         height: 250px;
     }
-
+    
     #recipes {
         min-height: 30%;
     }
-
+    
     #shopping {
         min-height: 30%;
     }
-
+    
     #favorites {
         min-height: 30%;
     }
-
+    
     .card-footer {
         display: flex;
         justify-content: space-around
     }
-
+    
     .my-recipes {
         justify-content: space-around
     }
-
+    
     .padding-top {
         padding-top: 2rem
     }
-
+    
     .margin-top {
         margin-top: 2rem
     }
-
+    
     .re-adjust {
         margin-left: 0px;
         margin-right: 0px;
         margin-top: 2rem
     }
-
+    
     .current-brew-card {
         margin-bottom: 2rem;
         text-align: center
