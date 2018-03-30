@@ -30,18 +30,14 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .foot {
-        /* height: 4rem; */
         background-color: rgb(50, 50, 50);
         color: white;
-        /* display: inline-flex;
-        justify-content: space-between;
-        align-items: center; */
     }
-    
     .footer {
         display: flex;
         justify-content: space-around;
         align-content: center;
+        margin: 1rem 0;
     }
     
     .breweryDB {
