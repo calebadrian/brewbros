@@ -443,10 +443,23 @@ export default new vuex.Store({
             ourDB.post('recipes', payload)
                 .then(res => {
                     dispatch('getMyRecipes', res.data.creatorId)
+                    swal({
+                        position: 'top-end',
+                        width: 300,
+                        type: 'success',
+                        title: 'Recipe Added',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
                     router.push({ name: 'profile', params: { profileId: res.data.creatorId } })
                 })
                 .catch(err => {
                     console.error(err)
+                    swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Please fill out all fields'
+                    })
                 })
         },
         removeRecipe({ commit, dispatch }, payload) {
