@@ -400,13 +400,13 @@
                     startBrewing: this.selectedDays.startBrewing.start,
                     endBrewing: this.selectedDays.startBrewing.end
                 })
+                $("#startBrewingModal").modal('hide')
             },
             deleteBrewingSession(brewingSession) {
                 this.$store.dispatch('deleteBrewingSession', brewingSession)
             },
             editProfile() {
                 this.$store.dispatch('editProfile', this.profileUser)
-                this.formHide = true;
             },
             getBrewingSession(userId) {
                 this.$store.dispatch('getBrewingSessions', userId)
