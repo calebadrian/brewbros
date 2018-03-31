@@ -302,6 +302,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-danger" v-if="profileUser._id == user._id" @click="deleteBrewingSession(brewingSession)">End Brew Session</button>
+                                </div>
                             </div>
                         </div>
                     </div>
