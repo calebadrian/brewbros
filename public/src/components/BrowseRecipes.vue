@@ -88,7 +88,6 @@
     },
     methods: {
       favorite({ user: user, recipe: recipe }) {
-        console.log(this.style)
         recipe.favorited.push(user._id)
         this.$store.dispatch('updateFavorites', { userId: user._id, recipe: recipe })
       }

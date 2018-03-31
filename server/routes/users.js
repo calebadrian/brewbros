@@ -22,8 +22,10 @@ router.get('/api/users', (req, res, next) => {
 router.get('/api/users/:userid', (req, res, next) => {
   Users.findById(req.params.userid)
     .then(user => {
-      user.password = null // probably Mongoose doesn't let you delete the password!!
-      delete user.password
+      if (user){
+        user.password = null // probably Mongoose doesn't let you delete the password!!
+        delete user.password
+      }
       res.send(user)
     })
     .catch(err => {
