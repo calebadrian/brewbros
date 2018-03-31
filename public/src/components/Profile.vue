@@ -488,7 +488,6 @@
         background-color: rgba(210, 180, 140, 0.4);
         padding-top: 1rem;
     }
-<<<<<<< HEAD
     
     #recipes {
         min-height: 30%;
@@ -500,14 +499,6 @@
     
     #favorites {
         min-height: 21.5vh;
-=======
-
-    #recipes,
-    #shopping,
-    #favorites,
-    #brewing {
-        min-height: 25vh;
->>>>>>> baa03c936d96bc649772d78c8d274ee3c62acf17
     }
     
     .card-footer {
@@ -537,7 +528,8 @@
         margin-bottom: 2rem;
         text-align: center
     }
-    h2{
+    
+    h2 {
         padding: 15px 15px;
     }
 </style>
