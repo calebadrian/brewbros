@@ -28,14 +28,16 @@
           <div class="row">
             <div class="col-md-3 col-sm-12" v-if="!recipe.private && !style || style == null || recipe.style == style.name" v-for="recipe in allRecipes">
               <recipe :recipe="recipe"></recipe>
-              <div class="card-footer text-muted">
-                <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                  View Full Recipe
-                </button>
-                <button type="button" class="btn btn-positive" :recipe='recipe' v-if="recipe.creatorId != user._id && !recipe.favorited.includes(user._id) && user.name"
-                  @click="favorite({user: user, recipe: recipe})">
-                  Add to Favorites
-                </button>
+              <div class="row btns">
+                <div class="col-sm-12">
+                  <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
+                    View Full Recipe
+                  </button>
+                  <button type="button" class="btn btn-positive" :recipe='recipe' v-if="recipe.creatorId != user._id && !recipe.favorited.includes(user._id) && user.name"
+                    @click="favorite({user: user, recipe: recipe})">
+                    Add to Favorites
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -44,19 +46,21 @@
       <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <h2>My Followers Recipes:</h2>
         <div class="container-fluid">
-          <div class="row">
+          <div class="row btns">
             <div class="col-sm-12">
             </div>
             <div class="col-md-3 col-sm-12" v-if="!recipe.private && !style || style == null || recipe.style == style.name" v-for="recipe in myFollowersRecipes">
               <recipe :recipe="recipe"></recipe>
-              <div class="card-footer text-muted">
-                <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                  View Full Recipe
-                </button>
-                <button type="button" class="btn btn-positive" :recipe='recipe' v-if="recipe.creatorId != user._id && !recipe.favorited.includes(user._id) && user.name"
-                  @click="favorite({user: user, recipe: recipe})">
-                  Add to Favorites
-                </button>
+              <div class=row>
+                <div class="col-sm-12">
+                  <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
+                    View Full Recipe
+                  </button>
+                  <button type="button" class="btn btn-positive" :recipe='recipe' v-if="recipe.creatorId != user._id && !recipe.favorited.includes(user._id) && user.name"
+                    @click="favorite({user: user, recipe: recipe})">
+                    Add to Favorites
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -123,11 +127,16 @@
 
   .tab-content {
     min-height: 72vh;
+    padding-bottom: 1rem;
   }
 
   .top {
     margin: 1rem 0;
     text-align: center;
+  }
+  .btns .col-sm-12{
+    display:flex;
+    justify-content: space-between;
   }
 
   h2 {

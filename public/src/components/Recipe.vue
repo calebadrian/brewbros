@@ -22,10 +22,10 @@
       <div v-if="user.name">
         <p>My Rating:</p>
         <fa-rating :glyph="beer" v-if="!recipe.ratings[user._id]" v-model="rating" @rating-selected="addRating" inactive-color="#e6e6e6"
-          active-color="#e1b871" :increment="0.25" :fixed-points="2">
+          active-color="#e1b871" :increment="0.25" :fixed-points="2" :item-size="35">
         </fa-rating>
         <fa-rating :glyph="beer" v-else v-model="recipe.ratings[user._id]" @rating-selected="editRating" inactive-color="#e6e6e6"
-          active-color="#e1b871" :increment="0.25" :fixed-points="2">
+          active-color="#e1b871" :increment="0.25" :fixed-points="2" :item-size="35">
         </fa-rating>
       </div>
       <span class="favorited">

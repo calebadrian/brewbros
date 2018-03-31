@@ -102,16 +102,22 @@
                     <div class="row">
                         <div class="col-md-3 col-sm-12" v-for="recipe in myFavorites">
                             <recipe :recipe="recipe"></recipe>
-                            <div class="card-footer text-muted">
-                                <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                                    <i class="fas fa-2x fa-external-link-alt"></i>
-                                </button>
-                                <button class="btn btn-positive" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
-                                    <i class="far fa-2x fa-clipboard"></i>
-                                </button>
-                                <button type="button" class="btn btn-negative" :recipe='recipe' @click="removeFavRecipe(recipe)" v-if="profileUser._id == user._id">
-                                    Remove from Favorites
-                                </button>
+                            <div>
+                                <div class="row btns">
+                                    <div class="col-sm-12">
+                                        <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
+                                            <i class="fas fa-2x fa-external-link-alt"></i>
+                                        </button>
+                                        <button class="btn btn-positive" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
+                                            <i class="far fa-2x fa-clipboard"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <button type="button" class="btn btn-negative" :recipe='recipe' @click="removeFavRecipe(recipe)" v-if="profileUser._id == user._id">
+                                            Remove from Favorites
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,20 +129,26 @@
                     <div class="row my-recipes margin-top">
                         <div class="col-md-3 col-sm-12" v-for="recipe in myRecipes">
                             <recipe :recipe="recipe"></recipe>
-                            <div class="card-footer text-muted">
-                                <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                                    <i class="fas fa-2x fa-external-link-alt"></i>
-                                </button>
-                                <button class="btn btn-positive" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
-                                    <i class="far fa-2x fa-clipboard"></i>
-                                </button>
-                                <button class="btn btn-positive" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)">
-                                    <i class="far fa-2x fa-heart"></i>
-                                </button>
-                                <button class="btn btn-negative" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
-                                <button type="button" class="btn btn-main" data-toggle="modal" data-target="#startBrewingModal">
-                                    Start Brewing
-                                </button>
+                            <div>
+                                <div class="row btns">
+                                    <div class="col-sm-12">
+                                        <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
+                                            <i class="fas fa-2x fa-external-link-alt"></i>
+                                        </button>
+                                        <button class="btn btn-positive" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
+                                            <i class="far fa-2x fa-clipboard"></i>
+                                        </button>
+                                        <button class="btn btn-positive" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)">
+                                            <i class="far fa-2x fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <button class="btn btn-negative" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
+                                    <button type="button" class="btn btn-main" data-toggle="modal" data-target="#startBrewingModal">
+                                        Start Brewing
+                                    </button>
+                                </div>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="startBrewingModal" tabindex="-1" role="dialog" aria-labelledby="startBrewingModalLabel" aria-hidden="true">
@@ -471,53 +483,61 @@
         width: auto;
         height: 250px;
     }
-    
+
     .main-profile,
     .nav {
         background-color: rgba(210, 180, 140, 0.4);
         padding-top: 1rem;
     }
-    
+
     #recipes {
         min-height: 30%;
     }
-    
+
     #shopping {
         min-height: 30%;
     }
-    
+
     #favorites {
         min-height: 21.5vh;
     }
-    
-    .card-footer {
-        display: flex;
-        justify-content: space-around
+
+    .tab-content {
+        padding-bottom: 1rem;
     }
-    
+
+    .btns .col-sm-12 {
+        display: flex;
+        justify-content: center;
+    }
+
+    .col-sm-12 .btn {
+        margin: .1rem .5rem;
+    }
+
     .my-recipes {
         justify-content: space-around
     }
-    
+
     .padding-top {
         padding-top: 2rem
     }
-    
+
     .margin-top {
         margin-top: 2rem
     }
-    
+
     .re-adjust {
         margin-left: 0px;
         margin-right: 0px;
         margin-top: 2rem
     }
-    
+
     .current-brew-card {
         margin-bottom: 2rem;
         text-align: center
     }
-    
+
     h2 {
         padding: 15px 15px;
     }
