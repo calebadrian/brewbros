@@ -471,48 +471,54 @@
         width: auto;
         height: 250px;
     }
-
+    
     .main-profile,
     .nav {
         background-color: rgba(210, 180, 140, 0.4);
         padding-top: 1rem;
     }
-
-    #recipes,
-    #shopping,
-    #favorites,
-    #brewing {
-        min-height: 25vh;
+    
+    #recipes {
+        min-height: 30%;
     }
-
+    
+    #shopping {
+        min-height: 30%;
+    }
+    
+    #favorites {
+        min-height: 21.5vh;
+    }
+    
     .card-footer {
         display: flex;
         justify-content: space-around
     }
-
+    
     .my-recipes {
         justify-content: space-around
     }
-
+    
     .padding-top {
         padding-top: 2rem
     }
-
+    
     .margin-top {
         margin-top: 2rem
     }
-
+    
     .re-adjust {
         margin-left: 0px;
         margin-right: 0px;
         margin-top: 2rem
     }
-
+    
     .current-brew-card {
         margin-bottom: 2rem;
         text-align: center
     }
-    h2{
+    
+    h2 {
         padding: 15px 15px;
     }
 </style>
