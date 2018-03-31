@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-5 d-flex flex-column text-center">
+                    <div class="col-sm-4 d-flex flex-column text-center">
                             <h4>Currently Brewing:</h4>
                         <div v-for="(brewingSession, i) in brewingSessions">
                             <div v-if="i < 4">
