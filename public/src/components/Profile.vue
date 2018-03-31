@@ -48,7 +48,6 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{brewingSession.recipe.name}}</h5>
                                         <div class="row">
-        
                                             <div class="col-sm-6 justify-start">
                                                 <h6>Start Date:</h6>
                                                 <p class="card-text" maxlenght="30">{{moment(brewingSession.startBrewing).format("MMM Do YYYY")}}</p>
@@ -59,6 +58,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-danger" v-if="profileUser._id == user._id" @click="deleteBrewingSession(brewingSession)">End Brew Session</button>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -350,6 +352,9 @@
                     startBrewing: this.selectedDays.startBrewing.start,
                     endBrewing: this.selectedDays.startBrewing.end
                 })
+            },
+            deleteBrewingSession(brewingSession) {
+                this.$store.dispatch('deleteBrewingSession', brewingSession)
             },
             editProfile() {
                 this.$store.dispatch('editProfile', this.profileUser)
