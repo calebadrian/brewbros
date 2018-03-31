@@ -24,6 +24,7 @@
         </div>
         <div class="row description-section">
             <div class="col-12 summary">
+                    <img src="../assets/logo.png" alt="">
                 <h4>WHAT WE'VE BREWED UP FOR YOU:</h4>
                 <p>BrewBros is a home-brew assistance and tracking app. You can create a recipe from scratch, favorite and use
                     an already created recipe or re-visit a recipe you previously created. Each recipe is open for ratings
@@ -144,6 +145,9 @@
     .summary {
         text-align: center;
         padding: 1rem 0;
+    }
+    .summary img{
+        width: 11rem;
     }
 
     h1 {

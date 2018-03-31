@@ -19,10 +19,9 @@ router.post('/api/brewingSessions', (req, res, next) => {
 //maybe come back too????
 
 //Delete a Session
-router.delete('/api/brewingSessions/brewingSessionId', (req, res, next) => {
-    BrewingSession.findByIdAndRemove(req.params.BrewingSessionId)
+router.delete('/api/brewingSessions/:brewingSessionId', (req, res, next) => {
+    BrewingSession.findByIdAndRemove(req.params.brewingSessionId)
         .then(brewingSession => {
-            brewingSession.remove()
             return res.send({
                 message: 'Sucessfully deleted Brewing Session!'
             })

@@ -1,6 +1,8 @@
 <template>
   <div class="browseRecipes">
+    <div class="row">
       <navbar></navbar>
+    </div>
     <div class="container-fluid bg">
       <div class="row">
         <div class="col-sm-12 top">
@@ -110,19 +112,23 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .bg{
+  .bg {
     background-color: rgba(210, 180, 140, 0.4);
-
   }
+
   .text-muted {
     margin-top: 4px;
     margin-bottom: 4px
   }
-  .tab-content{
+
+  .tab-content {
     min-height: 72vh;
   }
-  .top{
-    margin: 1rem 0;
 
+  .top {
+    margin: 1rem 0;
+    text-align: center;
+    color: white;
+    text-shadow: 4px 4px 10px rgba(35, 35, 39, 0.9);
   }
 </style>

@@ -1,6 +1,8 @@
 <template>
   <div class="createRecipe">
-    <navbar></navbar>
+    <div class="row">
+      <navbar></navbar>
+    </div>
     <div class="container-fluid createMe pb-4">
       <form @submit.prevent='submit'>
         <div class="row">
@@ -403,8 +405,16 @@
     background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url("../assets/wood-panel.jpg");
     color: rgb(245, 245, 245);
   }
+.card{
+  color: black;
+}
+  .card-body {
+    background-color: rgba(210, 180, 140, 0.6);
+    box-shadow: 5px 5px 20px rgba(210, 180, 140, 0.75);
+  }
 
-  .card {
-    color: slategrey
+  .card-header {
+    background-color: rgba(210, 180, 140, .8);
+    box-shadow: 5px 0px 10px rgba(210, 180, 140, 0.75);
   }
 </style>

@@ -471,6 +471,17 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
+
+        deleteBrewingSession({ commit, dispatch }, payload) {
+            debugger
+            ourDB.delete('brewingSessions/' + payload._id)
+                .then(res => {
+                    dispatch('getBrewingSessions', payload.creatorId)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
         //endregion
 
         //region user and login actions

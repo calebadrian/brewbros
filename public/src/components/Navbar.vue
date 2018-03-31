@@ -3,10 +3,10 @@
     <div class="col-sm-12">
       <nav class="navbar fixed-top navbar-expand-lg">
         <router-link :to="{name: 'Home'}">
-          <a class="navbar-brand" href="#">BrewBros</a>
+          <img class="navbar-brand" src="../assets/logo.png" alt="">
         </router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
@@ -134,6 +134,18 @@
 <style scoped>
   .navbar {
     height: 4rem;
+    box-shadow: 5px 5px 20px rgba(53, 58, 63, 0.75);
+  }
+  .navbar-brand{
+    height: 3.5rem;
+  }
+  .navbar-toggler{
+    align-items: center;
+    border: 2px solid white;
+  }
+  .navbar-toggler-icon{
+    padding-top: 5px;
+    color: white;
   }
 
   .navbar,
@@ -141,8 +153,10 @@
   .dropdown-toggle,
   .navbar-nav,
   .navBtn {
-    box-shadow: 5px 5px 20px rgba(53, 58, 63, 0.75);
     background-color: #222321;
+  }
+  .nav-item, .navBtn{
+    padding-left: 10px;
   }
 
   a {
@@ -160,7 +174,6 @@
    .modal-body input{
     margin: 5px 0;
     background-position: 5px 0px;
-    /* background-image: url('../assets/searchicon.png'); */
     background-repeat: no-repeat;
     padding-left: 40px;
   }
