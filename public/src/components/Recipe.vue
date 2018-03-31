@@ -235,4 +235,8 @@
     margin-top: 4px;
     margin-bottom: 4px
   }
+  .recipe
+  {
+    margin: 1rem 0;
+  }
 </style>

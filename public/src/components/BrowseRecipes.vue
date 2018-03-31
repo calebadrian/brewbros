@@ -1,9 +1,9 @@
 <template>
   <div class="browseRecipes">
-    <navbar></navbar>
+      <navbar></navbar>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 top">
           <v-select label="name" value=" " v-model="style" :options="styles" class="selectFormat" placeholder="Sort by Style"></v-select>
         </div>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -109,8 +109,17 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  /* .browseRecipes{
+    min-height: 91.5vh;
+  } */
   .text-muted {
     margin-top: 4px;
     margin-bottom: 4px
+  }
+  .tab-content{
+    min-height: 72vh;
+  }
+  .top{
+    margin: 1rem 0;
   }
 </style>
