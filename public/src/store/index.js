@@ -379,15 +379,15 @@ export default new vuex.Store({
             ourDB.put('users/' + payload.userId + '/shoppingList', payload.recipe)
                 .then(res => {
                     commit('updateUser', res.data)
+                    commit('updateShoppingListFermentables', payload.recipe)
+                    commit('updateShoppingListHops', payload.recipe)
+                    commit('updateShoppingListSteepingGrains', payload.recipe)
+                    commit('updateShoppingListAdjuncts', payload.recipe)
+                    commit('updateShoppingListYeasts', payload.recipe)
                 })
                 .catch(err => {
                     console.error(err)
                 })
-            commit('updateShoppingListFermentables', payload.recipe)
-            commit('updateShoppingListHops', payload.recipe)
-            commit('updateShoppingListSteepingGrains', payload.recipe)
-            commit('updateShoppingListAdjuncts', payload.recipe)
-            commit('updateShoppingListYeasts', payload.recipe)
         },
         clearShoppingList({ commit, dispatch, state }, payload) {
             ourDB.put('users/' + state.user._id, payload)
