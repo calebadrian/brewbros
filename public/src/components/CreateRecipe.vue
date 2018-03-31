@@ -30,7 +30,7 @@
             <div class="form-group">
               <div class="d-flex align-items-center mb-2">
                 <label class="mr-2" for="category">Category:</label>
-                <v-select class="selectFormat" label="name" :options="categories" v-model="recipe.category" @change="filterStyle"></v-select>
+                <v-select class="selectFormat" label="name" :options="categories" v-model="recipe.category" :on-change="filterStyle"></v-select>
               </div>
               <div class="d-flex align-items-center mb-2">
                 <label class="mr-2" for="style">Style:</label>
@@ -345,10 +345,10 @@
           }
         }
       },
-      filterStyle() {
+      filterStyle(value) {
         this.filteredStyles = []
         var styles = this.$store.state.styles
-        var category = this.recipe.category
+        var category = value.name
         for (let i = 0; i < styles.length; i++) {
           const style = styles[i];
           if (category == style.category.name) {
@@ -373,6 +373,12 @@
       adjunct,
       yeast,
       foot
+    },
+    watch:{
+      category: function (category){
+        this.filterStyle(category)
+      }
+
     }
   }
 </script>

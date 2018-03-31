@@ -18,11 +18,10 @@
                                 <button class="btn btn-main" v-else-if="!user.following.find(hasProfileUser)" @click="addFollower">Follow This Person</button>
                             </div>
                             <div class="mt-4">
-                                <h4>Who you follow: </h4>
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
-                                        Dropdown
+                                        Who You've Followed
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                         <a class="dropdown-item" type="button" v-for="follower in profileUser.following">
@@ -157,20 +156,10 @@
                                                 </v-date-picker>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 <button class="btn btn-negative" @click="createBrewingSession(recipe)">
                                                     <i class="far fa-2x fa-clock"></i>
                                                 </button>
                                             </div>
-                                            <v-date-picker :min-date='new Date(Date.now())' is-double-paned v-model='selectedDays.startBrewing' show-caps @dayclick="selectDate"
-                                                mode="range">
-                                            </v-date-picker>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button class="btn btn-negative" @click="createBrewingSession(recipe)">
-                                                <i class="far fa-2x fa-clock"></i>
-                                            </button>
                                         </div>
                                     </div>
                                 </div>

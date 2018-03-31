@@ -23,6 +23,7 @@
     <!-- Tab panes -->
     <div class="tab-content">
       <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <h2>All Recipes:</h2>
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-3 col-sm-12" v-if="!recipe.private && !style || style == null || recipe.style == style.name" v-for="recipe in allRecipes">
@@ -41,10 +42,10 @@
         </div>
       </div>
       <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <h2>My Followers Recipes:</h2>
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-12">
-              <h3>My Followers Recipes:</h3>
             </div>
             <div class="col-md-3 col-sm-12" v-if="!recipe.private && !style || style == null || recipe.style == style.name" v-for="recipe in myFollowersRecipes">
               <recipe :recipe="recipe"></recipe>
@@ -128,7 +129,9 @@
   .top {
     margin: 1rem 0;
     text-align: center;
-    color: white;
-    text-shadow: 4px 4px 10px rgba(35, 35, 39, 0.9);
+  }
+
+  h2 {
+    padding: 15px 15px;
   }
 </style>
