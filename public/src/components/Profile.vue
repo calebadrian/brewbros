@@ -82,7 +82,7 @@
                 <h1>My Favorites</h1>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-3" v-for="recipe in myFavorites">
+                        <div class="col-md-3 col-sm-12" v-for="recipe in myFavorites">
                             <recipe :recipe="recipe"></recipe>
                             <div class="card-footer text-muted">
                                 <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
@@ -103,7 +103,7 @@
             <div class="tab-pane fade" id="recipes" role="tabpanel" aria-labelledby="recipes-tab">
                 <div class="container-fluid">
                     <div class="row my-recipes margin-top">
-                        <div class="col-3" v-for="recipe in myRecipes">
+                        <div class="col-md-3 col-sm-12" v-for="recipe in myRecipes">
                             <recipe :recipe="recipe"></recipe>
                             <div class="card-footer text-muted">
                                 <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
