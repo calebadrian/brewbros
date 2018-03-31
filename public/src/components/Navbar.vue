@@ -29,8 +29,8 @@
             </li>
           </ul>
           <div class="navBtn" v-if="!user._id">
-            <button class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#loginModal">Login</button>
-            <button class="btn btn-outline-primary my-2 my-sm-0 ml-2" data-toggle="modal" data-target="#registerModal">Register</button>
+            <button class="btn btn-outline-positive my-2 my-sm-0" data-toggle="modal" data-target="#loginModal">Login</button>
+            <button class="btn btn-outline-main my-2 my-sm-0 ml-2" data-toggle="modal" data-target="#registerModal">Register</button>
           </div>
           <div class="navBtn" v-else>
             <button class="btn btn-negative my-2 my-sm-0" @click="logout">Logout</button>

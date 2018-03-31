@@ -18,11 +18,10 @@
                                 <button class="btn btn-main" v-else-if="!user.following.find(hasProfileUser)" @click="addFollower">Follow This Person</button>
                             </div>
                             <div class="mt-4">
-                                <h4>Who you follow: </h4>
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
-                                        Dropdown
+                                        Who You've Followed
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                         <a class="dropdown-item" type="button" v-for="follower in profileUser.following">
@@ -98,7 +97,7 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
-                <h1>My Favorites</h1>
+                <h2>My Favorites:</h2>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-3 col-sm-12" v-for="recipe in myFavorites">
@@ -119,6 +118,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="recipes" role="tabpanel" aria-labelledby="recipes-tab">
+                <h2>My Recipes:</h2>
                 <div class="container-fluid">
                     <div class="row my-recipes margin-top">
                         <div class="col-md-3 col-sm-12" v-for="recipe in myRecipes">
@@ -156,20 +156,10 @@
                                                 </v-date-picker>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 <button class="btn btn-negative" @click="createBrewingSession(recipe)">
                                                     <i class="far fa-2x fa-clock"></i>
                                                 </button>
                                             </div>
-                                            <v-date-picker :min-date='new Date(Date.now())' is-double-paned v-model='selectedDays.startBrewing' show-caps @dayclick="selectDate"
-                                                mode="range">
-                                            </v-date-picker>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button class="btn btn-negative" @click="createBrewingSession(recipe)">
-                                                <i class="far fa-2x fa-clock"></i>
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -179,6 +169,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab" v-if="profileUser._id == user._id">
+                <h2>My Shopping List:</h2>
                 <div class="container padding-top" v-if="shoppingList != undefined">
                     <h5>Fermentables</h5>
                     <button class="btn btn-negative" @click="clearShoppingList">Clear Shopping List</button>
@@ -277,10 +268,10 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="brewing" role="tabpanel" aria-labelledby="brewing-tab">
+                <h2>Currently Brewing:</h2>
                 <div class="container-fluid">
                     <div class="row my-recipes margin-top">
                         <div class="col-sm-12 d-flex justify-content-center">
-                            <h4>Currently Brewing:</h4>
                         </div>
                         <div class="col-sm-3" v-for="(brewingSession, i) in brewingSessions">
                             <div class="card current-brew-card">
@@ -480,50 +471,54 @@
         width: auto;
         height: 250px;
     }
-
+    
     .main-profile,
     .nav {
         background-color: rgba(210, 180, 140, 0.4);
         padding-top: 1rem;
     }
-
+    
     #recipes {
         min-height: 30%;
     }
-
+    
     #shopping {
         min-height: 30%;
     }
-
+    
     #favorites {
         min-height: 21.5vh;
     }
-
+    
     .card-footer {
         display: flex;
         justify-content: space-around
     }
-
+    
     .my-recipes {
         justify-content: space-around
     }
-
+    
     .padding-top {
         padding-top: 2rem
     }
-
+    
     .margin-top {
         margin-top: 2rem
     }
-
+    
     .re-adjust {
         margin-left: 0px;
         margin-right: 0px;
         margin-top: 2rem
     }
-
+    
     .current-brew-card {
         margin-bottom: 2rem;
         text-align: center
+    }
+    
+    h2 {
+        padding: 15px 15px;
     }
 </style>
