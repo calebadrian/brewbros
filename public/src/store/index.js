@@ -393,7 +393,7 @@ export default new vuex.Store({
             ourDB.put('users/' + state.user._id, payload)
                 .then(res => {
                     commit('updateUser', res.data)
-                    commit('setShoppingList', res.data.shoppingList)
+                    commit('setShoppingList', payload)
                 })
                 .catch(err => {
                     console.error(err)
