@@ -8,12 +8,14 @@ import store from './store'
 import vSelect from 'vue-select'
 import Raters from 'vue-rate-it'
 import vCalendar from 'v-calendar'
+import moment from 'moment'
 import 'v-calendar/lib/v-calendar.min.css';
 
 Vue.config.productionTip = false
 Vue.component('v-select', vSelect)
-Vue.component('fa-rating', Raters.FaRating);
+Vue.component('fa-rating', Raters.FaRating)
 Vue.use(vCalendar)
+Vue.prototype.moment = moment
 
 /* eslint-disable no-new */
 new Vue({
