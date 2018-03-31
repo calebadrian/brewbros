@@ -98,7 +98,7 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
-                <h1>My Favorites</h1>
+                <h2>My Favorites:</h2>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-3 col-sm-12" v-for="recipe in myFavorites">
@@ -119,6 +119,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="recipes" role="tabpanel" aria-labelledby="recipes-tab">
+                <h2>My Recipes:</h2>
                 <div class="container-fluid">
                     <div class="row my-recipes margin-top">
                         <div class="col-md-3 col-sm-12" v-for="recipe in myRecipes">
@@ -179,6 +180,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab" v-if="profileUser._id == user._id">
+                <h2>My Shopping List:</h2>
                 <div class="container padding-top" v-if="shoppingList != undefined">
                     <h5>Fermentables</h5>
                     <button class="btn btn-negative" @click="clearShoppingList">Clear Shopping List</button>
@@ -277,10 +279,10 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="brewing" role="tabpanel" aria-labelledby="brewing-tab">
+                <h2>Currently Brewing:</h2>
                 <div class="container-fluid">
                     <div class="row my-recipes margin-top">
                         <div class="col-sm-12 d-flex justify-content-center">
-                            <h4>Currently Brewing:</h4>
                         </div>
                         <div class="col-sm-3" v-for="(brewingSession, i) in brewingSessions">
                             <div class="card current-brew-card">
@@ -487,16 +489,11 @@
         padding-top: 1rem;
     }
 
-    #recipes {
-        min-height: 30%;
-    }
-
-    #shopping {
-        min-height: 30%;
-    }
-
-    #favorites {
-        min-height: 21.5vh;
+    #recipes,
+    #shopping,
+    #favorites,
+    #brewing {
+        min-height: 25vh;
     }
 
     .card-footer {
@@ -525,5 +522,8 @@
     .current-brew-card {
         margin-bottom: 2rem;
         text-align: center
+    }
+    h2{
+        padding: 15px 15px;
     }
 </style>
