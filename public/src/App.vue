@@ -59,4 +59,8 @@
     color: #578957;
     font-style: italic;
   }
+  h1{
+    color: white;
+    text-shadow: 4px 4px 10px rgba(35, 35, 39, 0.9);
+  }
 </style>

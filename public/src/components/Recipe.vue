@@ -244,12 +244,10 @@
   .card-body {
     background-color: rgba(210, 180, 140, 0.6);
     box-shadow: 5px 5px 20px rgba(210, 180, 140, 0.75);
-
   }
 
   .card-header {
     background-color: rgba(210, 180, 140, .8);
     box-shadow: 5px 0px 10px rgba(210, 180, 140, 0.75);
-
   }
 </style>
