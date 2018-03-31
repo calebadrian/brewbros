@@ -33,6 +33,7 @@
         border-top: 2px solid rgb(229, 89, 52);
         background-color: #222321;
         color: white;
+        max-width: 100vw;
     }
 
     .footer {

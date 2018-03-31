@@ -1,7 +1,9 @@
 <template>
     <div class="Profile">
-        <div class="row">
-            <navbar></navbar>
+        <div class="container-fluid">
+            <div class="row">
+                <navbar></navbar>
+            </div>
         </div>
         <div class="main-profile">
             <div class="container-fluid">
@@ -306,7 +308,9 @@
                 </div>
             </div>
         </div>
-        <foot></foot>
+        <div class="container-fluid">
+            <foot></foot>
+        </div>
     </div>
 </template>
 
