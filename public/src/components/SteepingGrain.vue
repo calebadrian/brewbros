@@ -7,7 +7,7 @@
                     <input type="number" name="steepingGrainAmount" v-model="defaultValues.quantity" step='.1' min='0'>
                     <label for="steepingGrain">Fermentable To Steep</label>
                     <v-select label="name" v-model="steepingGrain" :options="fermentables"></v-select>
-                    <button type='submit' class="btn-success">Add Steeping Grain</button>
+                    <button type='submit' class="btn-positive">Add Steeping Grain</button>
                 </div>
             </form>
         </div>

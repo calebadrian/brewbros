@@ -30,21 +30,23 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .foot {
-        background-color: rgb(50, 50, 50);
+        border-top: 2px solid rgb(229, 89, 52);
+        background-color: #222321;
         color: white;
     }
+
     .footer {
         display: flex;
         justify-content: space-around;
         align-content: center;
         margin: 1rem 0;
     }
-    
+
     .breweryDB {
         /* width: 100%; */
         max-height: 3rem
     }
-    
+
     .svg {
         width: 2rem;
         height: 2rem;

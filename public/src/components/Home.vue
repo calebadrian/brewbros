@@ -9,15 +9,15 @@
                 <h2>Organizing all of your Homebrewing needs</h2>
                 <div class="hero-content">
                     <router-link :to="{name: 'browse'}">
-                        <button class="btn btn-success my-2 my-sm-0">Browse Recipes</button>
+                        <button class="btn btn-positive my-2 my-sm-0">Browse Recipes</button>
                     </router-link>
                     <div v-if="user.name">
                         <router-link :to="{name: 'createRecipe'}">
-                            <button class="btn btn-primary my-2 my-sm-0 ml-2">Create Recipe</button>
+                            <button class="btn btn-main my-2 my-sm-0 ml-2">Create Recipe</button>
                         </router-link>
                     </div>
                     <div v-else>
-                        <button class="btn btn-primary my-2 my-sm-0 ml-2" data-toggle="modal" data-target="#registerModal">Register</button>
+                        <button class="btn btn-main my-2 my-sm-0 ml-2" data-toggle="modal" data-target="#registerModal">Register</button>
                     </div>
                 </div>
             </div>
@@ -113,7 +113,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('../assets/karolina-szczur-504609-unsplash.jpg');
+        background: linear-gradient(rgba(24, 18, 30, 0), rgba(24, 18, 30, 0)), url('../assets/beer_bottles.jpeg');
         background-position: center center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -128,13 +128,14 @@
 
     .description-section {
         min-height: 65vh;
-        background: black;
+        background: #222321;
         color: white;
         padding: 1rem;
         justify-content: flex-start;
 
     }
-    .description-section .col-md-6{
+
+    .description-section .col-md-6 {
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -147,7 +148,7 @@
 
     h1 {
         font-size: 6rem;
-        text-shadow: 4px 4px 10px rgba(147, 220, 251, 0.8);
+        text-shadow: 4px 4px 10px rgba(35, 35, 39, 0.8);
         font-family: 'Viga', sans-serif;
         font-style: italic;
     }
@@ -155,7 +156,7 @@
     @media screen and (max-width: 1024px) {
         h1 {
             font-size: 4rem;
-            text-shadow: 4px 4px 10px rgba(147, 220, 251, 0.8);
+            text-shadow: 4px 4px 10px rgba(35, 35, 39, 0.8);
             font-family: 'Viga', sans-serif;
             font-style: italic;
         }
@@ -163,7 +164,7 @@
 
     h2 {
         font-size: 2rem;
-        text-shadow: 4px 4px 10px rgba(147, 220, 251, 0.8);
+        text-shadow: 4px 4px 10px rgba(35, 35, 39, 0.8);
         font-family: 'Viga', sans-serif;
     }
 

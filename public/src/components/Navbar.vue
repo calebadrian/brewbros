@@ -1,7 +1,7 @@
 <template>
   <div class="Navbar navbar">
     <div class="col-sm-12">
-      <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar fixed-top navbar-expand-lg">
         <router-link :to="{name: 'Home'}">
           <a class="navbar-brand" href="#">BrewBros</a>
         </router-link>
@@ -33,7 +33,7 @@
             <button class="btn btn-outline-primary my-2 my-sm-0 ml-2" data-toggle="modal" data-target="#registerModal">Register</button>
           </div>
           <div class="navBtn" v-else>
-            <button class="btn btn-outline-danger my-2 my-sm-0" @click="logout">Logout</button>
+            <button class="btn btn-negative my-2 my-sm-0" @click="logout">Logout</button>
           </div>
         </div>
       </nav>
@@ -50,7 +50,7 @@
               <form @submit.prevent="login" class="d-flex flex-column">
                 <input class="email" type="email" v-model="loginUser.email" placeholder="email">
                 <input class="password" type="password" v-model="loginUser.password" placeholder="password">
-                <button type="submit" class="btn-success">Login</button>
+                <button type="submit" class="btn-positive">Login</button>
               </form>
             </div>
           </div>
@@ -72,7 +72,7 @@
                 <input class="profilePic" type="string" v-model="newUser.profilePic" placeholder="image url">
                 <input class="password" type="password" v-model="newUser.password" placeholder="password">
                 <input class="password" type="password" v-model="newUser.confirmPassword" placeholder="confirm password">
-                <button type="submit" class="btn-success">Register</button>
+                <button type="submit" class="btn-positive">Register</button>
               </form>
             </div>
           </div>
@@ -142,7 +142,7 @@
   .navbar-nav,
   .navBtn {
     box-shadow: 5px 5px 20px rgba(53, 58, 63, 0.75);
-    background-color: #353a3f;
+    background-color: #222321;
   }
 
   a {

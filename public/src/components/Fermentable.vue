@@ -7,7 +7,7 @@
                     placeholder="#">
                 <label for="fermentable">Fermentable</label>
                 <v-select label="name" v-model="fermentable" :options="fermentables"></v-select>
-                <button class="btn-success">Add Fermentable</button>
+                <button class="btn-positive">Add Fermentable</button>
             </form>
         </div>
         <div class="card-footer">

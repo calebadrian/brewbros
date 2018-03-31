@@ -10,7 +10,7 @@
           <label for="yeastPitch">Pitch</label>
           <input type="number" class="form-control" id="yeastPitch" v-model="defaultValues.pitch" min="0">
         </div>
-        <button type="submit" class="btn-success">Add Yeast</button>
+        <button type="submit" class="btn-positive">Add Yeast</button>
       </form>
     </div>
     <div class="card-footer">

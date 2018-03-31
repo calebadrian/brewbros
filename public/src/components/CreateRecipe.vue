@@ -162,7 +162,7 @@
                 <textarea type="text" placeholder="Description" v-model="recipe.personalComments" rows="8"></textarea>
               </div>
               <div class="card-footer">
-                <button type="submit" class="btn btn-success">Submit Recipe</button>
+                <button type="submit" class="btn btn-positive">Submit Recipe</button>
               </div>
             </div>
           </div>

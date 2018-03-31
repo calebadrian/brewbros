@@ -1,9 +1,10 @@
 <template>
   <div class="browseRecipes">
       <navbar></navbar>
-    <div class="container-fluid">
+    <div class="container-fluid bg">
       <div class="row">
         <div class="col-sm-12 top">
+          <h1>Browse Recipes</h1>
           <v-select label="name" value=" " v-model="style" :options="styles" class="selectFormat" placeholder="Sort by Style"></v-select>
         </div>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -25,10 +26,10 @@
             <div class="col-md-3 col-sm-12" v-if="!recipe.private && !style || style == null || recipe.style == style.name" v-for="recipe in allRecipes">
               <recipe :recipe="recipe"></recipe>
               <div class="card-footer text-muted">
-                <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
+                <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
                   View Full Recipe
                 </button>
-                <button type="button" class="btn btn-success" :recipe='recipe' v-if="recipe.creatorId != user._id && !recipe.favorited.includes(user._id) && user.name"
+                <button type="button" class="btn btn-positive" :recipe='recipe' v-if="recipe.creatorId != user._id && !recipe.favorited.includes(user._id) && user.name"
                   @click="favorite({user: user, recipe: recipe})">
                   Add to Favorites
                 </button>
@@ -46,10 +47,10 @@
             <div class="col-md-3 col-sm-12" v-if="!recipe.private && !style || style == null || recipe.style == style.name" v-for="recipe in myFollowersRecipes">
               <recipe :recipe="recipe"></recipe>
               <div class="card-footer text-muted">
-                <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
+                <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
                   View Full Recipe
                 </button>
-                <button type="button" class="btn btn-success" :recipe='recipe' v-if="recipe.creatorId != user._id && !recipe.favorited.includes(user._id) && user.name"
+                <button type="button" class="btn btn-positive" :recipe='recipe' v-if="recipe.creatorId != user._id && !recipe.favorited.includes(user._id) && user.name"
                   @click="favorite({user: user, recipe: recipe})">
                   Add to Favorites
                 </button>
@@ -109,9 +110,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  /* .browseRecipes{
-    min-height: 91.5vh;
-  } */
+  .bg{
+    background-color: rgba(210, 180, 140, 0.4);
+
+  }
   .text-muted {
     margin-top: 4px;
     margin-bottom: 4px
@@ -121,5 +123,6 @@
   }
   .top{
     margin: 1rem 0;
+
   }
 </style>

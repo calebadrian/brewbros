@@ -16,7 +16,7 @@
                     <input type="number" name="boilTime" v-model="defaultValues.boilTime" min='0'>
                     <label for="boilTime">min</label>
                 </div>
-                <button type="submit" class="btn-success">Add Hop</button>
+                <button type="submit" class="btn-positive">Add Hop</button>
             </form>
         </div>
         <div class="card-footer">

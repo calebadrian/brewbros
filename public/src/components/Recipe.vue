@@ -190,7 +190,7 @@
         this.userRating = this.rating
       },
       editRating() {
-        this.$store.dispatch('addRating', { rating: this.recipe.ratings[this.user._id], recipeId: this.recipe._id, userId: this.user._id})
+        this.$store.dispatch('addRating', { rating: this.recipe.ratings[this.user._id], recipeId: this.recipe._id, userId: this.user._id })
         this.userRating = this.recipe.ratings[this.user._id]
       }
     },
@@ -206,7 +206,7 @@
       this.beer = Beer
     },
     watch: {
-      userRating: function(val){
+      userRating: function (val) {
         this.avgRatingCalc()
       }
     },
@@ -232,11 +232,24 @@
   }
 
   .text-muted {
+    color: black;
     margin-top: 4px;
     margin-bottom: 4px
   }
-  .recipe
-  {
+
+  .recipe {
     margin: 1rem 0;
+  }
+
+  .card-body {
+    background-color: rgba(210, 180, 140, 0.6);
+    box-shadow: 5px 5px 20px rgba(210, 180, 140, 0.75);
+
+  }
+
+  .card-header {
+    background-color: rgba(210, 180, 140, .8);
+    box-shadow: 5px 0px 10px rgba(210, 180, 140, 0.75);
+
   }
 </style>

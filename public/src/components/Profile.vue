@@ -12,7 +12,7 @@
                         </div>
                         <div>
                             <button class="btn btn-info" v-if="profileUser._id == user._id" data-toggle="modal" data-target="#editModal">Edit Profile</button>
-                            <button class="btn btn-primary" v-else-if="!user.following.find(hasProfileUser)" @click="addFollower">Follow This Person</button>
+                            <button class="btn btn-main" v-else-if="!user.following.find(hasProfileUser)" @click="addFollower">Follow This Person</button>
                             <h4>Who you follow: </h4>
                             <div v-for="follower in profileUser.following">
                                 <router-link :to="{name: 'profile', params: {profileId: follower._id}}">{{follower.name}}</router-link>
@@ -32,7 +32,7 @@
                                                 <input v-model="profileUser.name">
                                                 <input v-model="profileUser.email">
                                                 <input v-model="profileUser.profilePic">
-                                                <button type="submit" class="btn btn-success">Edit Profile</button>
+                                                <button type="submit" class="btn btn-positive">Edit Profile</button>
                                             </form>
                                         </div>
                                     </div>
@@ -86,13 +86,13 @@
                             <div class="col-3" v-for="recipe in myFavorites">
                                 <recipe :recipe="recipe"></recipe>
                                 <div class="card-footer text-muted">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
+                                    <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
                                         <i class="fas fa-2x fa-external-link-alt"></i>
                                     </button>
-                                    <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
+                                    <button class="btn btn-positive" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
                                         <i class="far fa-2x fa-clipboard"></i>
                                     </button>
-                                    <button type="button" class="btn btn-danger" :recipe='recipe' @click="removeFavRecipe(recipe)" v-if="profileUser._id == user._id">
+                                    <button type="button" class="btn btn-negative" :recipe='recipe' @click="removeFavRecipe(recipe)" v-if="profileUser._id == user._id">
                                         Remove from Favorites
                                     </button>
                                     </button>
@@ -107,17 +107,17 @@
                             <div class="col-3" v-for="recipe in myRecipes">
                                 <recipe :recipe="recipe"></recipe>
                                 <div class="card-footer text-muted">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
+                                    <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
                                         <i class="fas fa-2x fa-external-link-alt"></i>
                                     </button>
-                                    <button class="btn btn-success" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
+                                    <button class="btn btn-positive" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
                                         <i class="far fa-2x fa-clipboard"></i>
                                     </button>
-                                    <button class="btn btn-success" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)">
+                                    <button class="btn btn-positive" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)">
                                         <i class="far fa-2x fa-heart"></i>
                                     </button>
-                                    <button class="btn btn-danger" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#startBrewingModal">
+                                    <button class="btn btn-negative" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
+                                    <button type="button" class="btn btn-main" data-toggle="modal" data-target="#startBrewingModal">
                                         Start Brewing
                                     </button>
 
@@ -144,7 +144,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button class="btn btn-danger" @click="createBrewingSession(recipe)">
+                                                    <button class="btn btn-negative" @click="createBrewingSession(recipe)">
                                                         <i class="far fa-2x fa-clock"></i>
                                                     </button>
                                                 </div>
@@ -159,7 +159,7 @@
                 <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab" v-if="profileUser._id == user._id">
                     <div class="container padding-top" v-if="shoppingList != undefined">
                         <h5>Fermentables</h5>
-                        <button class="btn btn-danger" @click="clearShoppingList">Clear Shopping List</button>
+                        <button class="btn btn-negative" @click="clearShoppingList">Clear Shopping List</button>
                         <table class="table">
                             <thead>
                                 <tr>
