@@ -5,8 +5,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6 d-flex flex-column align-items-center">
-                        <h4>{{profileUser.name}}</h4>
-                        <div class="d-flex justify-content-around mt-4">
+                        <h1>{{profileUser.name}}</h1>
+                        <div class="d-flex justify-content-around">
                             <img v-if="profileUser.profilePic" :src="profileUser.profilePic" class="profile-pic">
                             <img v-else src="../assets/not-found.png" class="profile-pic">
                         </div>
@@ -41,14 +41,14 @@
                         </div>
                     </div>
                     <div class="col-sm-4 d-flex flex-column text-center">
-                            <h4>Currently Brewing:</h4>
+                        <h4>Currently Brewing:</h4>
                         <div v-for="(brewingSession, i) in brewingSessions">
                             <div v-if="i < 4">
                                 <div class="card current-brew-card">
                                     <div class="card-body">
                                         <h5 class="card-title">{{brewingSession.recipe.name}}</h5>
                                         <div class="row">
-        
+
                                             <div class="col-sm-6 justify-start">
                                                 <h6>Start Date:</h6>
                                                 <p class="card-text" maxlenght="30">{{moment(brewingSession.startBrewing).format("MMM Do YYYY")}}</p>
@@ -66,88 +66,82 @@
                 </div>
             </div>
         </div>
-        <div class="mt-4">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="favorites-tab" data-toggle="tab" href="#favorites" role="tab" aria-controls="favorites" aria-selected="true">Favorites</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="recipes-tab" data-toggle="tab" href="#recipes" role="tab" aria-controls="recipes" aria-selected="false">My Recipes</a>
-                </li>
-                <li class="nav-item" v-if="profileUser._id == user._id">
-                    <a class="nav-link" id="shopping-tab" data-toggle="tab" href="#shopping" role="tab" aria-controls="shopping" aria-selected="false">Shopping</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
-                    <h1>My Favorites</h1>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-3" v-for="recipe in myFavorites">
-                                <recipe :recipe="recipe"></recipe>
-                                <div class="card-footer text-muted">
-                                    <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                                        <i class="fas fa-2x fa-external-link-alt"></i>
-                                    </button>
-                                    <button class="btn btn-positive" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
-                                        <i class="far fa-2x fa-clipboard"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-negative" :recipe='recipe' @click="removeFavRecipe(recipe)" v-if="profileUser._id == user._id">
-                                        Remove from Favorites
-                                    </button>
-                                    </button>
-                                </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="favorites-tab" data-toggle="tab" href="#favorites" role="tab" aria-controls="favorites" aria-selected="true">Favorites</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="recipes-tab" data-toggle="tab" href="#recipes" role="tab" aria-controls="recipes" aria-selected="false">My Recipes</a>
+            </li>
+            <li class="nav-item" v-if="profileUser._id == user._id">
+                <a class="nav-link" id="shopping-tab" data-toggle="tab" href="#shopping" role="tab" aria-controls="shopping" aria-selected="false">Shopping</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
+                <h1>My Favorites</h1>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-3" v-for="recipe in myFavorites">
+                            <recipe :recipe="recipe"></recipe>
+                            <div class="card-footer text-muted">
+                                <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
+                                    <i class="fas fa-2x fa-external-link-alt"></i>
+                                </button>
+                                <button class="btn btn-positive" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
+                                    <i class="far fa-2x fa-clipboard"></i>
+                                </button>
+                                <button type="button" class="btn btn-negative" :recipe='recipe' @click="removeFavRecipe(recipe)" v-if="profileUser._id == user._id">
+                                    Remove from Favorites
+                                </button>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="recipes" role="tabpanel" aria-labelledby="recipes-tab">
-                    <div class="container-fluid">
-                        <div class="row my-recipes margin-top">
-                            <div class="col-3" v-for="recipe in myRecipes">
-                                <recipe :recipe="recipe"></recipe>
-                                <div class="card-footer text-muted">
-                                    <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
-                                        <i class="fas fa-2x fa-external-link-alt"></i>
-                                    </button>
-                                    <button class="btn btn-positive" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
-                                        <i class="far fa-2x fa-clipboard"></i>
-                                    </button>
-                                    <button class="btn btn-positive" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)">
-                                        <i class="far fa-2x fa-heart"></i>
-                                    </button>
-                                    <button class="btn btn-negative" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
-                                    <button type="button" class="btn btn-main" data-toggle="modal" data-target="#startBrewingModal">
-                                        Start Brewing
-                                    </button>
+            </div>
+            <div class="tab-pane fade" id="recipes" role="tabpanel" aria-labelledby="recipes-tab">
+                <div class="container-fluid">
+                    <div class="row my-recipes margin-top">
+                        <div class="col-3" v-for="recipe in myRecipes">
+                            <recipe :recipe="recipe"></recipe>
+                            <div class="card-footer text-muted">
+                                <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
+                                    <i class="fas fa-2x fa-external-link-alt"></i>
+                                </button>
+                                <button class="btn btn-positive" @click="addToShopping(recipe)" v-if="profileUser._id == user._id">
+                                    <i class="far fa-2x fa-clipboard"></i>
+                                </button>
+                                <button class="btn btn-positive" @click="favorite(recipe)" v-else-if="!recipe.favorited.includes(user._id)">
+                                    <i class="far fa-2x fa-heart"></i>
+                                </button>
+                                <button class="btn btn-negative" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
+                                <button type="button" class="btn btn-main" data-toggle="modal" data-target="#startBrewingModal">
+                                    Start Brewing
+                                </button>
 
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="startBrewingModal" tabindex="-1" role="dialog" aria-labelledby="startBrewingModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="startBrewingModalLabel">Time Selector Brewing</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- <v-calendar is-extended :attributes='attrs'>
+                                <!-- Modal -->
+                                <div class="modal fade" id="startBrewingModal" tabindex="-1" role="dialog" aria-labelledby="startBrewingModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="startBrewingModalLabel">Time Selector Brewing</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- <v-calendar is-extended :attributes='attrs'>
                                                     </v-calendar> -->
-                                                    <v-date-picker
-                                                    :min-date='new Date(Date.now())'
-                                                    is-double-paned
-                                                    v-model='selectedDays.startBrewing'
-                                                    show-caps @dayclick="selectDate"
+                                                <v-date-picker :min-date='new Date(Date.now())' is-double-paned v-model='selectedDays.startBrewing' show-caps @dayclick="selectDate"
                                                     mode="range">
                                                 </v-date-picker>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button class="btn btn-negative" @click="createBrewingSession(recipe)">
-                                                        <i class="far fa-2x fa-clock"></i>
-                                                    </button>
-                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button class="btn btn-negative" @click="createBrewingSession(recipe)">
+                                                    <i class="far fa-2x fa-clock"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -156,103 +150,103 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab" v-if="profileUser._id == user._id">
-                    <div class="container padding-top" v-if="shoppingList != undefined">
-                        <h5>Fermentables</h5>
-                        <button class="btn btn-negative" @click="clearShoppingList">Clear Shopping List</button>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Fermentable</th>
-                                    <th scope="col">Potential</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(fermentable, i) in shoppingList.fermentables" v-if="shoppingList.fermentables.length > 0">
-                                    <th scope="row">{{i + 1}}</th>
-                                    <td>{{fermentable.quantity}} lb(s)</td>
-                                    <td>{{fermentable.name}}</td>
-                                    <td>{{fermentable.potential}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <h5>Hops</h5>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Hop</th>
-                                    <th scope="col">Boil Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(hop, i) in shoppingList.hops" v-if="shoppingList.hops.length > 0">
-                                    <th scope="row">{{i + 1}}</th>
-                                    <td>{{hop.quantity}} oz(s)</td>
-                                    <td>{{hop.name}}</td>
-                                    <td>{{hop.boilTime}} min</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <h5>Steeping Grains</h5>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Grain</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(grain, i) in shoppingList.steepingGrains" v-if="shoppingList.steepingGrains.length > 0">
-                                    <th scope="row">{{i + 1}}</th>
-                                    <td>{{grain.quantity}} lb(s)</td>
-                                    <td>{{grain.name}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <h5>Other Ingredients</h5>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Ingredient</th>
-                                    <th scope="col">Boil Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(adjunct, i) in shoppingList.adjuncts" v-if="shoppingList.adjuncts.length > 0">
-                                    <th scope="row">{{i + 1}}</th>
-                                    <td>{{adjunct.quantity}} oz(s)</td>
-                                    <td>{{adjunct.name}}</td>
-                                    <td>{{adjunct.boilTime}} min</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <h5>Yeast</h5>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Yeast</th>
-                                    <th scope="col">Pitch</th>
-                                    <th scope="col">Temp(F)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(yeast, i) in shoppingList.yeasts" v-if="shoppingList.yeasts.length > 0">
-                                    <th scope="row">{{i + 1}}</th>
-                                    <td>{{yeast.name}}</td>
-                                    <td>{{yeast.pitch}}</td>
-                                    <td>{{yeast.temp}} F</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            </div>
+            <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab" v-if="profileUser._id == user._id">
+                <div class="container padding-top" v-if="shoppingList != undefined">
+                    <h5>Fermentables</h5>
+                    <button class="btn btn-negative" @click="clearShoppingList">Clear Shopping List</button>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Fermentable</th>
+                                <th scope="col">Potential</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(fermentable, i) in shoppingList.fermentables" v-if="shoppingList.fermentables.length > 0">
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{fermentable.quantity}} lb(s)</td>
+                                <td>{{fermentable.name}}</td>
+                                <td>{{fermentable.potential}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h5>Hops</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Hop</th>
+                                <th scope="col">Boil Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(hop, i) in shoppingList.hops" v-if="shoppingList.hops.length > 0">
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{hop.quantity}} oz(s)</td>
+                                <td>{{hop.name}}</td>
+                                <td>{{hop.boilTime}} min</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h5>Steeping Grains</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Grain</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(grain, i) in shoppingList.steepingGrains" v-if="shoppingList.steepingGrains.length > 0">
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{grain.quantity}} lb(s)</td>
+                                <td>{{grain.name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h5>Other Ingredients</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Ingredient</th>
+                                <th scope="col">Boil Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(adjunct, i) in shoppingList.adjuncts" v-if="shoppingList.adjuncts.length > 0">
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{adjunct.quantity}} oz(s)</td>
+                                <td>{{adjunct.name}}</td>
+                                <td>{{adjunct.boilTime}} min</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h5>Yeast</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Yeast</th>
+                                <th scope="col">Pitch</th>
+                                <th scope="col">Temp(F)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(yeast, i) in shoppingList.yeasts" v-if="shoppingList.yeasts.length > 0">
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{yeast.name}}</td>
+                                <td>{{yeast.pitch}}</td>
+                                <td>{{yeast.temp}} F</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -430,42 +424,47 @@
         width: auto;
         height: 250px;
     }
-    
+
+    .main-profile, .nav {
+        background-color: rgba(210, 180, 140, 0.4);
+        padding-top: 1rem;
+    }
+
     #recipes {
         min-height: 30%;
     }
-    
+
     #shopping {
         min-height: 30%;
     }
-    
+
     #favorites {
         min-height: 21.5vh;
     }
-    
+
     .card-footer {
         display: flex;
         justify-content: space-around
     }
-    
+
     .my-recipes {
         justify-content: space-around
     }
-    
+
     .padding-top {
         padding-top: 2rem
     }
-    
+
     .margin-top {
         margin-top: 2rem
     }
-    
+
     .re-adjust {
         margin-left: 0px;
         margin-right: 0px;
         margin-top: 2rem
     }
-    
+
     .current-brew-card {
         margin-bottom: 2rem;
         text-align: center

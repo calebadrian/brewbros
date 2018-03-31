@@ -112,7 +112,6 @@
 <style scoped>
   .bg{
     background-color: rgba(210, 180, 140, 0.4);
-
   }
   .text-muted {
     margin-top: 4px;
