@@ -1,6 +1,8 @@
 <template>
   <div class="createRecipe">
-    <navbar></navbar>
+    <div class="row">
+      <navbar></navbar>
+    </div>
     <div class="container-fluid createMe pb-4">
       <form @submit.prevent='submit'>
         <div class="row">

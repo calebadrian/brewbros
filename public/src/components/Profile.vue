@@ -1,6 +1,8 @@
 <template>
     <div class="Profile">
-        <navbar></navbar>
+        <div class="row">
+            <navbar></navbar>
+        </div>
         <div class="main-profile">
             <div class="container-fluid">
                 <div class="row">
@@ -434,7 +436,8 @@
         height: 250px;
     }
 
-    .main-profile, .nav {
+    .main-profile,
+    .nav {
         background-color: rgba(210, 180, 140, 0.4);
         padding-top: 1rem;
     }
