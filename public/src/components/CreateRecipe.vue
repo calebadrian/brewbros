@@ -1,9 +1,11 @@
 <template>
   <div class="createRecipe">
-    <div class="row">
-      <navbar></navbar>
+    <div class="container-fluid">
+      <div class="row">
+        <navbar></navbar>
+      </div>
     </div>
-    <div class="container-fluid createMe pb-4">
+    <div class="container-fluid createMe">
       <form @submit.prevent='submit'>
         <div class="row">
           <div class="col-sm-12 d-flex justify-content-center">
@@ -148,7 +150,7 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-around">
+        <div class="row justify-content-around pb-4">
           <div class="col-sm-10 card-deck">
             <div class="card">
               <div class="card-header">
@@ -170,8 +172,8 @@
           </div>
         </div>
       </form>
+      <foot></foot>
     </div>
-    <foot></foot>
   </div>
 </template>
 

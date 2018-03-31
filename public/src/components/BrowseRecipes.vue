@@ -1,7 +1,9 @@
 <template>
   <div class="browseRecipes">
-    <div class="row">
-      <navbar></navbar>
+    <div class="container-fluid">
+      <div class="row">
+        <navbar></navbar>
+      </div>
     </div>
     <div class="container-fluid bg">
       <div class="row">
@@ -67,7 +69,9 @@
         </div>
       </div>
     </div>
-    <foot></foot>
+    <div class="container-fluid">
+        <foot></foot>
+    </div>
   </div>
 </template>
 
