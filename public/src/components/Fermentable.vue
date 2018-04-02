@@ -4,7 +4,7 @@
             <form @submit.prevent='addFermentable'>
                 <label for="fermentableAmount">lbs</label>
                 <input type="number" name="fermentableAmount" v-model="defaultValues.quantity" class="form-control" id="fermentableAmount"
-                    placeholder="#">
+                    step=".1" placeholder="#">
                 <label for="fermentable">Fermentable</label>
                 <v-select label="name" v-model="fermentable" :options="fermentables"></v-select>
                 <button class="btn-positive">Add Fermentable</button>
@@ -17,7 +17,7 @@
                     <h6>{{newFermentable.quantity}}
                         <span v-if="newFermentable.quantity > 1">lbs</span>
                         <span v-else>lb</span> of {{newFermentable.name}}</h6>
-                    <i class="fas fa-2x fa-ban" @click="removeFermentable(newFermentable)"></i>
+                    <button class="btn btn-danger" type="button" @click="removeFermentable(newFermentable)">Remove</button>
                 </div>
             </div>
         </div>

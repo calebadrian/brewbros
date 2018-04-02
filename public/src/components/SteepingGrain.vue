@@ -18,7 +18,7 @@
                     <h6>{{newSteepingGrain.quantity}}
                         <span v-if="newSteepingGrain.quantity > 1">lbs</span>
                         <span v-else>lb</span> of {{newSteepingGrain.name}}</h6>
-                    <i class="fas fa-2x fa-ban" @click="removeSteepingGrain(newSteepingGrain)"></i>
+                    <button class="btn-danger" type="button" @click="removeSteepingGrain(newSteepingGrain)">Remove</button>
                 </div>
             </div>
         </div>
