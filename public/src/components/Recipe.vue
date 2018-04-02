@@ -9,8 +9,8 @@
       <p class="text-muted">
         <strong>Sub-Style: </strong>{{recipe.subStyle}}</p>
       <ul>
-        <li>Boil Time: {{recipe.boilTime}}</li>
-        <li>Batch Size: {{recipe.batchSize}}</li>
+        <li>Boil Time: {{recipe.boilTime}} min</li>
+        <li>Batch Size: {{recipe.batchSize}} gal</li>
         <li>Rating: </li>
         <li>Created By:
           <router-link :to="{name: 'profile', params: {profileId: recipe.creatorId}}">
