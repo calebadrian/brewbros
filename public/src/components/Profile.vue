@@ -23,7 +23,7 @@
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
-                                        Who You've Followed
+                                        Who <span v-if="profileUser._id == user._id">You</span><span v-else>They</span> Follow
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                         <a class="dropdown-item" type="button" v-for="follower in profileUser.following">
