@@ -26,7 +26,7 @@
                     <h6>{{newHop.quantity}}
                         <span v-if="newHop.quantity > 1">ozs</span>
                         <span v-else>oz</span> of {{newHop.name}}</h6>
-                    <i class="fas fa-2x fa-ban" @click="removeHop(newHop)"></i>
+                    <button class="btn-danger" type="button" @click="removeHop(newHop)">Remove</button>
                 </div>
             </div>
         </div>

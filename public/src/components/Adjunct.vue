@@ -26,7 +26,7 @@
                     <h6>{{newAdjunct.quantity}}
                         <span v-if="newAdjunct.quantity > 1">ozs</span>
                         <span v-else>oz</span> of {{newAdjunct.name}}</h6>
-                    <i class="fas fa-2x fa-ban" @click="removeAdjunct(newAdjunct)"></i>
+                    <button class="btn-danger" type="button" @click="removeAdjunct(newAdjunct)">Remove</button>
                 </div>
             </div>
         </div>

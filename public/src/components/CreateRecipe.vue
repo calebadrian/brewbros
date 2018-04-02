@@ -196,7 +196,6 @@
       return {
         recipe: {
           name: '',
-          creatorName: this.$store.state.user.name,
           batchSize: 1,
           private: false,
           style: '',
@@ -264,11 +263,16 @@
     methods: {
       submit() {
         var recipeIngredients = this.$store.state.newRecipe
+        this.recipe.creatorName = this.$store.state.user.name
         this.recipe.fermentables = recipeIngredients.fermentables
         this.recipe.adjuncts = recipeIngredients.adjuncts
         this.recipe.hops = recipeIngredients.hops
         this.recipe.yeasts = recipeIngredients.yeasts
-        this.recipe.steepingGrains = recipeIngredients.steepingGrains
+        if (!recipeIngredients.steepingGrains){
+          this.recipe.steepingGrains = null
+        } else {
+          this.recipe.steepingGrains = recipeIngredients.steepingGrains
+        }
         this.recipe.originalGravity = this.stats.originalGravity
         this.recipe.finalGravity = this.stats.finalGravity
         this.recipe.abv = this.stats.abv

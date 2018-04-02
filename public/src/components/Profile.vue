@@ -116,7 +116,10 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <button type="button" class="btn btn-negative" :recipe='recipe' @click="removeFavRecipe(recipe)" v-if="profileUser._id == user._id">
-                                            Remove from Favorites
+                                            Remove
+                                        </button>
+                                        <button type="button" class="btn btn-main" data-toggle="modal" data-target="#startBrewingModal">
+                                            Start
                                         </button>
                                     </div>
                                 </div>

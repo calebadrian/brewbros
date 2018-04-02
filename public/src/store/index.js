@@ -348,7 +348,7 @@ export default new vuex.Store({
             ourDB.get('recipes')
                 .then(res => {
                     commit('setAllRecipes', res.data)
-                    commit('setMyFavorites', res.data)
+                    // commit('setMyFavorites', res.data)
                     commit('setMyFollowersRecipes', res.data)
                 })
                 .catch(err => {
@@ -518,6 +518,7 @@ export default new vuex.Store({
         addFollower({ commit, dispatch }, payload) {
             ourDB.put('users/' + payload.user._id + '/followers', payload.follower)
                 .then(res => {
+                    console.log(res.data)
                     commit('updateUser', res.data)
                 })
                 .catch(err => {

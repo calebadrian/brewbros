@@ -195,9 +195,9 @@
       }
     },
     computed: {
-      allRecipes() {
-        return this.$store.state.allRecipes
-      },
+      // allRecipes() {
+      //   return this.$store.state.allRecipes
+      // },
       user() {
         return this.$store.state.user
       }
