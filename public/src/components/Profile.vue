@@ -150,7 +150,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <button class="btn btn-negative" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
-                                    <button type="button" class="btn btn-main" data-toggle="modal" data-target="#startBrewingModal">
+                                    <button type="button" class="btn btn-main" v-if="profileUser._id == user._id" data-toggle="modal" data-target="#startBrewingModal">
                                         Start Brewing
                                     </button>
                                 </div>
@@ -381,7 +381,10 @@
             },
             favorite(recipe) {
                 recipe.favorited.push(this.$store.state.user._id)
-                this.$store.dispatch('updateFavorites', recipe)
+                this.$store.dispatch('updateFavorites', {
+                    userId: this.user._id,
+                    recipe: recipe
+                })
             },
             getProfileUser(userId) {
                 this.$store.dispatch('getProfileUser', userId)
