@@ -21,8 +21,8 @@ let schema = new Schema({
             yeasts: [],
         }
     },
-    following: []
-})
+    following: [{}]
+}, {minimize: false})
 
 schema.statics.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(SALT_FACTOR));

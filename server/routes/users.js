@@ -59,8 +59,7 @@ router.put('/api/users/:userid/shoppingList', (req, res, next) => {
       user.shoppingList.adjuncts = req.body.adjuncts
       user.shoppingList.yeasts = req.body.yeasts
       user.markModified('shoppingList')
-      user.password = null
-      delete user.password // probably Mongoose doesn't let you delete the password!!
+      user.save() // probably Mongoose doesn't let you delete the password!!
       res.send(user)
     })
     .catch(err => {
@@ -73,8 +72,7 @@ router.put('/api/users/:userid/followers', (req, res, next) => {
     .then(user => {
       user.following.push(req.body)
       user.markModified('following')
-      user.password = null
-      delete user.password
+      user.save()
       res.send(user)
     })
     .catch(err => {

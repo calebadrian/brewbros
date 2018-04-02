@@ -328,6 +328,8 @@ export default new vuex.Store({
         getProfileUser({ commit, dispatch }, payload) {
             ourDB.get('users/' + payload)
                 .then(res => {
+                    res.data.password = null
+                    delete res.data.password
                     commit('setProfileUser', res.data)
                     commit('setShoppingList', res.data.shoppingList)
                 })
@@ -378,6 +380,8 @@ export default new vuex.Store({
         updateShoppingList({ commit, dispatch, state }, payload) {
             ourDB.put('users/' + payload.userId + '/shoppingList', payload.recipe)
                 .then(res => {
+                    res.data.password = null
+                    delete res.data.password
                     commit('updateUser', res.data)
                     commit('updateShoppingListFermentables', payload.recipe)
                     commit('updateShoppingListHops', payload.recipe)
@@ -392,6 +396,8 @@ export default new vuex.Store({
         clearShoppingList({ commit, dispatch, state }, payload) {
             ourDB.put('users/' + state.user._id, payload)
                 .then(res => {
+                    res.data.password = null
+                    delete res.data.password
                     commit('updateUser', res.data)
                     commit('setShoppingList', payload)
                 })
@@ -518,7 +524,8 @@ export default new vuex.Store({
         addFollower({ commit, dispatch }, payload) {
             ourDB.put('users/' + payload.user._id + '/followers', payload.follower)
                 .then(res => {
-                    console.log(res.data)
+                    res.data.password = null
+                    delete res.data.password
                     commit('updateUser', res.data)
                 })
                 .catch(err => {
@@ -528,6 +535,8 @@ export default new vuex.Store({
         removeFollower({ commit, dispatch, state }, payload) {
             ourDB.delete('users/' + state.user._id + '/followers/' + payload._id)
                 .then(res => {
+                    res.data.password = null
+                    delete res.data.password
                     commit('updateUser', res.data)
                     commit('setProfileUser', res.data)
                 })
