@@ -23,7 +23,9 @@
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
-                                        Who <span v-if="profileUser._id == user._id">You</span><span v-else>They</span> Follow
+                                        Who
+                                        <span v-if="profileUser._id == user._id">You</span>
+                                        <span v-else>They</span> Follow
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                         <a class="dropdown-item" type="button" v-for="follower in profileUser.following">
@@ -118,9 +120,34 @@
                                         <button type="button" class="btn btn-negative" :recipe='recipe' @click="removeFavRecipe(recipe)" v-if="profileUser._id == user._id">
                                             Remove
                                         </button>
-                                        <button type="button" class="btn btn-main" data-toggle="modal" data-target="#startBrewingModal">
-                                            Start
+                                        <button type="button" class="btn btn-main" data-toggle="modal" data-target="#startBrewingFav">
+                                            Brew Now
                                         </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="startBrewingFav" tabindex="-1" role="dialog" aria-labelledby="startBrewingModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="startBrewingModalLabel">Time Selector Brewing</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- <v-calendar is-extended :attributes='attrs'>
+                                                    </v-calendar> -->
+                                                        <v-date-picker  :min-date='new Date(Date.now())' is-double-paned v-model='selectedDays.startBrewing' show-caps @dayclick="selectDate"
+                                                            mode="range">
+                                                        </v-date-picker>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-negative" @click="createBrewingSession(recipe)">
+                                                            <i class="far fa-2x fa-clock"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -149,9 +176,9 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <button class="btn btn-negative" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Remove Recipe</button>
+                                    <button class="btn btn-negative" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Delete</button>
                                     <button type="button" class="btn btn-main" v-if="profileUser._id == user._id" data-toggle="modal" data-target="#startBrewingModal">
-                                        Start Brewing
+                                        Brew Now
                                     </button>
                                 </div>
 
@@ -168,7 +195,7 @@
                                             <div class="modal-body">
                                                 <!-- <v-calendar is-extended :attributes='attrs'>
                                                     </v-calendar> -->
-                                                <v-date-picker :min-date='new Date(Date.now())' is-double-paned v-model='selectedDays.startBrewing' show-caps @dayclick="selectDate"
+                                                <v-date-picker  :min-date='new Date(Date.now())' is-double-paned v-model='selectedDays.startBrewing' show-caps @dayclick="selectDate"
                                                     mode="range">
                                                 </v-date-picker>
                                             </div>
