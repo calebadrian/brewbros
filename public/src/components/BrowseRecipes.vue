@@ -48,12 +48,12 @@
       <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <h2>My Followers Recipes:</h2>
         <div class="container-fluid">
-          <div class="row btns">
+          <div class="row">
             <div class="col-sm-12">
             </div>
             <div class="col-md-3 col-sm-12" v-if="!recipe.private && !style || style == null || recipe.style == style.name" v-for="recipe in myFollowersRecipes">
               <recipe :recipe="recipe"></recipe>
-              <div class=row>
+              <div class="row btns">
                 <div class="col-sm-12">
                   <button type="button" class="btn btn-main" data-toggle="modal" :recipe='recipe' :data-target="'#'+recipe._id">
                     View Full Recipe
