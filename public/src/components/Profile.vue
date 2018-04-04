@@ -174,12 +174,12 @@
                                             <i class="far fa-2x fa-heart"></i>
                                         </button>
                                     </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <button class="btn btn-negative" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Delete</button>
-                                    <button type="button" class="btn btn-main" v-if="profileUser._id == user._id" data-toggle="modal" data-target="#startBrewingModal">
-                                        Brew Now
-                                    </button>
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-negative" @click="removeRecipe(recipe)" v-if="profileUser._id == user._id">Delete</button>
+                                        <button type="button" class="btn btn-main" v-if="profileUser._id == user._id" data-toggle="modal" data-target="#startBrewingModal">
+                                            Brew Now
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <!-- Modal -->
