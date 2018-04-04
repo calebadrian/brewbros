@@ -17,7 +17,7 @@
             {{recipe.creatorName}}</router-link>
         </li>
       </ul>
-      <p>Average Rating: {{avgRating.toFixed(2)}}</p>
+      <p>Average Rating: <span v-if="!avgRating">0</span><span v-else>{{avgRating.toFixed(2)}}</span></p>
       <p>Number of Ratings: {{Object.keys(recipe.ratings).length}}</p>
       <div v-if="user.name">
         <p>My Rating:</p>
