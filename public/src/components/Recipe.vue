@@ -153,101 +153,112 @@
 </template>
 
 <script>
-  import Beer from 'vue-rate-it/glyphs/beer';
+    import Beer from 'vue-rate-it/glyphs/beer';
 
-  export default {
-    name: 'recipe',
-    props: ['recipe'],
-    mounted() {
-      // this.$store.dispatch('authenticate')
-      // this.$store.dispatch('getRecipes')
-      this.avgRatingCalc()
-    },
-    data() {
-      return {
-        beer: '',
-        rating: 0,
-        avgRating: 0,
-        userRating: 0
-      }
-    },
-    methods: {
-      avgRatingCalc() {
-        var ratings = this.recipe.ratings
-        var sum = 0
-        var count = 0
-        for (const key in ratings) {
-          if (ratings.hasOwnProperty(key)) {
-            const rating = ratings[key];
-            sum += rating
-            count++
-          }
-        }
-        this.avgRating = sum / count
-      },
-      addRating() {
-        this.$store.dispatch('addRating', { rating: this.rating, recipeId: this.recipe._id, userId: this.user._id })
-        this.userRating = this.rating
-      },
-      editRating() {
-        this.$store.dispatch('addRating', { rating: this.recipe.ratings[this.user._id], recipeId: this.recipe._id, userId: this.user._id })
-        this.userRating = this.recipe.ratings[this.user._id]
-      }
-    },
-    computed: {
-      // allRecipes() {
-      //   return this.$store.state.allRecipes
-      // },
-      user() {
-        return this.$store.state.user
-      }
-    },
-    created() {
-      this.beer = Beer
-    },
-    watch: {
-      userRating: function (val) {
-        this.avgRatingCalc()
-      }
-    },
-    components: {
-    },
-  }
+    export default {
+        name: 'recipe',
+        props: ['recipe'],
+        mounted() {
+            // this.$store.dispatch('authenticate')
+            // this.$store.dispatch('getRecipes')
+            this.avgRatingCalc()
+        },
+        data() {
+            return {
+                beer: '',
+                rating: 0,
+                avgRating: 0,
+                userRating: 0
+            }
+        },
+        methods: {
+            avgRatingCalc() {
+                var ratings = this.recipe.ratings
+                var sum = 0
+                var count = 0
+                for (const key in ratings) {
+                    if (ratings.hasOwnProperty(key)) {
+                        const rating = ratings[key];
+                        sum += rating
+                        count++
+                    }
+                }
+                this.avgRating = sum / count
+            },
+            addRating() {
+                this.$store.dispatch('addRating', {
+                    rating: this.rating,
+                    recipeId: this.recipe._id,
+                    userId: this.user._id
+                })
+                this.userRating = this.rating
+            },
+            editRating() {
+                this.$store.dispatch('addRating', {
+                    rating: this.recipe.ratings[this.user._id],
+                    recipeId: this.recipe._id,
+                    userId: this.user._id
+                })
+                this.userRating = this.recipe.ratings[this.user._id]
+            }
+        },
+        computed: {
+            // allRecipes() {
+            //   return this.$store.state.allRecipes
+            // },
+            user() {
+                return this.$store.state.user
+            }
+        },
+        created() {
+            this.beer = Beer
+        },
+        watch: {
+            userRating: function(val) {
+                this.avgRatingCalc()
+            }
+        },
+        components: {},
+    }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  h6 {
-    font-size: 1.3rem;
-  }
-
-  .favorited {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
-
-  .hop {
-    height: 40px;
-  }
-
-  .text-muted {
-    color: black;
-    margin-top: 4px;
-    margin-bottom: 4px
-  }
-
-  .recipe {
-    margin: 1rem 0;
-  }
-
-  .card-body {
-    background-color: rgba(210, 180, 140, 0.6);
-    box-shadow: 5px 5px 20px rgba(210, 180, 140, 0.75);
-  }
-
-  .card-header {
-    background-color: rgba(210, 180, 140, .8);
-    box-shadow: 5px 0px 10px rgba(210, 180, 140, 0.75);
-  }
+    h6 {
+        font-size: 1.3rem;
+    }
+    
+    .favorited {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+    
+    .hop {
+        height: 40px;
+    }
+    
+    .text-muted {
+        color: black;
+        margin-top: 4px;
+        margin-bottom: 4px
+    }
+    
+    .recipe {
+        margin: 1rem 0;
+    }
+    
+    .card-body {
+        background-color: rgba(210, 180, 140, 0.6);
+        box-shadow: 5px 5px 20px rgba(210, 180, 140, 0.75);
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+    
+    .card-header {
+        background-color: rgba(210, 180, 140, .8);
+        box-shadow: 5px 0px 10px rgba(210, 180, 140, 0.75);
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
 </style>
