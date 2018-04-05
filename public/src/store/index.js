@@ -105,6 +105,9 @@ export default new vuex.Store({
             }
             state.myFollowersRecipes = tempArr;
         },
+        setNewRecipe(state, payload) {
+            state.newRecipe = payload;
+        },
         addNewRecipeAdjunct(state, payload) {
             state.newRecipe.adjuncts.push(payload)
         },
@@ -447,6 +450,13 @@ export default new vuex.Store({
         addRecipe({ commit, dispatch }, payload) {
             ourDB.post('recipes', payload)
                 .then(res => {
+                    commit('setNewRecipe', {
+                        adjuncts: [],
+                        fermentables: [],
+                        steepingGrains: [],
+                        hops: [],
+                        yeasts: []
+                    })
                     dispatch('getMyRecipes', res.data.creatorId)
                     swal({
                         position: 'top-end',
@@ -570,8 +580,8 @@ export default new vuex.Store({
         },
         authenticate({ commit, dispatch }, payload) {
             auth.get('authenticate', payload).then(res => {
-                    commit('updateUser', res.data)
-                })
+                commit('updateUser', res.data)
+            })
                 .catch(err => {
                     console.error(err);
                     router.push({ name: 'Home' })

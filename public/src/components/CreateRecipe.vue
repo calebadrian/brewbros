@@ -80,9 +80,17 @@
           <div class="col-sm-2">
             <h4>Matches Style</h4>
             <div v-if="recipe.style != ''">
-              <i class="fas fa-2x fa-check-circle" v-if="stats.styleCorrect"></i>
-              <i class="fas fa-2x fa-times-circle" v-else></i>
-              <i class="fas fa-question-circle" @click="styleDataToggle = !styleDataToggle"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg check" v-if="stats.styleCorrect">
+                <path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+                />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg times" v-else>
+                <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"
+                />
+              </svg>
+              <span @click="styleDataToggle = !styleDataToggle">
+                <i class="fas fa-question-circle"></i>
+              </span>
             </div>
           </div>
         </div>
@@ -192,6 +200,9 @@
       this.$store.dispatch('getStyles')
       this.$store.dispatch('getCategories')
     },
+    created: function () {
+      this.styleCorrect = this.stats.styleCorrect
+    },
     data() {
       return {
         recipe: {
@@ -268,7 +279,7 @@
         this.recipe.adjuncts = recipeIngredients.adjuncts
         this.recipe.hops = recipeIngredients.hops
         this.recipe.yeasts = recipeIngredients.yeasts
-        if (!recipeIngredients.steepingGrains){
+        if (!recipeIngredients.steepingGrains) {
           this.recipe.steepingGrains = null
         } else {
           this.recipe.steepingGrains = recipeIngredients.steepingGrains
@@ -280,6 +291,15 @@
         this.recipe.color = this.stats.color
         this.recipe.style = this.recipe.style.name
         this.$store.dispatch('addRecipe', this.recipe)
+        this.recipe = {
+          name: '',
+          batchSize: 1,
+          private: false,
+          style: '',
+          category: '',
+          boilTime: 60,
+          personalComments: ''
+        }
       },
       calcGravities() {
         var fermentables = this.$store.state.newRecipe.fermentables
@@ -339,17 +359,19 @@
         this.stats.ibu = sum
       },
       checkStyle() {
-        if (this.stats.ibu < this.recipe.style.ibuMax && this.stats.ibu > this.recipe.style.ibuMin) {
-          if (this.stats.abv < this.recipe.style.abvMax && this.stats.abv > this.recipe.style.abvMin) {
-            if (this.stats.color < this.recipe.style.srmMax && this.stats.color > this.recipe.style.srmMin) {
-              if (this.stats.finalGravity < this.recipe.style.fgMax && this.stats.finalGravity > this.recipe.style.fgMin) {
-                if (this.stats.originalGravity > this.recipe.style.ogMin) {
+        if (this.stats.ibu < Number(this.recipe.style.ibuMax) && this.stats.ibu > Number(this.recipe.style.ibuMin)) {
+          if (this.stats.abv < Number(this.recipe.style.abvMax) && this.stats.abv > Number(this.recipe.style.abvMin)) {
+            if (this.stats.color < Number(this.recipe.style.srmMax) && this.stats.color > Number(this.recipe.style.srmMin)) {
+              if (this.stats.finalGravity < Number(this.recipe.style.fgMax) && this.stats.finalGravity > Number(this.recipe.style.fgMin)) {
+                if (this.stats.originalGravity > Number(this.recipe.style.ogMin)) {
                   this.stats.styleCorrect = true
+                  return;
                 }
               }
             }
           }
         }
+        this.stats.styleCorrect = false;
       },
       filterStyle(value) {
         this.filteredStyles = []
@@ -380,8 +402,8 @@
       yeast,
       foot
     },
-    watch:{
-      category: function (category){
+    watch: {
+      category: function (category) {
         this.filterStyle(category)
       }
 
@@ -417,9 +439,11 @@
     background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url("../assets/wood-panel.jpg");
     color: rgb(245, 245, 245);
   }
-.card{
-  color: black;
-}
+
+  .card {
+    color: black;
+  }
+
   .card-body {
     background-color: rgba(210, 180, 140, 0.6);
     box-shadow: 5px 5px 20px rgba(210, 180, 140, 0.75);
@@ -428,5 +452,22 @@
   .card-header {
     background-color: rgba(210, 180, 140, .8);
     box-shadow: 5px 0px 10px rgba(210, 180, 140, 0.75);
+  }
+
+  .svg {
+    width: 2rem;
+    height: 2rem;
+  }
+  .check {
+    fill: green;
+    background-color: white;
+    border-radius: 100%;
+    border: 1px solid white;
+  }
+  .times {
+    fill: red;
+    background-color: white;
+    border-radius: 100%;
+    border: 1px solid white;
   }
 </style>
